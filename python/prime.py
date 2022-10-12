@@ -1,4 +1,6 @@
-print("Prime numbers until 1000")
+import math
+
+print("Prime numbers until 10000")
 print("2, 3, 5, 7, 11, 13, 17, 19, 23, 29,")
 c = 1
 count = 10
