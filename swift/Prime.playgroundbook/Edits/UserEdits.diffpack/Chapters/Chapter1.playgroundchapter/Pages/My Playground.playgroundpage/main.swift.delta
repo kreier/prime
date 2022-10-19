@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Diffs</key>
+	<array>
+		<dict>
+			<key>ModifiedContent</key>
+			<string>// tricky March 2022
+
+import UIKit
+
+let lastNumber = 10000
+var startTime = NSDate()
+
+print("We calcuate the prime numbers until", lastNumber)
+print("\n2 3 5 7 11", terminator:" ")
+for number in 13 ... lastNumber {
+    let upperBound = Int(Double(number).squareRoot())
+    var isPrime = 1
+    for divisor in 2 ... upperBound {
+        let quotient = Double(Double(number) / Double(divisor))
+        let rest = quotient - Double(Int(quotient))
+        //print(number, divisor, rest)
+        if rest == 0 {
+            isPrime = 0
+            break
+        }
+    }
+    if isPrime == 1 {
+        print(number, terminator:" ")
+    }
+}
+
+var stopTime = NSDate()
+var interval = stopTime.timeIntervalSince(startTime as Date)
+print("\n\nThis calculation took", interval,"seconds.")
+
+print("\nNow let's export this calculation into another module and check the time:")
+startTime = NSDate()
+//print(primeNumber.string(lastN: lastNumber))
+stopTime = NSDate()
+interval = stopTime.timeIntervalSince(startTime as Date)
+print("\n\nThis calculation took", interval,"seconds.")
+
+</string>
+			<key>ModifiedRange</key>
+			<string>{1, 1060}</string>
+			<key>OriginalContent</key>
+			<string></string>
+			<key>OriginalRange</key>
+			<string>{1, 0}</string>
+		</dict>
+	</array>
+	<key>FormatVersion</key>
+	<integer>2</integer>
+</dict>
+</plist>

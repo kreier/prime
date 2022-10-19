@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>BaseFile</key>
+	<string>Chapters/Chapter1.playgroundchapter/Pages/Template.playgroundpage/main.swift</string>
+	<key>Diffs</key>
+	<array>
+		<dict>
+			<key>ModifiedContent</key>
+			<string>// AP CSP challenge: Fastest way to calculate prime numbers
+// https://sites.google.com/ssis.edu.vn/apcsp/home/challenges
+
+// Times to check prime numbers to 10,000
+// v1 crashes with stack overflow because divisor gets too large
+
+import UIKit
+
+let lastNumber = 10000
+var count = 2
+var prime = true
+var startTime = NSDate()
+
+print("We calcuate the prime numbers until", lastNumber, "\n")
+print("\n2", terminator:" ") // check divisors until 1 smaller than number
+for number in 3 ... lastNumber {
+    prime = true
+    for divisor in 2 ... number - 1 { // exclude number as divisor
+        let quotient = Double(Double(number) / Double(divisor))
+        let rest = quotient - Double(Int(quotient))
+        //print(number, divisor, rest)
+        if quotient - Double(Int(quotient)) == 0 {
+//        if Double(number/divisor) == Double(Int(number/divisor)) {
+//        if rest == 0 {
+            prime = false
+            break
+        }
+    }
+    if prime {
+        print(number, terminator:" ")
+        count += 1
+    }
+}
+
+var stopTime = NSDate()
+var interval = stopTime.timeIntervalSince(startTime as Date)
+print("\n\nThis calculation took", interval,"seconds.")
+print("I found", count, "prime numbers.")
+
+
+//This is the python code:
+//
+//import math, time
+//
+//start = time.monotonic()
+//last  = 10000
+//
+//print(f"Calculating prime numbers until {last}.")
+//count = 0
+//for number in range(2, last):
+//prime = True
+//for divisor in range(2, number - 1):
+//if number/divisor == int(number/divisor):
+//prime = False
+//break
+//if prime:
+//print(number, end=", ")
+//count += 1
+//
+//end = time.monotonic()
+//print(f"\nPrime numbers found: {count}")
+//print(f"This took {end - start} seconds.")
+//
+//# time on CodeHS: 1.51 seconds
+//# time on M1 Mac: 0.61 seconds
+</string>
+			<key>ModifiedRange</key>
+			<string>{0, 1759}</string>
+			<key>OriginalContent</key>
+			<string>
+</string>
+			<key>OriginalRange</key>
+			<string>{0, 1}</string>
+		</dict>
+	</array>
+	<key>FormatVersion</key>
+	<integer>2</integer>
+</dict>
+</plist>

@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>BaseFile</key>
+	<string>Chapters/Chapter1.playgroundchapter/Pages/Template.playgroundpage/main.swift</string>
+	<key>Diffs</key>
+	<array>
+		<dict>
+			<key>ModifiedContent</key>
+			<string>// AP CSP challenge: Fastest way to calculate prime numbers
+// https://sites.google.com/ssis.edu.vn/apcsp/home/challenges
+
+// Times to check prime numbers to 10,000
+// v1 crashes with stack overflow because divisor gets too large
+// v2 1.29 seconds - divisor only until squareroot of number
+
+import UIKit
+
+let lastNumber = 10000
+var count = 2
+var prime = true
+var startTime = NSDate()
+
+print("We calcuate the prime numbers until", lastNumber, "\n")
+print("\n2 3", terminator:" ")
+for number in 4 ... lastNumber {
+    prime = true
+    for divisor in 2 ... Int(Double(number).squareRoot()) {
+        let quotient = Double(Double(number) / Double(divisor))
+        let rest = quotient - Double(Int(quotient))
+        if rest == 0 {
+            prime = false
+            break
+        }
+    }
+    if prime {
+        print(number, terminator:" ")
+        count += 1
+    }
+}
+
+var stopTime = NSDate()
+var interval = stopTime.timeIntervalSince(startTime as Date)
+print("\n\nThis calculation took", interval,"seconds.")
+print("I found", count, "prime numbers.")
+</string>
+			<key>ModifiedRange</key>
+			<string>{0, 1053}</string>
+			<key>OriginalContent</key>
+			<string>
+</string>
+			<key>OriginalRange</key>
+			<string>{0, 1}</string>
+		</dict>
+	</array>
+	<key>FormatVersion</key>
+	<integer>2</integer>
+</dict>
+</plist>
