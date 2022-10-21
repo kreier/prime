@@ -10,12 +10,22 @@ I use this little algorithm to check the speed on microcontrollers. Here are the
 | CLUE NRF52840 Express      | nRF52840        | 64  | 2.153 s  |      6.3 |
 | Rapsberry Pi Pico          | Dual Cortex-M0+ | 133 | 0.776 s  |     17.5 |
 
-This program runs on a M1 Macbook with python 3in 0.00437 seconds. More than 3000x faster than on the micro:bit
+| microcontroller            | CPU             | MHz |     time | relative |
+|----------------------------|-----------------|:---:|---------:|---------:|
+| micro:bit                  | nRF51822        | 16  | 13.556 s |      1.0 |
+| Circuit Playground Express | samd21g18       | 48  | 3.184 s  |      4.3 |
+| Feather M0 Express         | TSAMD21G18      | 48  | 3.217 s  |      4.2 |
+| CLUE NRF52840 Express      | nRF52840        | 64  | 2.153 s  |      6.3 |
+| Blackpill STM32F411CE      | STM32F411CEU6   | 100 | 1.413 s  |      9.6 |
+| TTGO T8 ESP32-S2 ST7789    | ESP32-S2        | 160 | 0.779 s  |     17.4 |
+| Rapsberry Pi Pico          | Dual Cortex-M0+ | 133 | 0.776 s  |     17.5 |
+
+This program runs on a M1 Macbook with python 3in 0.00437 seconds. More than 3000x faster than on the micro:bit. With 3.2 GHz the clockrate is also 200x higher.
 
 ``` py
 import math, time
 last = 10000
-found = 4          # we start from 11, know 2, 3, 5, 7
+found = 4             # we start from 11, know 2, 3, 5, 7
 print(f"Prime numbers to {last}")
 start = time.monotonic()
 for number in range(11, last, 2):
@@ -26,7 +36,7 @@ for number in range(11, last, 2):
             break
     if prime:
         found += 1
-        prime = 1
+        prime = True
 end = time.monotonic()
 print(f"This took: {(end - start)} seconds.")
 print(f"I found {found} prime numbers.")
