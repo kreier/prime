@@ -2,20 +2,19 @@
 
 I use this little algorithm to check the speed on microcontrollers. Here are the times up to 10000, finding all 1229 prime numbers.
 
-|     microcontroller    |       CPU       | MHz |   time  |
-|:----------------------:|:---------------:|:---:|:-------:|
-| micro:bit              | nRF51822        | 16  |         |
-| Circuit Playground Exp | samd21g18       | 48  | 3.184 s |
-| Feather M0 Express     | TSAMD21G18      | 48  | 3.217 s |
-| CLUE NRF52840 Express  | nRF52840        | 64  | 2.153 s |
-| Rapsberry Pi Pico      | Dual Cortex-M0+ | 133 | 0.776 s |
+| microcontroller            | CPU             | MHz |     time |
+|----------------------------|-----------------|:---:|---------:|
+| micro:bit                  | nRF51822        | 16  | 13.556 s |
+| Circuit Playground Express | samd21g18       | 48  | 3.184 s  |
+| Feather M0 Express         | TSAMD21G18      | 48  | 3.217 s  |
+| CLUE NRF52840 Express      | nRF52840        | 64  | 2.153 s  |
+| Rapsberry Pi Pico          | Dual Cortex-M0+ | 133 | 0.776 s  |
 
 ``` py
 import math, time
 last = 10000
 found = 4          # we start from 11, know 2, 3, 5, 7
 print(f"Prime numbers to {last}")
-#print('2, 3, 5, 7',end='')
 start = time.monotonic()
 for number in range(11, last, 2):
     prime = True
@@ -24,7 +23,6 @@ for number in range(11, last, 2):
             prime = False
             break
     if prime:
-        #print(",", number, end='')
         found += 1
         prime = 1
 end = time.monotonic()
@@ -35,7 +33,23 @@ print(f"I found {found} prime numbers.")
 The adjusted MicroPython code for the micro:bit reads:
 
 ``` py
-#TBD
+import math, time
+last = 10000
+found = 4          # we start from 11, know 2, 3, 5, 7
+print('Prime numbers to {}'.format(last))
+start = time.ticks_us()
+for number in range(11, last, 2):
+    prime = True
+    for divider in range(3, int(math.sqrt(number))+1, 2):
+        if number % divider == 0:
+            prime = False
+            break
+    if prime:
+        found += 1
+        prime = True
+end = time.ticks_us()
+print("This took: {} seconds.".format((end - start)/1000000))
+print("I found {:.4} prime numbers.".format(found))
 ```
 
 ## History
