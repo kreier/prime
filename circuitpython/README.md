@@ -1,5 +1,37 @@
 # prime in circuitpython
 
+I use this little algorithm to check the speed on microcontrollers. Here are the times up to 10000, finding all 1229 prime numbers.
+
+| microcontroller       | CPU             | MHz | time    |   |
+|-----------------------|-----------------|-----|---------|---|
+| Feather M0 Express    | TSAMD21G18      | 48  | 3.217 s |   |
+| CLUE NRF52840 Express | nRF52840        | 64  | 2.153 s |   |
+| Rapsberry Pi Pico     | Dual Cortex-M0+ | 133 | 0.776 s |   |
+
+``` py
+import math, time
+last = 10000
+found = 4          # we start from 11, know 2, 3, 5, 7
+print(f"Prime numbers to {last}")
+#print('2, 3, 5, 7',end='')
+start = time.monotonic()
+for number in range(11, last, 2):
+    prime = True
+    for divider in range(3, int(math.sqrt(number))+1, 2):
+        if number % divider == 0:
+            prime = False
+            break
+    if prime:
+        #print(",", number, end='')
+        found += 1
+        prime = 1
+end = time.monotonic()
+print(f"This took: {(end - start)} seconds.")
+print(f"I found {found} prime numbers.")
+```
+
+## History
+
 The standard algorithm I use since 1991 is:
 
 ``` py
@@ -28,9 +60,67 @@ print('Found: ',found)
 
 ## code optimization
 
-After teaching more computer science, I started to use the modulus operator - and things got faster! As seen below it increased the speed by 2x.
+After teaching more computer science, I started to use the modulus operator - and things got faster! As seen below it increased the speed by 2x to 3x. With some further tweaks the speed increased __17 times__!
 
-With further tweaks the time went from 0.653 seconds down to 0.245 seconds. Thats 62% less time needed, almost 3x faster on my ESP32-S2!
+``` py
+import math, time
+
+last = 10000
+found = 4     # we already know 2, 3, 5, 7
+print('Prime numbers to {}'.format(last))
+
+start = time.monotonic()
+
+# code 1 - 45.685 seconds for 10000 on Feather M0 - 17.3x slower
+"""
+for number in range(11, last, 2): # we already know 2, 3, 5, 7
+    prime = True
+    for divider in range(2, int(math.sqrt(number))+1, 1):
+        if number/divider == int(number/divider):
+            prime = False
+    if prime:
+        #print(',', number, end='')
+        found += 1
+"""
+
+# code 2 - 15.555 seconds for 10000 on Feather M0 - 5.88x slower
+"""
+for number in range(11, last, 2):
+    prime = True
+    for divider in range(2, int(math.sqrt(number))+1, 1):
+        if number % divider == 0:
+            prime = False
+
+    if prime:
+        #print(',', number, end='')
+        found += 1
+"""
+
+# code 3 - 2.645 seconds for 10000 on Feather M0
+
+for number in range(11, last, 2):
+    prime = True
+    if number % 3 == 0:
+            prime = False
+    elif number % 5 == 0:
+            prime = False
+    elif number % 7 == 0:
+            prime = False
+    if prime:
+        for divider in range(11, int(math.sqrt(number))+1, 2):
+            if number % divider == 0:
+                prime = False
+                break
+    if prime:
+        found += 1
+
+end = time.monotonic()
+print(f"This took: {(end - start)} seconds.")
+print(f"I found {found} prime numbers.")
+
+```
+
+With further tweaks the time went from 0.653 seconds down to 0.245 seconds in the calculation up to 1000. Thats 62% less time needed, almost 3x faster on my ESP32-S2!
 
 ``` py
 import math
