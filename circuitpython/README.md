@@ -2,13 +2,15 @@
 
 I use this little algorithm to check the speed on microcontrollers. Here are the times up to 10000, finding all 1229 prime numbers.
 
-| microcontroller            | CPU             | MHz |     time |
-|----------------------------|-----------------|:---:|---------:|
-| micro:bit                  | nRF51822        | 16  | 13.556 s |
-| Circuit Playground Express | samd21g18       | 48  | 3.184 s  |
-| Feather M0 Express         | TSAMD21G18      | 48  | 3.217 s  |
-| CLUE NRF52840 Express      | nRF52840        | 64  | 2.153 s  |
-| Rapsberry Pi Pico          | Dual Cortex-M0+ | 133 | 0.776 s  |
+| microcontroller            | CPU             | MHz |     time | relative |
+|----------------------------|-----------------|:---:|---------:|---------:|
+| micro:bit                  | nRF51822        | 16  | 13.556 s |      1.0 |
+| Circuit Playground Express | samd21g18       | 48  | 3.184 s  |      4.3 |
+| Feather M0 Express         | TSAMD21G18      | 48  | 3.217 s  |      4.2 |
+| CLUE NRF52840 Express      | nRF52840        | 64  | 2.153 s  |      6.3 |
+| Rapsberry Pi Pico          | Dual Cortex-M0+ | 133 | 0.776 s  |     17.5 |
+
+This program runs on a M1 Macbook with python 3in 0.00437 seconds. More than 3000x faster than on the micro:bit
 
 ``` py
 import math, time
