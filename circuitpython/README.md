@@ -2,11 +2,13 @@
 
 I use this little algorithm to check the speed on microcontrollers. Here are the times up to 10000, finding all 1229 prime numbers.
 
-| microcontroller       | CPU             | MHz | time    |   |
-|-----------------------|-----------------|-----|---------|---|
-| Feather M0 Express    | TSAMD21G18      | 48  | 3.217 s |   |
-| CLUE NRF52840 Express | nRF52840        | 64  | 2.153 s |   |
-| Rapsberry Pi Pico     | Dual Cortex-M0+ | 133 | 0.776 s |   |
+|     microcontroller    |       CPU       | MHz |   time  |
+|:----------------------:|:---------------:|:---:|:-------:|
+| micro:bit              | nRF51822        | 16  |         |
+| Circuit Playground Exp | samd21g18       | 48  | 3.184 s |
+| Feather M0 Express     | TSAMD21G18      | 48  | 3.217 s |
+| CLUE NRF52840 Express  | nRF52840        | 64  | 2.153 s |
+| Rapsberry Pi Pico      | Dual Cortex-M0+ | 133 | 0.776 s |
 
 ``` py
 import math, time
@@ -28,6 +30,12 @@ for number in range(11, last, 2):
 end = time.monotonic()
 print(f"This took: {(end - start)} seconds.")
 print(f"I found {found} prime numbers.")
+```
+
+The adjusted MicroPython code for the micro:bit reads:
+
+``` py
+#TBD
 ```
 
 ## History
