@@ -44,3 +44,7 @@ print(f"\nThis took: {(end - start)} seconds.")
 print(f"I found {found} prime numbers.")
 
 ```
+
+## Speed comparison on a M1 Mac
+
+The same algorithm compiled in C for the prime numbers to 1,000,000 need just 0.054 seconds while Python3 needs 2.54 seconds to interpret the code and give the answer.

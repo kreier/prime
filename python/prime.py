@@ -1,21 +1,16 @@
-import math
-
-print("Prime numbers until 10000")
-print("2, 3, 5, 7, 11, 13, 17, 19, 23, 29,")
-c = 1
-count = 10
-for x in range(31,10000):
-    prime = 1
-    for d in range(2,int(math.sqrt(x+1))):
-        if x % d == 0:
-            prime = 0
+import math, time
+last = 1000000
+found = 4             # we start from 11, know 2, 3, 5, 7
+print(f"Prime numbers to {last}")
+start = time.monotonic()
+for number in range(11, last, 2):
+    prime = True
+    for divider in range(3, int(math.sqrt(number))+1, 2):
+        if number % divider == 0:
+            prime = False
             break
-    if prime == 1:
-        print(x, end=", ")
-        c += 1
-        count += 1
-    if c % 10 == 0:
-        c += 1
-        print(" ")
-
-print("\nPrime numbers found: " + str(count))
+    if prime:
+        found += 1
+end = time.monotonic()
+print(f"This took: {(end - start)} seconds.")
+print(f"I found {found} prime numbers.")
