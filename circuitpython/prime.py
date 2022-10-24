@@ -1,20 +1,17 @@
 import math, time
-
-last = 1000
-
+last = 10000
+found = 4             # we start from 11, know 2, 3, 5, 7
+print(f"Prime numbers to {last}")
 start = time.monotonic()
-print('Prime numbers to {}'.format(last))
-
-#print('2, 3, 5, 7',end='')
 for number in range(11, last, 2):
-    prime = 1
-    for divider in range(2, int(math.sqrt(number))+1, 1):
-        if number/divider == int(number/divider):
-            prime = 0
-
-    if prime == 1:
-        #print(',', number, end='')
-        prime = 1
-
+    prime = True
+    for divider in range(3, int(math.sqrt(number))+1, 2):
+        if number % divider == 0:
+            prime = False
+            break
+    if prime:
+        found += 1
+        prime = True
 end = time.monotonic()
-print('\nThis took:', (end - start), 'seconds.')
+print(f"This took: {(end - start)} seconds.")
+print(f"I found {found} prime numbers.")
