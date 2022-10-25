@@ -11,6 +11,7 @@ I use this little algorithm to check the speed on microcontrollers. Here are the
 | Blackpill STM32F411CE      | STM32F411CEU6   | 100 | 1.413 s  |      9.6 |
 | TTGO T8 ESP32-S2 ST7789    | ESP32-S2        | 160 | 0.779 s  |     17.4 |
 | Rapsberry Pi Pico          | Dual Cortex-M0+ | 133 | 0.776 s  |     17.5 |
+| T-Display ESP32 ST7789     | ESP32           | 240 | 0.632 s  |     21.5 |
 
 This program runs on a M1 Macbook with python3 in 0.00437 seconds. That's more than 3000x faster than on the micro:bit. But the clockrate is also 200x higher With 3.2 GHz.
 

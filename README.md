@@ -45,6 +45,29 @@ print(f"I found {found} prime numbers.")
 
 ```
 
+## Does my code work
+
+A quick check (aside from obvious mistakes with even prime numbers as result) you can check how many primes your code finds to check if it works correctly:
+
+|   range   | prime numbers |
+|----------:|--------------:|
+|        10 |             4 |
+|       100 |            25 |
+|     1,000 |           168 |
+|    10,000 |         1,229 |
+| 100,000   |         9,592 |
+| 1,000,000 |        78,498 |
+
 ## Speed comparison on a M1 Mac
 
 The same algorithm compiled in C for the prime numbers to 1,000,000 need just 0.054 seconds while Python3 needs 2.54 seconds to interpret the code and give the answer.
+
+|   language | prime numbers | factor |
+|-----------:|--------------:|-------:|
+|          C |      0.0498 s |     51 |
+|    Python3 |      2.5394 s |      1 |
+|       Java |               |        |
+|      Swift |               |        |
+| Javascript |               |        |
+
+TBC.
