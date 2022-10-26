@@ -62,12 +62,13 @@ A quick check (aside from obvious mistakes with even prime numbers as result) yo
 
 The same algorithm compiled in C for the prime numbers to 1,000,000 need just 0.054 seconds while Python3 needs 2.54 seconds to interpret the code and give the answer.
 
-|   language | prime numbers | factor |
-|-----------:|--------------:|-------:|
-|          C |      0.0498 s |     51 |
-|    Python3 |      2.5394 s |      1 |
-|       Java |               |        |
-|      Swift |               |        |
-| Javascript |               |        |
+|      language       | prime numbers | factor |
+|--------------------:|--------------:|-------:|
+|                   C |      0.0498 s |     51 |
+|             Python3 |      2.5394 s |      1 |
+|                Java |               |        |
+|               Swift |               |        |
+|          Javascript |               |        |
+| Playgrounds (Swift) |      7.0413 s |   0.36 |
 
 TBC.
