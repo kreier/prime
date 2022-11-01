@@ -9,9 +9,9 @@ I use this little algorithm to check the speed on microcontrollers. Here are the
 | Feather M0 Express         | TSAMD21G18      | 48  | 3.217 s  |      4.2 |
 | CLUE NRF52840 Express      | nRF52840        | 64  | 2.153 s  |      6.3 |
 | Blackpill STM32F411CE      | STM32F411CEU6   | 100 | 1.413 s  |      9.6 |
-| TTGO T8 ESP32-S2 ST7789    | ESP32-S2        | 160 | 0.779 s  |     17.4 |
 | Rapsberry Pi Pico          | Dual Cortex-M0+ | 133 | 0.776 s  |     17.5 |
 | T-Display ESP32 ST7789     | ESP32           | 240 | 0.632 s  |     21.5 |
+| TTGO T8 ESP32-S2 ST7789    | ESP32-S2        | 240 | 0.588 s  |     23.1 |
 | AI-S3 Development board    | ESP32-S3        | 240 | 0.259 s  |     52.3 |
 
 This program runs on a M1 Macbook with python3 in 0.00437 seconds. That's more than 3000x faster than on the micro:bit. But the clockrate is also 200x higher With 3.2 GHz.
