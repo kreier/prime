@@ -1,15 +1,16 @@
 # prime in micropython
 
-The micro:bit v1 only runs micropython v1.9.2 and has only 9312 kByte free (`import gc` && `gc.mem_free()`). The nRF51822 has a 16 MHz ARM Cortex-M0 core with 256 KB Flash and 16 KB RAM.
+The micro:bit v1 only runs micropython v1.9.2 from September 2017 and has only 9312 kByte free (`import gc` && `gc.mem_free()`). The nRF51822 has a 16 MHz ARM Cortex-M0 core with 256 KB Flash and 16 KB RAM. Test run in October 2022 with MU, does not work in [https://makecode.microbit.org/](https://makecode.microbit.org/).
 
-| Microcomputer  | time  | MHz |
-|----------------|-------|-----|
-| micro:bit v1   | 4.001 |  16 |
-| ESP8266        | 3.365 |  80 |
-| ESP32-S2       |       | 160 |
-| ESP32          | 0.632 | 240 |
+| Microcomputer  |  time  | MHz |
+|----------------|--------|----:|
+| micro:bit v1   | 13.517 |  16 |
+| ESP8266        |        |  80 |
+| ESP32-S2       |        | 160 |
+| ESP32          |        | 240 |
+| ESP32-S3       |        | 240 |
 
-The tests with tne ESP were done with MicroPython 1.19.1 and this code:
+The tests with the ESP were done with MicroPython 1.19.1 and this code:
 
 ``` py
 import math, time
@@ -25,7 +26,6 @@ for number in range(11, last, 2):
             break
     if prime:
         found += 1
-        prime = True
 end = time.ticks_us()
 print("This took: {} seconds.".format((end - start)/1000000))
 print("I found {:.4} prime numbers.".format(found))
