@@ -1,7 +1,67 @@
 # Calculation prime on Arduiono UNO and ESP8266
 
-This should be faster than circuitpython or micropython, but the CPUs are much slower, too
+This should be faster than circuitpython or micropython, but the CPUs are much slower, too. Roughly 2 times faster than circuitpython.
 
+|     range | prime numbers |  esp8266 |
+|----------:|--------------:|---------:|
+|       100 |            25 |   0.00 s |
+|     1,000 |           168 |   0.04 s |
+|    10,000 |         1,229 |   0.90 s |
+|   100,000 |         9,592 |  21.54 s |
+| 1,000,000 |        78,498 | 541.01 s |
+
+Using this code:
+
+``` c
+/* Prime numbers in Arduino C*/
+#include <time.h>
+#include <math.h>
+
+int last = 1000;
+
+double start;
+int column = 10;
+int found = 4;   // we already know 2, 3, 5, 7
+
+void setup() {
+  Serial.begin(115200);
+  delay(1000);
+  Serial.print("\nCalculating prime numbers until ");
+  Serial.println(last);
+  Serial.println("2, 3, 5, 7, ...");
+  start = millis();
+  for (int number = 11; number < last; number += 2)
+  {
+    int prime = 1;
+    for (int divider = 3; divider < (int)(sqrt(number)) + 1; divider += 2)
+    {
+      if (number % divider == 0)
+      {
+        prime = 0;
+        break;
+      }
+    }
+    if (prime ==  1)
+    {
+      found += 1;
+      if (found % 100 == 0) { Serial.print("."); }
+      if (found % 10000 == 0) { Serial.println(" "); }
+    }
+  }
+  Serial.print("\nFound ");
+  Serial.print(found);
+  Serial.println(" prime numbers.\nThis took ");
+  Serial.print((millis() - start)/1000);
+  Serial.println(" seconds.");
+}
+
+void loop() {
+  Serial.print(".");
+  column += 1;
+  if (column % 80 == 0) { Serial.print("\n"); }
+  delay(1000);
+}
+```
 
 ## Up to 1 million
 
