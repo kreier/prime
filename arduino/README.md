@@ -2,13 +2,13 @@
 
 This should be faster than circuitpython or micropython, but the CPUs are much slower, too. Roughly 2 times faster than circuitpython.
 
-|     range | prime numbers |  esp8266 |
-|----------:|--------------:|---------:|
-|       100 |            25 |   0.00 s |
-|     1,000 |           168 |   0.04 s |
-|    10,000 |         1,229 |   0.90 s |
-|   100,000 |         9,592 |  21.54 s |
-| 1,000,000 |        78,498 | 541.01 s |
+|     range | prime numbers | esp8266 80 MHz | esp8266 160 MHz | ESP32 240 MHz |
+|----------:|--------------:|---------------:|----------------:|--------------:|
+|       100 |            25 |         0.00 s |          0.00 s |        0.00 s |
+|     1,000 |           168 |         0.04 s |          0.02 s |        0.01 s |
+|    10,000 |         1,229 |         0.90 s |          0.45 s |        0.24 s |
+|   100,000 |         9,592 |        21.54 s |         10.76 s |        5.65 s |
+| 1,000,000 |        78,498 |       541.01 s |        270.24 s |      140.47 s |
 
 Using this code:
 
@@ -50,7 +50,7 @@ void setup() {
   }
   Serial.print("\nFound ");
   Serial.print(found);
-  Serial.println(" prime numbers.\nThis took ");
+  Serial.print(" prime numbers.\nThis took ");
   Serial.print((millis() - start)/1000);
   Serial.println(" seconds.");
 }
