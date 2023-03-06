@@ -1,5 +1,5 @@
 import math, time
-last = 1000000
+last = 1000
 found = 4             # we start from 11, know 2, 3, 5, 7
 print(f"Prime numbers to {last}")
 start = time.monotonic()
