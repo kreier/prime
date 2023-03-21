@@ -61,8 +61,7 @@ And the code from fast to slow:
 #include <math.h>
 #include <string.h>
 
-int main()
-{
+int main() {
     int last = 1000000;
     int found = 4;   // we already know 2, 3, 5, 7
     const int arraylength = (int)(last / log(last));
@@ -72,27 +71,22 @@ int main()
     double cpu_time_used;
     printf("Calculating prime numbers until %d\n", last);
     start = clock();
-    for (int number = 11; number < last; number += 2)
-    {
+    for (int number = 11; number < last; number += 2) {
         int prime = 1;
-        for (int divider = 3; divider < (int)(sqrt(number)) + 1; divider += 2)
-        {
-            if (number % divider == 0)
-            {
+        for (int divider = 3; divider < (int)(sqrt(number)) + 1; divider += 2) {
+            if (number % divider == 0) {
                 prime = 0;
                 break;
             }
         }
-        if (prime ==  1)
-        {
+        if (prime ==  1) {
             primes[found] = number;
             found += 1;
         }
     }
     end = clock();
     cpu_time_used = ((double) (end - start)) / CLOCKS_PER_SEC;
-    for (int i = 0; i < found - 1; i++)
-    {
+    for (int i = 0; i < found - 1; i++) {
         printf("%d, ",primes[i]);
     }
     printf("\nFound %d prime numbers.\n", found);
@@ -106,8 +100,7 @@ class prime {
   public static void main(String[] args) {
     int last = 1000000;
     int found = 4;
-    System.out.print("Prime numbers to ");
-    System.out.println(last);
+    System.out.println("Prime numbers to " + last);
     System.out.print("2, 3, 5, 7, ");
     long start = System.nanoTime();
     for(int number = 11; number < last; number = number + 2) {
@@ -120,20 +113,14 @@ class prime {
       }
       if(prime) {
         found++;
-        // System.out.print(", ");
-        // System.out.print(number);
+        // System.out.print(", " + number);
       }
     }
     long end = System.nanoTime();
-    System.out.print("\nI found ");
-    System.out.print(found);
-    System.out.println(" prime numbers.");
-    System.out.print("This took me ");
-    System.out.print((end - start) / 1000000000.0);
-    System.out.println(" seconds.");
-    }
+    System.out.print("\nI found " + found + " prime numbers.");
+    System.out.print("This took me " + ((end - start) / 1000000000.0) + " seconds.");
+  }
 }
-
 ```
 
 ### Python 3.9.12 in 2.2611 seconds
