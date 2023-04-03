@@ -2,7 +2,6 @@
 
 The main goal is to serve as a small benchmark to compare algorithms, programming languages and CPUs from microcomputers to workstations. I've been using this calculation since 1989. And it is usefull even for microcontroller, like the T-Display with a esp32s2:
 
-![T-Display with esp32s2](https://github.com/ssisbit/ssis.bit/blob/main/docs/ssis.bit_2022-01-06.jpg)
 ![T-Display with esp32s2](circuitpython/t-display.jpg)
 
 The code is rather short:
@@ -188,3 +187,5 @@ end = time.monotonic()
 print(f"\nThis took: {(end - start)} seconds.")
 print(f"I found {found} prime numbers.")
 ```
+
+![T-Display with esp32s2](https://github.com/ssisbit/ssis.bit/blob/main/docs/ssis.bit_2022-01-06.jpg)
