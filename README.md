@@ -1,5 +1,9 @@
 # Calculating prime numbers
 
+[![pages-build-deployment](https://github.com/kreier/prime/actions/workflows/pages/pages-build-deployment/badge.svg)](https://github.com/kreier/prime/actions/workflows/pages/pages-build-deployment)
+[![GitHub release](https://img.shields.io/github/release/kreier/prime.svg)](https://GitHub.com/kreier/prime/releases/)
+[![MIT license](https://img.shields.io/github/license/kreier/prime)](https://kreier.mit-license.org/)
+
 The main goal is to serve as a small benchmark to compare algorithms, programming languages and CPUs from microcomputers to workstations. I've been using this calculation since 1989. And it is usefull even for microcontroller, like the T-Display with a esp32s2:
 
 ![T-Display with esp32s2](circuitpython/t-display.jpg)
