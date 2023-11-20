@@ -1,6 +1,5 @@
 # Calculating prime numbers
 
-[![pages-build-deployment](https://github.com/kreier/prime/actions/workflows/pages/pages-build-deployment/badge.svg)](https://github.com/kreier/prime/actions/workflows/pages/pages-build-deployment)
 [![GitHub release](https://img.shields.io/github/release/kreier/prime.svg)](https://GitHub.com/kreier/prime/releases/)
 [![MIT license](https://img.shields.io/github/license/kreier/prime)](https://kreier.mit-license.org/)
 
@@ -44,7 +43,7 @@ A quick check (aside from obvious mistakes with even prime numbers as result) yo
 
 ## Speed comparison on a M1 Mac
 
-The same algorithm compiled in C for the prime numbers to 1,000,000 need just 0.054 seconds while Python3 needs 2.54 seconds to interpret the code and give the answer.
+The same algorithm compiled in C for the prime numbers to 1,000,000 need just 0.049 seconds while Python3 needs 2.26 seconds to interpret the code and give the answer.
 
 |      language       | prime numbers | factor |
 |--------------------:|--------------:|-------:|
