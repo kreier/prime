@@ -1,6 +1,6 @@
 # Calculating prime numbers in C
 
-Obviously this is one of the fastest way to calculate or execute any code. Here is the code, for regular x86 or x86_64 as well as ARM on M1 from Apple;
+Obviously this is one of the fastest way to calculate or execute any code. Here is the code, for regular x86 or x86_64 as well as ARM on M1 from Apple. Compilation is done by `gcc prime.c -lm -o prime` on the command promt. Without the `-lm` linker command the math import will not work for the sqrt function.
 
 ## Code
 
