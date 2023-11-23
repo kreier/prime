@@ -28,3 +28,4 @@ if __name__ == "__main__":
     end = time.perf_counter()
     print(f"This took: {(end - start)} seconds.")
     print(f"I found {found} prime numbers. For 10 million it should be 664,579.")
+    print(f"We used {multiprocessing.cpu_count()} parallel processes.")
