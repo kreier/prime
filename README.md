@@ -32,14 +32,16 @@ print(f"I found {found} prime numbers.")
 
 A quick check (aside from obvious mistakes with even prime numbers as result) you can check how many primes your code finds to check if it works correctly:
 
-|   range   | prime numbers |
-|----------:|--------------:|
-|        10 |             4 |
-|       100 |            25 |
-|     1,000 |           168 |
-|    10,000 |         1,229 |
-|   100,000 |         9,592 |
-| 1,000,000 |        78,498 |
+|    range   | prime numbers |
+|-----------:|--------------:|
+|         10 |             4 |
+|        100 |            25 |
+|      1,000 |           168 |
+|     10,000 |         1,229 |
+|    100,000 |         9,592 |
+|  1,000,000 |        78,498 |
+| 10,000,000 |       664,579 |
+
 
 ## Speed comparison on a M1 Mac
 
@@ -213,3 +215,8 @@ And now in Arduino C
 | 1,000,000 |        78.498 |        599.490 |                 |       294.419 |        396.301 |          201.873 |          232.850 |          130.837 |             |
 
 ![T-Display with esp32s2](https://github.com/ssisbit/ssis.bit/blob/main/docs/ssis.bit_2022-01-06.jpg)
+
+## Faster with Multithreading
+
+This should work even with Python. For comparison we start with the calculation to 10 million and find 664,579 prime numbers. On my i3-10100 this takes 63 seconds.
+
