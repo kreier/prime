@@ -216,7 +216,69 @@ And now in Arduino C
 
 ![T-Display with esp32s2](https://github.com/ssisbit/ssis.bit/blob/main/docs/ssis.bit_2022-01-06.jpg)
 
-## Faster with Multithreading
+## Faster with Multithreading - 4.9x faster
 
-This should work even with Python. For comparison we start with the calculation to 10 million and find 664,579 prime numbers. On my i3-10100 this takes 63 seconds.
+This should work even with Python. For comparison we start with the calculation to 10 million and find 664,579 prime numbers. On my i3-10100 this takes 63 seconds. This could be improved by putting the check for a prime number into a function and the loop into the main function. We are down to 42.4 seconds (33% faster) with the following code:
 
+``` py
+import math, time
+
+last = 10000000
+found = 4             # we start from 11, know 2, 3, 5, 7
+
+def is_prime(number):
+    global found
+    flag_prime = True
+    for divider in range(3, int(math.sqrt(number))+1, 2):
+        if number % divider == 0:
+            flag_prime = False
+            break
+    if flag_prime:
+        found += 1
+
+if __name__ == "__main__":
+    print(f"Prime numbers to {last}")
+    start = time.perf_counter()
+    for number in range(11, last, 2):
+        is_prime(number)
+    end = time.perf_counter()
+    print(f"This took: {(end - start)} seconds.")
+    print(f"I found {found} prime numbers. For 10M it should be 664,579.")
+```
+
+For multiprocessing we need to add a few lines, but the code is now executed in 12.87 seconds - 3.296x faster.
+
+``` py
+import math, time, multiprocessing
+
+last = 10000000
+found = 4             # we start from 11, know 2, 3, 5, 7
+queue = multiprocessing.Queue()
+
+def is_prime(number):
+    flag_prime = True
+    for divider in range(3, int(math.sqrt(number))+1, 2):
+        if number % divider == 0:
+            flag_prime = False
+            break
+    if flag_prime:
+        return number
+    else:
+        return 0
+
+if __name__ == "__main__":
+    print(f"Prime numbers to {last}")
+    start = time.perf_counter()
+    print("Create pool")
+    pool = multiprocessing.Pool()
+    results = pool.map(is_prime, range(11, last, 2))
+    pool.close()
+    for nr in results:
+        if nr > 0:
+            found += 1
+    end = time.perf_counter()
+    print(f"This took: {(end - start)} seconds.")
+    print(f"I found {found} prime numbers. For 10 million it should be 664,579.")
+```
+
+And finally: For the original 1 million it takes 0.702 seconds. Not so far from the 0.128 seconds in C (5.5x slower). Which makes we wonder: How fast would it be in Rust or in C in parallel?
