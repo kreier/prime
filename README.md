@@ -3,11 +3,11 @@
 [![GitHub release](https://img.shields.io/github/release/kreier/prime.svg)](https://GitHub.com/kreier/prime/releases/)
 [![MIT license](https://img.shields.io/github/license/kreier/prime)](https://kreier.mit-license.org/)
 
-The main goal is to serve as a small benchmark to compare algorithms, programming languages and CPUs from microcomputers to workstations. I've been using this calculation since 1989. And it is usefull even for microcontroller, like the T-Display with a esp32s2:
+This is just a simple benchmark tool to compare algorithms, programming languages and CPUs from microcomputers to workstations. I've been using this calculation since 1989. It is still usefull for microcontrollers like the T-Display with a esp32s2:
 
 ![T-Display with esp32s2](circuitpython/t-display.jpg)
 
-The code is rather short:
+The code is only 16 lines short:
 
 ``` py
 import math, time
@@ -196,25 +196,26 @@ print(f"I found {found} prime numbers.")
 
 ## Prime on MCUs
 
-| Python    |    MHz |           |      80 |     160 |     240 |     125 |      240 |      160 |      240 |  3200 |
-|-----------|-------:|-----------|--------:|--------:|--------:|--------:|---------:|---------:|---------:|------:|
-|           |    #   | micro:bit | esp8266 | esp8266 |  ESP32  |  rp2040 | ESP32 S2 | ESP32 C3 | ESP32 S3 |   M1  |
-|     1,000 |    168 |     0.694 |   0.182 |   0.110 |   0.036 |   0.043 |    0.139 |    0.027 |    0.016 | 0.000 |
-|    10,000 |  1.229 |    13.517 |   3.360 |   1.970 |   0.626 |   0.797 |    0.769 |    0.487 |    0.259 | 0.008 |
-|   100,000 |  9.592 |   318.459 |  71.008 |  40.950 |  12.766 |  17.028 |   10.278 |   10.037 |    5.607 | 0.111 |
-| 1,000,000 | 78.498 |           | 599.490 |         | 294.419 | 396.301 |  201.873 |  232.850 |  130.837 | 2.599 |
+|  up to    | primes |       MHz |      80 |     240 |     125 |      240 |      160 |      240 |  3200 |
+|----------:|-------:|-----------|--------:|--------:|--------:|---------:|---------:|---------:|------:|
+|           |    #   | micro:bit | esp8266 |  ESP32  |  rp2040 | ESP32 S2 | ESP32 C3 | ESP32 S3 |   M1  |
+|     1,000 |    168 |     0.694 |   0.182 |   0.036 |   0.043 |    0.139 |    0.027 |    0.016 | 0.000 |
+|    10,000 |  1.229 |    13.517 |   3.360 |   0.626 |   0.797 |    0.769 |    0.487 |    0.259 | 0.008 |
+|   100,000 |  9.592 |   318.459 |  71.008 |  12.766 |  17.028 |   10.278 |   10.037 |    5.607 | 0.111 |
+| 1,000,000 | 78.498 |           | 599.490 | 294.419 | 396.301 |  201.873 |  232.850 |  130.837 | 2.599 |
 
 And now in Arduino C
 
-|     range | prime numbers | esp8266 80 MHz | esp8266 160 MHz | ESP32 240 MHz | rp2040 125 MHz | ESP32-S2 240 MHz | ESP32-C3 160 MHz | ESP32-S3 240 MHz | M1 3200 MHz |
-|----------:|--------------:|:--------------:|:---------------:|:-------------:|:--------------:|:----------------:|:----------------:|:----------------:|:-----------:|
-|     1,000 |           168 |           0.04 |            0.02 |          0.01 |           0.03 |                  |             0.02 |             0.01 |             |
-|    10,000 |         1,229 |            0.9 |            0.45 |          0.24 |           0.66 |                  |             0.43 |             0.22 |             |
-|   100,000 |         9,592 |          21.54 |           10.76 |          5.65 |          15.82 |                  |            10.16 |              5.2 |             |
-| 1,000,000 |        78,498 |         541.01 |          270.24 |        140.47 |         395.94 |                  |           252.78 |           129.44 |       0.054 |
-| 1,000,000 |        78.498 |        599.490 |                 |       294.419 |        396.301 |          201.873 |          232.850 |          130.837 |             |
+|     range | prime numbers | esp8266 80 MHz | ESP32 240 MHz | rp2040 125 MHz | ESP32-S2 240 MHz | ESP32-C3 160 MHz | ESP32-S3 240 MHz | M1 3200 MHz |
+|----------:|--------------:|:--------------:|:-------------:|:--------------:|:----------------:|:----------------:|:----------------:|:-----------:|
+|     1,000 |           168 |           0.04 |          0.01 |           0.03 |                  |             0.02 |             0.01 |             |
+|    10,000 |         1,229 |            0.9 |          0.24 |           0.66 |                  |             0.43 |             0.22 |             |
+|   100,000 |         9,592 |          21.54 |          5.65 |          15.82 |                  |            10.16 |             5.20 |             |
+| 1,000,000 |        78,498 |         541.01 |        140.47 |         395.94 |                  |           252.78 |           129.44 |       0.054 |
+| 1,000,000 |        78.498 |        599.490 |       294.419 |        396.301 |          201.873 |          232.850 |          130.837 |             |
 
 ![T-Display with esp32s2](https://github.com/ssisbit/ssis.bit/blob/main/docs/ssis.bit_2022-01-06.jpg)
+
 
 ## Faster with Multithreading - 4.9x faster
 
