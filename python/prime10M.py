@@ -1,6 +1,6 @@
 import math, time
 
-last = 1000000
+last = 10000000
 found = 4             # we start from 11, know 2, 3, 5, 7
 print(f"Prime numbers to {last}")
 
@@ -19,4 +19,4 @@ if __name__ == "__main__":
             found += 1
     end = time.monotonic()
     print(f"This took: {(end - start)} seconds.")
-    print(f"I found {found} prime numbers.")
+    print(f"I found {found} prime numbers. For 10M it should be 664,579.")

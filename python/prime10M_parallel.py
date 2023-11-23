@@ -1,4 +1,4 @@
-import math, time
+import math, time, multiprocessing
 
 last = 1000000
 found = 4             # we start from 11, know 2, 3, 5, 7
@@ -13,10 +13,12 @@ def is_prime(number):
     return flag_prime
 
 if __name__ == "__main__":
+    # start_time = time.perf_counter()
     start = time.monotonic()
     for number in range(11, last, 2):
         if is_prime(number):
             found += 1
     end = time.monotonic()
     print(f"This took: {(end - start)} seconds.")
-    print(f"I found {found} prime numbers.")
+    print(f"I found {found} prime numbers. For 10M it should be 664,579.")
+    print("Number of cpu : ", multiprocessing.cpu_count())
