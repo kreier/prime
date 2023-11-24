@@ -1,6 +1,6 @@
 import math, time, multiprocessing
 
-last = 1000000
+last = 10000
 found = 4             # we start from 11, know 2, 3, 5, 7
 queue = multiprocessing.Queue()
 
@@ -11,7 +11,7 @@ def is_prime(number):
             flag_prime = False
             break
     if flag_prime:
-        return number
+        return divider # or number
     else:
         return 0
 
@@ -28,3 +28,4 @@ if __name__ == "__main__":
     end = time.perf_counter()
     print(f"This took: {(end - start)} seconds.")
     print(f"I found {found} prime numbers.")
+    # print(results)
