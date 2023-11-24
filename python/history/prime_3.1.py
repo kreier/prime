@@ -1,7 +1,7 @@
 # prime v3.1
 import math, time
 
-last = 1000000
+last = 25000000
 found = 4             # we start from 11, know 2, 3, 5, 7
 dividers = [3, 5, 7]
 
