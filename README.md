@@ -32,18 +32,45 @@ print(f"I found {found} prime numbers.")
 
 A quick check (aside from obvious mistakes with even prime numbers as result) you can check how many primes your code finds to check if it works correctly:
 
-|    range   | prime numbers |
-|-----------:|--------------:|
-|         10 |             4 |
-|        100 |            25 |
-|      1,000 |           168 |
-|     10,000 |         1,229 |
-|    100,000 |         9,592 |
-|  1,000,000 |        78,498 |
-| 10,000,000 |       664,579 |
+|     range    | prime numbers |
+|-------------:|--------------:|
+|           10 |             4 |
+|          100 |            25 |
+|        1,000 |           168 |
+|       10,000 |         1,229 |
+|      100,000 |         9,592 |
+|    1,000,000 |        78,498 |
+|   10,000,000 |       664,579 |
+|   10,000,000 |       664,579 |
+|   10,000,000 |       664,579 |
 
 
-## Speed comparison on a M1 Mac
+## Faster algorithms
+
+Already in 1991 I found faster ways to calculate prime numbers. By 2024 I have already 8 improvements to the very algorithm to calculate the prime numbers in a certain range.
+
+- v0.9.1991	compare result of division to division with truncated decimal places
+- v1.0.1991	start with 11 in steps of 2 and use odd dividers from 3 on
+- v1.1.2000	store result of the division, then check for decimal places
+- v2.0.2022	use modulo operator for comparison
+- v3.0.2023	put check for prime into a function
+- v4.0.2023	write code to execute it in parallel
+- v5.0.2023	calculate the prime numbers to the square root of the largest number, use these prime numbers as dividers for the remaining numbers
+- v6.0.2024	make v5.0 in parallel without problems in the racing conditions
+
+### Speed results
+
+Table will follow.
+
+Higher speed is possible with:
+
+- better algorithm
+- faster computer
+- faster language
+
+The increase depends on the chosen range. For a small range the overhead from multithreading is larger than the gain, the code gets slower. So I chose one billion - 1,000,000,000 - as reference value. For my little microcontrollers like esp32s2 and rp2040 this means days of work, but you better see the improvements in the algorithms. 
+
+## Higher speed with other programming language - comparison on a M1 Mac
 
 The same algorithm compiled in C for the prime numbers to 1,000,000 need just 0.049 seconds while Python3 needs 2.26 seconds to interpret the code and give the answer.
 
