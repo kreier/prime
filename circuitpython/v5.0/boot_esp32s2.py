@@ -5,7 +5,7 @@ import board
 import digitalio
 import storage
 
-button_pin = board.BUTTON_L
+button_pin = board.IO0
 # T-Display rp2040     board.BUTTON_L    False if pressed
 # T-Display ESP32-S2   board.IO0
 
