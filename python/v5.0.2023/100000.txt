@@ -1,4 +1,4 @@
 prime v5.0.2023
 Intel(R) Core(TM) i3-10100 CPU @ 3.60GHz
-Primes to 100000 took 48021.0 microseconds.
+Primes to 100000 took 46454.9 microseconds.
 Found 9592 primes. Should be 9592.

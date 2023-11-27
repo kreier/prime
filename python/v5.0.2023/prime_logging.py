@@ -4,7 +4,7 @@
 import math, time, os, cpuinfo
 
 scope = [100, 1000, 10000, 100000, 1000000, 10000000, 25000000, 100000000, 1000000000]
-reference = [25, 168, 1229, 9592, 78498, 664579, 1565927, 5761455, 123456789]
+reference = [25, 168, 1229, 9592, 78498, 664579, 1565927, 5761455, 50847534]
 
 def is_prime(number):
     global found
@@ -52,7 +52,7 @@ if __name__ == "__main__":
             found += is_prime_fast(number)
         end = time.perf_counter_ns()
         print(f"This took: {(end - start)/1000} microseconds.")
-        print(f"I found {found} prime numbers. Should be {reference[i]}.")
+        print(f"I found {found} prime numbers. Should be {reference[i]}.\n")
         filename = str(last) + ".txt"
         with open(filename, "w") as fp:
             fp.write('prime v5.0.2023\n')
