@@ -1,4 +1,4 @@
 Calculating prime numbers until 10000 in C v2.0.2022
 Found 1229 prime numbers. It should be 1229.
-This took 0.000306 seconds.
+This took 0.000288 seconds.
 

@@ -10,7 +10,7 @@ int main()
     int found = 4;   // we already know 2, 3, 5, 7
     const int arraylength = (int)(last / log(last));
     int primes[10000] = {3, 5, 7};
-    cout << "Calculating prime numbers until " << last << endl;
+    cout << "Calculating prime numbers until " << last << " in C++ v2.0.2022" << endl;
     auto start = chrono::high_resolution_clock::now();
     for (int number = 11; number < last; number += 2)
     {

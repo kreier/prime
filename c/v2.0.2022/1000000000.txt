@@ -1,0 +1,4 @@
+Calculating prime numbers until 1000000000 in C v2.0.2022
+Found 50847534 prime numbers. It should be 50847534.
+This took 2214.065271 seconds.
+

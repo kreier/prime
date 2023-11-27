@@ -11,7 +11,7 @@ int main()
     int primes[1000] = {2, 3, 5, 7};
     clock_t start, end;
     double cpu_time_used;
-    printf("Calculating prime numbers until %d\n", last);
+    printf("Calculating prime numbers until %d in C v2.0.2022\n", last);
     start = clock();
     for (int number = 11; number < last; number += 2)
     {

@@ -1,0 +1,4 @@
+Calculating prime numbers until 1000000000
+Found 50847534 prime numbers. It should be 50847534 primes.
+This took 5105.043990 seconds.
+
