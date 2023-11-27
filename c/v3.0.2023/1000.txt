@@ -1,0 +1,4 @@
+Calculating prime numbers until 1000 in C v3.0.2023
+Found 168 prime numbers. It should be 168.
+This took 0.000016 seconds.
+
