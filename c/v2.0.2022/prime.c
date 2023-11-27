@@ -5,10 +5,10 @@
 
 int main()
 {
-    int last = 10000;
+    int last = 1000000;
     int found = 4;   // we already know 2, 3, 5, 7
     const int arraylength = (int)(last / log(last));
-    int primes[1000000] = {2, 3, 5, 7};
+    int primes[1000] = {2, 3, 5, 7};
     clock_t start, end;
     double cpu_time_used;
     printf("Calculating prime numbers until %d\n", last);
@@ -26,7 +26,6 @@ int main()
         }
         if (prime ==  1)
         {
-            // primes[found] = number;
             found += 1;
         }
     }
@@ -37,5 +36,5 @@ int main()
     //     printf("%d, ",primes[i]);
     // }
     printf("\nFound %d prime numbers.\n", found);
-    printf("This took %f seconds.",cpu_time_used);
+    printf("This took %f seconds.\n",cpu_time_used);
 }
