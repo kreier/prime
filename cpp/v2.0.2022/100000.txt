@@ -1,0 +1,4 @@
+Calculating prime numbers until 100000 in C++ v2.0.2022
+Found 9592 prime numbers. It should be 9592 primes.
+This took 0.006706 seconds.
+

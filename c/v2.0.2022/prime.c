@@ -5,7 +5,7 @@
 
 int main()
 {
-    int last = 10000000;
+    int last = 10000;
     int found = 4;   // we already know 2, 3, 5, 7
     const int arraylength = (int)(last / log(last));
     int primes[1000000] = {2, 3, 5, 7};
