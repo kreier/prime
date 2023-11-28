@@ -1,4 +1,4 @@
-prime v1.0.1991 in python
+prime v0.9.1991 in python
 Intel(R) Core(TM) i3-10100 CPU @ 3.60GHz
-Primes to 100000 took 292500.8 microseconds.
+Primes to 100000 took 591533.0 microseconds.
 Found 9592 primes. Should be 9592.
