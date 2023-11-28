@@ -11,7 +11,7 @@ if __name__ == "__main__":
         last = scope[i]
         found = 4              # we start from 11, know 2, 3, 5, 7
         primes = [3, 5, 7]     # exclude 2 since we only test odd numbers    
-        print(f"Prime numbers to {last} with algorithm v1.1.2000")
+        print(f"Prime numbers to {last} in Python with algorithm v1.1.2000")
         start = time.perf_counter_ns()
         for number in range(11, last, 2):
             prime = True
@@ -27,7 +27,7 @@ if __name__ == "__main__":
         print(f"I found {found} prime numbers. Should be {reference[i]}.\n")
         filename = str(last) + ".txt"
         with open(filename, "w") as fp:
-            fp.write('prime v2.0.2022\n')            
+            fp.write('prime v1.1.2000 in python\n')            
             fp.write(cpuinfo.get_cpu_info()['brand_raw'])
             fp.write(f'\nPrimes to {last} took {(end - start)/1000} microseconds.')
             fp.write(f'\nFound {found} primes. Should be {reference[i]}.\n')
