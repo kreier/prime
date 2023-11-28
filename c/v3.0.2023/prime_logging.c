@@ -3,16 +3,14 @@
 #include <math.h>
 
 int is_prime(int number) {
-    int prime = 1;
     for (int divider = 3; divider < (int)(sqrt(number)) + 1; divider += 2)
     {
         if (number % divider == 0)
         {
-            prime = 0;
-            break;
+            return 0;
         }
     }
-    return prime;
+    return 1;
 }
 
 int main()
