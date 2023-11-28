@@ -1,4 +1,4 @@
-# prime v0.9.1991  
+# prime v0.9.1990  
 # cycles through limits and writes to the filesystem
 
 import math, time, os, cpuinfo
@@ -10,7 +10,7 @@ if __name__ == "__main__":
     for i in range(len(scope)):
         last = scope[i]
         found = 4              # we start from 11, know 2, 3, 5, 7
-        print(f"Prime numbers to {last} in Python with algorithm v0.9.1991")
+        print(f"Prime numbers to {last} in Python with algorithm v0.9.1990")
         start = time.perf_counter_ns()
         for number in range(11, last):
             prime = True
@@ -26,7 +26,7 @@ if __name__ == "__main__":
         print(f"I found {found} prime numbers. Should be {reference[i]}.\n")
         filename = str(last) + ".txt"
         with open(filename, "w") as fp:
-            fp.write('prime v0.9.1991 in python\n')            
+            fp.write('prime v0.9.1990 in python\n')            
             fp.write(cpuinfo.get_cpu_info()['brand_raw'])
             fp.write(f'\nPrimes to {last} took {(end - start)/1000} microseconds.')
             fp.write(f'\nFound {found} primes. Should be {reference[i]}.\n')
