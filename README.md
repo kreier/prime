@@ -32,30 +32,31 @@ print(f"I found {found} prime numbers.")
 
 A quick check (aside from obvious mistakes with even prime numbers as result) you can check how many primes your code finds to check if it works correctly:
 
-|     range    | prime numbers |
-|-------------:|--------------:|
-|           10 |             4 |
-|          100 |            25 |
-|        1,000 |           168 |
-|       10,000 |         1,229 |
-|      100,000 |         9,592 |
-|    1,000,000 |        78,498 |
-|   10,000,000 |       664,579 |
-|   10,000,000 |       664,579 |
-|   10,000,000 |       664,579 |
+|     range     | prime numbers |
+|--------------:|--------------:|
+|            10 |             4 |
+|           100 |            25 |
+|         1,000 |           168 |
+|        10,000 |         1,229 |
+|       100,000 |         9,592 |
+|     1,000,000 |        78,498 |
+|    10,000,000 |       664,579 |
+|   100,000,000 |     5,761,455 |
+| 1,000,000,000 |    50,847,534 |
 
 
 ## Faster algorithms
 
 Already in 1991 I found faster ways to calculate prime numbers. By 2024 I have already 8 improvements to the very algorithm to calculate the prime numbers in a certain range.
 
-- v0.9.1991	compare result of division to division with truncated decimal places
+- v0.8.1991	compare result of division to division with truncated decimal places
+- v0.9.1991 use only divisors until the squareroot of the investigated number
 - v1.0.1991	start with 11 in steps of 2 and use odd dividers from 3 on
 - v1.1.2000	store result of the division, then check for decimal places
 - v2.0.2022	use modulo operator for comparison
 - v3.0.2023	put check for prime into a function
 - v4.0.2023	write code to execute it in parallel
-- v5.0.2023	calculate the prime numbers to the square root of the largest number, use these prime numbers as dividers for the remaining numbers
+- v5.0.2023	calculate the prime numbers to the square root of the largest number, use these prime numbers as divisors for the remaining numbers
 - v6.0.2024	make v5.0 in parallel without problems in the racing conditions
 
 ### Speed results
