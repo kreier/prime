@@ -1,4 +1,4 @@
-prime v3.0.2023
+prime v3.0.2023 in python
 Intel(R) Core(TM) i3-10100 CPU @ 3.60GHz
-Primes to 100 took 36.8 microseconds.
+Primes to 100 took 33.4 microseconds.
 Found 25 primes. Should be 25.
