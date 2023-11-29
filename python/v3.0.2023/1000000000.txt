@@ -1,4 +1,4 @@
-prime v3.0.2023
+prime v3.0.2023 in python
 Intel(R) Core(TM) i3-10100 CPU @ 3.60GHz
-Primes to 1000000000 took 163944482520.9 microseconds.
-Found 50847534 primes. Should be 123456789.
+Primes to 1000000000 took 30526004359.4 microseconds.
+Found 50847534 primes. Should be 50847534.
