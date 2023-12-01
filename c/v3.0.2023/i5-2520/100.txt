@@ -1,0 +1,4 @@
+Calculating prime numbers until 100 in C v3.0.2023
+Found 25 prime numbers. It should be 25.
+This took 0.000008 seconds.
+

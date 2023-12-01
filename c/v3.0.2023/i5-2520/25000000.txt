@@ -1,0 +1,4 @@
+Calculating prime numbers until 25000000 in C v3.0.2023
+Found 1565927 prime numbers. It should be 1565927.
+This took 37.879001 seconds.
+
