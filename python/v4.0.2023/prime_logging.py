@@ -5,6 +5,7 @@ import math, time, cpuinfo, multiprocessing
 
 scope = [100, 1000, 10000, 100000, 1000000, 10000000, 25000000, 100000000, 1000000000]
 reference = [25, 168, 1229, 9592, 78498, 664579, 1565927, 5761455, 50847534]
+time_calc = [0, 0, 0, 0, 0, 0, 0, 0, 0]
 
 def is_prime(number):
     flag_prime = True
@@ -42,3 +43,12 @@ if __name__ == "__main__":
             fp.write(f'\nPrimes to {last} took {(end - start)/1000} microseconds.\n')
             fp.write(f'Found {found} primes. Should be {reference[i]}.\n')
             fp.write(f'We used {multiprocessing.cpu_count()} parallel processes.\n')
+        time_calc[i] = (end - start)/1000
+    with open("summary.txt", "w")as fp:
+        fp.write('Summary of prime v4.0.2023 in python\n')
+        fp.write(cpuinfo.get_cpu_info()['brand_raw'])
+        fp.write('\n     last       time in microseconds\n')
+        for i in range(len(scope)):
+            skip = " " * int(10.9 - math.log10(scope[i]))
+            fp.write(skip)
+            fp.write(f'  {scope[i]}   {time_calc[i]} \n')
