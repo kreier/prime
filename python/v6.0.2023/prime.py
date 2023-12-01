@@ -1,7 +1,5 @@
 # prime v5.0.2023 with primes as a divider list
-
 import math, time
-
 def is_prime(number):
     global found
     flag_prime = 1
@@ -10,7 +8,6 @@ def is_prime(number):
             flag_prime = 0
             break
     return flag_prime
-
 def find_primes(largest):
     global primes
     global found
@@ -18,7 +15,6 @@ def find_primes(largest):
         if is_prime(number) > 0:
             found += 1
             primes.append(number)
-
 def is_prime_fast(number):
     global found
     flag_prime = 1
@@ -30,7 +26,6 @@ def is_prime_fast(number):
         if divider > largest_divider:
             break
     return flag_prime
-
 if __name__ == "__main__":
     last  = 1000000        # 1 million is a good comparison value
     found = 4              # we start from 11, know 2, 3, 5, 7
@@ -43,7 +38,6 @@ if __name__ == "__main__":
     print(f'First find prime dividers up to {largest_divider}.')
     find_primes(largest_divider)
     print(f'Found {found} primes, now use them als dividers.')
-    print(primes)
     for number in range(largest_divider + 2, last, 2):
         found += is_prime_fast(number)
     end = time.perf_counter_ns()
