@@ -1,0 +1,4 @@
+prime v5.0.2023 in python
+Apple M1
+Primes to 1000 took 170.0 microseconds.
+Found 168 primes. Should be 168.

@@ -1,0 +1,4 @@
+prime v5.0.2023 in python
+Apple M1
+Primes to 100 took 36.333 microseconds.
+Found 25 primes. Should be 25.
