@@ -1,0 +1,5 @@
+prime v6.0.2023 in python
+Intel(R) Core(TM) i3-10100 CPU @ 3.60GHz
+Primes to 100 took 209715.1 microseconds.
+Found 25 primes. Should be 25.
+We used 8 parallel processes.
