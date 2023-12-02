@@ -1,0 +1,5 @@
+prime v4.0.2023 in python
+Intel(R) Core(TM) i5-2520M CPU @ 2.50GHz
+Primes to 1000 took 417758.5 microseconds.
+Found 168 primes. Should be 168.
+We used 4 parallel processes.
