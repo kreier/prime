@@ -1,0 +1,4 @@
+prime v5.0.2023 in python
+Apple M1
+Primes to 1000000 took 425789.75 microseconds.
+Found 78498 primes. Should be 78498.
