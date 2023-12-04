@@ -3,17 +3,16 @@
 [![GitHub release](https://img.shields.io/github/release/kreier/prime.svg)](https://GitHub.com/kreier/prime/releases/)
 [![MIT license](https://img.shields.io/github/license/kreier/prime)](https://kreier.mit-license.org/)
 
-This is just a simple benchmark tool to compare algorithms, programming languages and CPUs from microcomputers to workstations. I've been using this calculation since 1989. It is still usefull for microcontrollers like the T-Display with a esp32s2:
+This is just a simple benchmark tool to compare algorithms, programming languages and CPUs from microcomputers to workstations. I've been using this calculation since 1989. It is still usefull for microcontrollers like the T-Display with an esp32s2:
 
 ![T-Display with esp32s2](circuitpython/t-display.jpg)
 
-The code is only 16 lines short:
+The code is only 14 lines short:
 
 ``` py
-import math, time
-last = 1000000
-found = 4             # we start from 11, know 2, 3, 5, 7
-print(f"Prime numbers to {last}")
+import math, time                    # v2.0.2022 in Python
+last, found = 1000000, 4             # we start from 11, know already 2, 3, 5, 7
+print(f"Calculating prime numbers to {last}.")
 start = time.monotonic()
 for number in range(11, last, 2):
     prime = True
@@ -24,13 +23,12 @@ for number in range(11, last, 2):
     if prime:
         found += 1
 end = time.monotonic()
-print(f"This took: {(end - start)} seconds.")
-print(f"I found {found} prime numbers.")
+print(f"This took: {(end - start)} seconds. I found {found} prime numbers.")
 ```
 
-## Does my code work
+## Does my code work?
 
-A quick check (aside from obvious mistakes with even prime numbers as result) you can check how many primes your code finds to check if it works correctly:
+A quick check to see if the code works as intended is the number of primes it finds in a certain range:
 
 |     range     | prime numbers |
 |--------------:|--------------:|
@@ -45,9 +43,9 @@ A quick check (aside from obvious mistakes with even prime numbers as result) yo
 | 1,000,000,000 |    50,847,534 |
 
 
-## Faster algorithms
+## Better and faster algorithms
 
-Already in 1991 I found faster ways to calculate prime numbers. By 2024 I have already 8 improvements to the very algorithm to calculate the prime numbers in a certain range.
+A faster way to calculate the prime numbers was already implemented 1991 in Omicron Basic on a Atari ST. By 2024 I collected 8 improvements to the algorithm.
 
 - v0.8.1991	compare result of division to division with truncated decimal places
 - v0.9.1991 use only divisors until the squareroot of the investigated number
@@ -59,17 +57,18 @@ Already in 1991 I found faster ways to calculate prime numbers. By 2024 I have a
 - v5.0.2023	calculate the prime numbers to the square root of the largest number, use these prime numbers as divisors for the remaining numbers
 - v6.0.2024	make v5.0 in parallel without problems in the racing conditions
 
-### Speed results
+## Increasing the speed - four parameters of the runtime
 
 Table will follow.
 
-Higher speed is possible with:
+The runtime depends on four variables, considering only single-threaded use:
 
-- better algorithm
-- faster computer
-- faster language
+- Used Algorithm (e.g. 34x for v0.9 to v5.0 in Python)
+- Used programming language (c. 16x vor v5.0 from Python to C)
+- Faster CPU (c. 2.1x for v5.0 Python from i5-2520M 3.2GHz to i3-10100 4.2 GHz)
+- Used range to investigate (e.g. 23x longer for 10x larger range 100 million instead of 10 million in Python v5.0)
 
-The increase depends on the chosen range. For a small range the overhead from multithreading is larger than the gain, the code gets slower. So I chose one billion - 1,000,000,000 - as reference value. For my little microcontrollers like esp32s2 and rp2040 this means days of work, but you better see the improvements in the algorithms. 
+The increase depends on the chosen range. For a small range the overhead from multithreading could be larger than the gain, the code gets actually slower. So I chose one billion - 1,000,000,000 - as reference value. For my little microcontrollers like esp32s2 and rp2040 this means days of work, but you better see the improvements in the algorithms. 
 
 ## Higher speed with other programming language - comparison on a M1 Mac
 
