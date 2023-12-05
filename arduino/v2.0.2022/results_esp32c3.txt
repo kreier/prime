@@ -1,13 +1,13 @@
 Calculating prime numbers in Arduino C v2.0.2022
 2023/12/05
-Raspberry Pico 2040 with 125 MHz
+ESP32 C3 with 160 MHz
 
     last       time in seconds
           100          0.000893
         1,000          0.019721
        10,000          0.437942
       100,000         10.278521
-    1,000,000         
+    1,000,000        254.600052 
    10,000,000       
    25,000,000       
   100,000,000      

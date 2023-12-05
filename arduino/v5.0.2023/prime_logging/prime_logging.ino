@@ -2,10 +2,10 @@
 #include <time.h>
 #include <math.h>
 
-int last = 10000000;
 double start;
 int column = 10;
 int found = 4;   // we already know 2, 3, 5, 7
+int divisors = found;
 int primes[10000] = {3, 5, 7};
 
 int is_prime(int number) {
@@ -28,15 +28,20 @@ int find_primes(int limit) {
       found++;
     }
   }
-  primes[found-1] = limit;
+  primes[found - 1] = limit;
+  divisors = found - 1;
   return 1;
 }
 
 int is_prime_fast(int number) {
   int largest_divider = (int)(sqrt(number));
   int flag_prime = 1;
-  for(int i=0; i < found; i++)
+  // Serial.print(number);
+  // Serial.print(" - ");
+  for(int i=0; i < divisors; i++)
   {
+    // Serial.print(primes[i]);
+    // Serial.print(" ");
     if(number % primes[i] == 0) 
     {
       flag_prime = 0;
@@ -47,6 +52,7 @@ int is_prime_fast(int number) {
       break;
     }
   }
+  // Serial.print("\n");
   return flag_prime;
 }
 
@@ -77,7 +83,7 @@ void loop() {
   for (int i = 0; i < 9; i++)
   {
     int last = scope[i];
-    int found = 4;   // we already know 2, 3, 5, 7
+    found = 4;   // we already know 2, 3, 5, 7
     Serial.println("\n\nPrime v5.0 in Arduino C 2023/12/06");
     Serial.print("Calculating prime numbers until ");
     Serial.println(last);
@@ -113,14 +119,20 @@ void loop() {
         }
       }
     }
+    float duration = (micros() - start)/1000000;
+    if(duration > 2) {
+      Serial.print("\n");
+    }    
     Serial.print("Found ");
     Serial.print(found);
     Serial.print(" prime numbers. It should be ");
     Serial.print(reference[i]);
     Serial.print(".\nThis took ");
-    Serial.print((micros() - start)/1000000, 3);
-    Serial.println(" seconds.");
+    Serial.print(duration, 6);
+    Serial.print(" seconds.");
+    elapsed_time(duration);    
   }
+  // program finished, just keep printing some dots  
   for(int line = 0; line < 24; line++){
     for(int i = 0; i < 80; i++) {
       Serial.print(".");
