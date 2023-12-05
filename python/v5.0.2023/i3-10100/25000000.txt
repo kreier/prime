@@ -1,0 +1,4 @@
+prime v5.0.2023 in python
+Intel(R) Core(TM) i3-10100 CPU @ 3.60GHz
+Primes to 25000000 took 58618372.5 microseconds. 0h 0min 58s
+Found 1565927 primes. Should be 1565927.
