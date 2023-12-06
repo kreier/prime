@@ -111,7 +111,7 @@ void loop() {
         column += 1;
         if(column > 40) {
           column = 0;
-          elapsed_time(dot/1000);
+          elapsed_time((millis() - start)/1000);
           Serial.print(" - ");
           Serial.print(number);
           Serial.print(" ");
