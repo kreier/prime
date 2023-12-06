@@ -1,4 +1,4 @@
-/* Prime numbers in Arduino C v5.1 2023/12/06 */
+/* Prime numbers in Arduino C v5.1 millis 2023/12/06 */
 #include <time.h>
 #include <math.h>
 
@@ -84,10 +84,10 @@ void loop() {
   {
     int last = scope[i];
     found = 4;   // we already know 2, 3, 5, 7
-    Serial.println("\n\nPrime v5.0 in Arduino C 2023/12/06");
+    Serial.println("\n\nPrime v5.1 millis in Arduino C 2023/12/06");
     Serial.print("Calculating prime numbers until ");
     Serial.println(last);
-    start = micros();      // use micros() for more precision
+    start = millis();      // use micros() for more precision
     // Serial.println(start/1000000, 6);
     int largest_divider = (int)(sqrt(last)); 
     if(largest_divider % 2 == 0)
@@ -120,7 +120,7 @@ void loop() {
         }
       }
     }
-    float duration = (micros() - start)/1000000;
+    float duration = (millis() - start)/1000;
     if(duration > 2) {
       Serial.print("\n");
     }    
@@ -129,7 +129,7 @@ void loop() {
     Serial.print(" prime numbers. It should be ");
     Serial.print(reference[i]);
     Serial.print(".\nThis took ");
-    Serial.print(duration, 6);
+    Serial.print(duration, 3);
     Serial.print(" seconds.");
     elapsed_time(duration);    
   }
