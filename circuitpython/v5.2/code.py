@@ -1,4 +1,4 @@
-# prime v5.1 2023-12-06
+# prime v5.2 2023-12-07
 # cycles through limits and writes to the filesystem
 
 import math, time, digitalio, board, os
@@ -66,8 +66,8 @@ if __name__ == "__main__":
                     t = elapsed_time(time.monotonic() - start)
                     print(f" {t} - {number} {int(number*100/last)}% ")
                     column = 1                
-        end = time.monotonic()
-        print(f'This took: {(end - start)} seconds.')
+        duration = time.monotonic() - start
+        print(f'This took: {duration} seconds. {elapsed_time(duration)}')
         print(f'Found {found} primes.')
         filename = "/" + str(last) + ".txt"
     #    with open(filename, "w") as fp:
