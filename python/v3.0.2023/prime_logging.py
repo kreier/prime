@@ -15,6 +15,12 @@ def is_prime(number):
             break
     return flag_prime
 
+def elapsed_time(seconds):
+    hours = int(seconds/3600)
+    minutes = int(seconds/60 - hours*60)
+    sec = int(seconds - minutes*60 - hours*3600)
+    return(f"{hours}h {minutes}min {sec}s")
+
 if __name__ == "__main__":
     for i in range(len(scope)):
         last = scope[i]
@@ -22,11 +28,23 @@ if __name__ == "__main__":
         primes = [3, 5, 7]     # exclude 2 since we only test odd numbers    
         print(f"Prime numbers to {last} in Python with algorithm v3.0.2023")
         start = time.perf_counter_ns()
+        dot = start
+        column = 1        
         for number in range(11, last, 2):
             if is_prime(number):
                 found += 1
+            if (time.perf_counter_ns() - dot) > 2000000000:
+                print(".", end="")
+                dot = time.perf_counter_ns()
+                column += 1
+                if column > 30:
+                    t = elapsed_time((time.perf_counter_ns() - start)/1000000000)
+                    print(f" {t} - {number} {int(number*100/last)}% ")
+                    column = 1                
         end = time.perf_counter_ns()
-        print(f"This took: {(end - start)/1000} microseconds.")
+        if (end - start)/1000000000 > 2:
+            print(" ")        
+        print(f"This took: {(end - start)/1000} microseconds. {elapsed_time((end - start)/1000000000)}")
         print(f"I found {found} prime numbers. Should be {reference[i]}.\n")
         filename = str(last) + ".txt"
         with open(filename, "w") as fp:
