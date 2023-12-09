@@ -40,6 +40,8 @@ if __name__ == "__main__":
                     print(f" {t} - {number} {int(number*100/last)}% ")
                     column = 1                
         end = time.perf_counter_ns()
+        if (end - start)/1000000000 > 2:
+            print(" ")        
         print(f"This took: {(end - start)/1000} microseconds. {elapsed_time((end - start)/1000000000)}")
         print(f"I found {found} prime numbers. Should be {reference[i]}.\n")
         filename = str(last) + ".txt"

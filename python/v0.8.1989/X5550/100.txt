@@ -1,0 +1,4 @@
+prime v0.8.1989 in python
+Intel(R) Xeon(R) CPU           X5550  @ 2.67GHz
+Primes to 100 took 513.0 microseconds.
+Found 25 primes. Should be 25.
