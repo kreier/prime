@@ -1,5 +1,6 @@
 # prime v2.0.2022 with modulo operator 
 # cycles through limits and writes to the filesystem
+# 2023/12/09
 
 import math, time, os, cpuinfo
 

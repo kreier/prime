@@ -1,4 +1,4 @@
-# prime v6.0.2023
+# prime v6.0.2023 - 2023/12/09
 # cycles through limits and writes to the filesystem
 
 import math, time, cpuinfo, multiprocessing
@@ -41,6 +41,12 @@ def is_prime_fast(number):
             break
     return flag_prime
 
+def elapsed_time(seconds):
+    hours = int(seconds/3600)
+    minutes = int(seconds/60 - hours*60)
+    sec = int(seconds - minutes*60 - hours*3600)
+    return(f"{hours}h {minutes}min {sec}s")
+
 if __name__ == "__main__":
     for i in range(len(scope)):
         last = scope[i]
@@ -54,7 +60,7 @@ if __name__ == "__main__":
             if nr > 0:
                 found += 1 
         end = time.perf_counter_ns()
-        print(f"This took: {(end - start)/1000} microseconds.")
+        print(f"This took: {(end - start)/1000} microseconds.  {elapsed_time((end - start)/1000000000)}")
         print(f"I found {found} prime numbers. Should be {reference[i]}.")
         print(f"We used {multiprocessing.cpu_count()} parallel processes.\n")
 

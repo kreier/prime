@@ -1,4 +1,4 @@
-# prime v1.0.1991 2023/12/09
+# prime v1.0.1991  
 # cycles through limits and writes to the filesystem
 
 import math, time, os, cpuinfo
