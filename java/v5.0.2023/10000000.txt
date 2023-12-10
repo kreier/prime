@@ -1,0 +1,2 @@
+Calculation prime numbers v5.0.2023 in Java to 10000000.
+This took me 0.672398 seconds. 
