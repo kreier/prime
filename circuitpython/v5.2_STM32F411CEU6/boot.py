@@ -1,20 +1,23 @@
-# toggle the write switch to the local file system 2023/12/11
+# toggle the write switch to the local file system - signal LED 2023/12/11 STM32F411CEU6
 
 import time
 import board
 import digitalio
 import storage
 
-button_pin = board.BUTTON_L
+button_pin = board.A0
 # T-Display rp2040     board.BUTTON_L    False if pressed
 # T-Display ESP32-S2   board.IO0
-
-button = digitalio.DigitalInOut(button_pin)
-button.direction = digitalio.Direction.INPUT
+# YD-ESP32-S3 N16R8    board.BOOT        or GPIO0
+# STM32F411CEU6        board.A0          is the KEY button, needs digitalio.Pull.UP
 
 led = digitalio.DigitalInOut(board.LED)
 led.direction = digitalio.Direction.OUTPUT
-led.value = True
+led.value = False
+
+button = digitalio.DigitalInOut(board.A0)
+button.direction = digitalio.Direction.INPUT
+button.pull = digitalio.Pull.UP
 
 time.sleep(1)
 timer = 5
@@ -25,7 +28,7 @@ while end - time.monotonic() > 0:
     if not button.value:
         print("write access activated")
         storage.remount("/", False)
-        led.value = False
+        led.value = True
     if end - timer + 1 < time.monotonic():
         timer -= 1
         print(timer)
