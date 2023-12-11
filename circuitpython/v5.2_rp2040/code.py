@@ -6,9 +6,6 @@ import math, time, digitalio, board, os
 scope = [100, 1000, 10000, 100000, 1000000, 10000000, 25000000, 100000000, 1000000000]
 reference = [25, 168, 1229, 9592, 78498, 664579, 1565927, 5761455, 123456789]
 
-led = digitalio.DigitalInOut(board.LED)
-led.direction = digitalio.Direction.OUTPUT
-
 def is_prime(number):
     global found
     flag_prime = 1
