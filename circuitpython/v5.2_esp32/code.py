@@ -1,10 +1,15 @@
-# prime v5.0
+# prime v5.2 2023-12-11 for esp32 doit
 # cycles through limits and writes to the filesystem
 
 import math, time, digitalio, board, os
 
 scope = [100, 1000, 10000, 100000, 1000000, 10000000, 25000000, 100000000, 1000000000]
 reference = [25, 168, 1229, 9592, 78498, 664579, 1565927, 5761455, 123456789]
+time_calc = [0, 0, 0, 0, 0, 0, 0, 0, 0]
+
+led = digitalio.DigitalInOut(board.LED)
+led.direction = digitalio.Direction.OUTPUT
+led.value = True
 
 def is_prime(number):
     global found
@@ -35,13 +40,25 @@ def is_prime_fast(number):
             break
     return flag_prime
 
+def elapsed_time(seconds):
+    hours = int(seconds/3600)
+    minutes = int(seconds/60 - hours*60)
+    sec = int(seconds - minutes*60 - hours*3600)
+    return(f"{hours}h {minutes}min {sec}s")
+
+def lightshow():
+    led.value = not led.value
+    time.sleep(0.1)
+
 if __name__ == "__main__":
-    for i in range(len(scope)):
+    for i in range(len(scope)): # len(scope)
         last = scope[i]
         found = 4              # we start from 11, know 2, 3, 5, 7
         primes = [3, 5, 7]     # exclude 2 since we only test odd numbers
-        print(f"\nPrime numbers to {last}")
+        print(f"\nPrime numbers to {last} in v5.1")
         start = time.monotonic()
+        dot = start
+        column = 1
         largest_divider = int(math.sqrt(last))
         if largest_divider % 2 == 0:
             largest_divider += 1
@@ -50,15 +67,42 @@ if __name__ == "__main__":
         print(f'Found {found} primes, now use them als dividers.')
         for number in range(largest_divider + 2, last, 2):
             found += is_prime_fast(number)
-        end = time.monotonic()
-        print(f'This took: {(end - start)} seconds.')
+            if (time.monotonic() - dot) > 2:
+                print(".", end="")
+                dot = time.monotonic()
+                column += 1
+                led.value = not led.value
+                if column > 30:
+                    t = elapsed_time(time.monotonic() - start)
+                    print(f" {t} - {number} {int(number*100/last)}% ")
+                    column = 1
+        duration = time.monotonic() - start
+        print(f'This took: {duration} seconds. {elapsed_time(duration)}')
         print(f'Found {found} primes.')
         filename = "/" + str(last) + ".txt"
-        with open(filename, "w") as fp:
-            fp.write(board.board_id)
-            fp.write(f'\nPrimes to {last} took {(end - start)} seconds.')
-            fp.write(f'\nFound {found} primes. Should be {reference[i]}.')
-        print('Exported to filesystem ')
-        #print(board.board_id)
+        try:
+            with open(filename, "w") as fp:
+                fp.write(board.board_id)
+                fp.write(f'\nPrimes to {last} took {duration} seconds. {elapsed_time(duration)}')
+                fp.write(f'\nFound {found} primes. Should be {reference[i]}.')
+                print('Exported to filesystem ')
+        except:
+            print("Can't write to the filesystem. Press reset and after that the boot button in the first 5 seconds")
         #print(f'Primes to {last} took {(end - start)} seconds.')
         #print(f'Found {found} primes. Should be {reference[i]}.')
+        time_calc[i] = duration
+    print('\nWrite summary')
+    try:
+        with open("summary.txt", "w") as fp:
+            fp.write(f'Primes calculation in Circuitpython v5.2 2023/12/11\n')
+            fp.write(board.board_id)
+            fp.write('\n last       time in seconds\n')
+            for i in range(len(time_calc)):
+                fp.write(f' {scope[i]}   {time_calc[i]}\n')
+            print('Exported to filesystem ')
+    except:
+        print("Can't write to the filesystem. Press reset and after that the boot button in the first 5 seconds")
+   
+
+while True:
+    lightshow()
