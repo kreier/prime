@@ -1,0 +1,3 @@
+lilygo_ttgo_t8_s2_st7789
+Primes to 1000000000 took 666036.0 seconds.
+Found 50847534 primes. Should be 123456789.
