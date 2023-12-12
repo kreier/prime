@@ -19,7 +19,8 @@ void elapsed_time(int seconds) {
 }
 
 void setup() {
-  Serial.begin(115200);
+  Serial.begin(74880);
+  pinMode(LED_BUILTIN, OUTPUT);
 }
 
 void loop() {
@@ -63,9 +64,16 @@ void loop() {
         Serial.print(".");
         dot = millis();
         column += 1;
+        if(column % 2 == 0) {
+          digitalWrite(LED_BUILTIN, HIGH);
+        }
+        else
+        {
+          digitalWrite(LED_BUILTIN, LOW);
+        }
         if(column > 40) {
           column = 0;
-          elapsed_time(dot/1000);
+          elapsed_time((micros() - start)/1000000);
           Serial.print("- ");
           Serial.print(number);
           Serial.print(" ");
