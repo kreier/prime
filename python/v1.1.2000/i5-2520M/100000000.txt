@@ -1,0 +1,4 @@
+prime v1.1.2000 in python
+Intel(R) Core(TM) i5-2520M CPU @ 2.50GHz
+Primes to 100000000 took 10672338771.5 microseconds.
+Found 5761455 primes. Should be 5761455.
