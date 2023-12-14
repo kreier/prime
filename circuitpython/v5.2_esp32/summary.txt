@@ -1,0 +1,12 @@
+Primes calculation in Circuitpython v5.2 2023/12/11
+doit_esp32_devkit_v1
+ last       time in seconds
+ 100   0.0205078
+ 1000   0.12793
+ 10000   1.77051
+ 100000   30.5742
+ 1000000   0
+ 10000000   0
+ 25000000   0
+ 100000000   0
+ 1000000000   0
