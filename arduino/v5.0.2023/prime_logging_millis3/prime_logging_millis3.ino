@@ -6,7 +6,7 @@ double start;
 int column = 10;
 int found = 4;   // we already know 2, 3, 5, 7
 int divisors = found;
-int primes[10000] = {3, 5, 7};
+int primes[3500] = {3, 5, 7}; // only 3401 primes to 31623 = sqrt(1 billion)
 
 int is_prime(int number) {
   int prime = 1;
@@ -26,6 +26,9 @@ int find_primes(int limit) {
     if( is_prime(number) == 1) {
       primes[found - 1] = number;
       found++;
+      if( found % 100 == 0) {  // without these 3 lines 
+        Serial.print(".");     // it crashes for 1 billion
+      }                        // on the ESP8266
     }
   }
   primes[found - 1] = limit;
@@ -36,12 +39,8 @@ int find_primes(int limit) {
 int is_prime_fast(int number) {
   int largest_divider = (int)(sqrt(number));
   int flag_prime = 1;
-  // Serial.print(number);
-  // Serial.print(" - ");
   for(int i=0; i < divisors; i++)
   {
-    // Serial.print(primes[i]);
-    // Serial.print(" ");
     if(number % primes[i] == 0) 
     {
       flag_prime = 0;
@@ -52,7 +51,6 @@ int is_prime_fast(int number) {
       break;
     }
   }
-  // Serial.print("\n");
   return flag_prime;
 }
 
@@ -81,7 +79,7 @@ void loop() {
   }
   const int scope[] = {100, 1000, 10000, 100000, 1000000, 10000000, 25000000, 100000000, 1000000000};
   const int reference[] = {25, 168, 1229, 9592, 78498, 664579, 1565927, 5761455, 50847534};
-  for (int i = 0; i < 9; i++) // 9
+  for (int i = 8; i < 9; i++) // 9
   {
     int last = scope[i];
     found = 4;   // we already know 2, 3, 5, 7
@@ -89,12 +87,11 @@ void loop() {
     Serial.print("Calculating prime numbers until ");
     Serial.println(last);
     start = millis();      // use micros() for more precision
-    // Serial.println(start/1000000, 6);
     int largest_divider = (int)(sqrt(last)); 
     if(largest_divider % 2 == 0)
     {
       largest_divider += 1;
-    }
+    }   
     find_primes(largest_divider);
     Serial.print("Found ");
     Serial.print(found);
@@ -146,7 +143,7 @@ void loop() {
     for(int i = 0; i < 80; i++) {
       for(int x = 0; x < 10; x++) {
         digitalWrite(LED_BUILTIN, HIGH);  // turn the LED on (HIGH is the voltage level)
-        delay(50);                       // wait for a second
+        delay(50);                        // wait 
         digitalWrite(LED_BUILTIN, LOW);   // turn the LED off by making the voltage LOW
         delay(50);   
       }
