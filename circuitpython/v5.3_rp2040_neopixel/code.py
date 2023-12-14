@@ -1,4 +1,4 @@
-# prime v5.2 2023-12-07
+# prime v5.2 2023-12-14 for Raspberry Pico 2040
 # cycles through limits and writes to the filesystem
 
 import math, time, digitalio, board, os, neopixel
@@ -11,6 +11,7 @@ led = neopixel.NeoPixel(board.NEOPIXEL, 1)
 led.brightness = 0.3
 RED   = (255, 0, 0)
 GREEN = (0, 255, 0)
+BLUE  = (0, 0, 255)
 led[0] = RED
 
 def is_prime(number):
@@ -49,14 +50,15 @@ def elapsed_time(seconds):
     return(f"{hours}h {minutes}min {sec}s")
 
 def lightshow():
-    led[0] = RED
-    time.sleep(0.5)
-    led[0] = GREEN
-    time.sleep(0.5)
-    led[0] = BLUE
-    time.sleep(0.5)    
+    for i in range(3141):
+        R = abs(255*math.sin(i/100))
+        G = abs(255*math.sin((i+105)/100))
+        B = abs(255*math.sin((i+210)/100))
+        led[0] = (R, G, B)
+        time.sleep(0.002)
 
 if __name__ == "__main__":
+    lightshow()
     for i in range(len(scope)):
         last = scope[i]
         found = 4              # we start from 11, know 2, 3, 5, 7
@@ -77,6 +79,10 @@ if __name__ == "__main__":
                 print(".", end="")
                 dot = time.monotonic()
                 column += 1
+                if column % 2 == 0:
+                    led[0] = BLUE
+                else:
+                    led[0] = GREEN
                 if column > 30:
                     t = elapsed_time(time.monotonic() - start)
                     print(f" {t} - {number} {int(number*100/last)}% ")
