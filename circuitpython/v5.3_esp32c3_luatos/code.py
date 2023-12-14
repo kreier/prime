@@ -7,12 +7,9 @@ scope = [100, 1000, 10000, 100000, 1000000, 10000000, 25000000, 100000000, 10000
 reference = [25, 168, 1229, 9592, 78498, 664579, 1565927, 5761455, 123456789]
 time_calc = [0, 0, 0, 0, 0, 0, 0, 0, 0]
 
-led = digitalio.DigitalInOut(board.IO4)
+led = digitalio.DigitalInOut(board.LED)
 led.direction = digitalio.Direction.OUTPUT
 led.value = True
-led2 = digitalio.DigitalInOut(board.IO5)
-led2.direction = digitalio.Direction.OUTPUT
-led2.value = True
 
 def is_prime(number):
     global found
@@ -50,12 +47,9 @@ def elapsed_time(seconds):
     return(f"{hours}h {minutes}min {sec}s")
 
 def lightshow():
-    led.value = True
-    led2.value = False
     for i in range(10):
-        led2.value = led.value
         led.value = not led.value
-        time.sleep(0.002)
+        time.sleep(0.2)
 
 if __name__ == "__main__":
     lightshow() 
@@ -81,10 +75,8 @@ if __name__ == "__main__":
                 column += 1
                 if column % 2 == 0:
                     led.value = True
-                    led2.value = not led.value
                 else:
                     led.value = False
-                    led2.value = not led.value
                 if column > 30:
                     t = elapsed_time(time.monotonic() - start)
                     print(f" {t} - {number} {int(number*100/last)}% ")
