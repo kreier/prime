@@ -1,0 +1,4 @@
+prime v1.1.2000 in python
+Intel(R) Xeon(R) CPU           X5550  @ 2.67GHz
+Primes to 1000000000 took 279719653319.8 microseconds.
+Found 50847534 primes. Should be 50847534.
