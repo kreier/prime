@@ -1,0 +1,3 @@
+ESP8266 with 80.0 MHz
+Primes to 1000000 took 496.087 seconds. 0h 8min 16s
+Found 78498 primes. Should be 78498.
