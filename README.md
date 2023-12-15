@@ -26,26 +26,20 @@ end = time.monotonic()
 print(f"This took: {(end - start)} seconds. I found {found} prime numbers.")
 ```
 
-## Does my code work?
+## Increasing the speed - four parameters determine the runtime of the calculation
 
-A quick check to see if the code works as intended is the number of primes it finds in a certain range:
+The runtime depends on four variables. Multicore can be considered under algorithm and is represented in v4.0 and c6.0:
 
-|     range     | prime numbers |
-|--------------:|--------------:|
-|            10 |             4 |
-|           100 |            25 |
-|         1,000 |           168 |
-|        10,000 |         1,229 |
-|       100,000 |         9,592 |
-|     1,000,000 |        78,498 |
-|    10,000,000 |       664,579 |
-|   100,000,000 |     5,761,455 |
-| 1,000,000,000 |    50,847,534 |
+- Used __Algorithm__ (e.g. 34x for v0.9 to v5.0 in Python)
+- Used __programming language__ (c. 16x vor v5.0 from Python to C)
+- __CPU__ running the algorithm (c. 2.1x for v5.0 Python from i5-2520M 3.2GHz to i3-10100 4.2 GHz)
+- __Used range__ to investigate (e.g. 23x longer for 10x larger range 100 million instead of 10 million in Python v5.0)
 
-
-## Better and faster algorithms
+### Better and faster algorithms
 
 A faster way to calculate the prime numbers was already implemented 1991 in Omicron Basic on a Atari ST. By 2024 I collected 8 improvements to the algorithm.
+
+![graph algorithm](docs/comparison_algorithms.png)
 
 - v0.8.1991	compare result of division to division with truncated decimal places
 - v0.9.1991 use only divisors until the squareroot of the investigated number
@@ -57,22 +51,22 @@ A faster way to calculate the prime numbers was already implemented 1991 in Omic
 - v5.0.2023	calculate the prime numbers to the square root of the largest number, use these prime numbers as divisors for the remaining numbers
 - v6.0.2024	make v5.0 in parallel without problems in the racing conditions
 
-## Increasing the speed - four parameters of the runtime
+### Higher speed with other programming language
 
-Table will follow.
+The same algorithm compiled in C for the prime numbers to 1,000,000 need just 0.049 seconds while Python3 needs 2.26 seconds to interpret the code and give the answer on my M1 Macbook.
 
-The runtime depends on four variables, considering only single-threaded use:
+![graph language](docs/comparison_languages.png)
 
-- Used Algorithm (e.g. 34x for v0.9 to v5.0 in Python)
-- Used programming language (c. 16x vor v5.0 from Python to C)
-- Faster CPU (c. 2.1x for v5.0 Python from i5-2520M 3.2GHz to i3-10100 4.2 GHz)
-- Used range to investigate (e.g. 23x longer for 10x larger range 100 million instead of 10 million in Python v5.0)
+With this simple example some 20x improvements can be seen. But the development does not stop, interpreters are getting faster and with special modules for special tasks a "slow" language might no longer be slow at all. While having the benefit of being easier to develop, prototype and maintain.
 
-The increase depends on the chosen range. For a small range the overhead from multithreading could be larger than the gain, the code gets actually slower. So I chose one billion - 1,000,000,000 - as reference value. For my little microcontrollers like esp32s2 and rp2040 this means days of work, but you better see the improvements in the algorithms. 
+### Faster with a different CPU
 
-## Higher speed with other programming language - comparison on a M1 Mac
+Interestingly the improvement in CPU performance for this specific task is not as large as the increase in the frequency these chips run. The range from 16MHz on the Atmel826P for the Arudino Uno to the 4200MHz for the i3-10100 brings a speed improvement of 262x. And 64bit instead of 8 bit can bring another 8x just from the data and instruction side. With long prediction pipelines the increase in IPC over the years is still significant.
 
-The same algorithm compiled in C for the prime numbers to 1,000,000 need just 0.049 seconds while Python3 needs 2.26 seconds to interpret the code and give the answer.
+![graph cpu](docs/comparison_cpus.png)
+
+
+### Details to higher speed with a different programming language
 
 |      language       | prime numbers | factor |
 |--------------------:|--------------:|-------:|
@@ -85,7 +79,7 @@ The same algorithm compiled in C for the prime numbers to 1,000,000 need just 0.
 
 And the code from fast to slow:
 
-### C in 0.0498 seconds
+#### C in 0.0498 seconds
 
 ``` c
 #include <stdio.h>
@@ -126,7 +120,7 @@ int main() {
 }
 ```
 
-### Java with OpenJDK 17.0.6 in 0.066340542 seconds
+#### Java with OpenJDK 17.0.6 in 0.066340542 seconds
 
 ``` java
 class prime {
@@ -156,7 +150,7 @@ class prime {
 }
 ```
 
-### Python 3.9.12 in 2.2611 seconds
+#### Python 3.9.12 in 2.2611 seconds
 
 ``` py
 import math, time
@@ -243,6 +237,21 @@ And now in Arduino C
 
 ![T-Display with esp32s2](https://github.com/ssisbit/ssis.bit/blob/main/docs/ssis.bit_2022-01-06.jpg)
 
+## Does my code work?
+
+A quick check to see if the code works as intended is the number of primes it finds in a certain range:
+
+|     range     | prime numbers |
+|--------------:|--------------:|
+|            10 |             4 |
+|           100 |            25 |
+|         1,000 |           168 |
+|        10,000 |         1,229 |
+|       100,000 |         9,592 |
+|     1,000,000 |        78,498 |
+|    10,000,000 |       664,579 |
+|   100,000,000 |     5,761,455 |
+| 1,000,000,000 |    50,847,534 |
 
 ## Faster with Multithreading - 4.9x faster
 
