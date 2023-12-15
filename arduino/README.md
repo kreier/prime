@@ -1,14 +1,14 @@
-# Calculation prime on Arduiono UNO and ESP8266
+# Calculation prime on Arduino UNO, ESP8266 and ESP32 variants
 
 This should be faster than circuitpython or micropython, but the CPUs are much slower, too. Roughly 2 times faster than circuitpython.
 
-|     range | prime numbers | esp8266 80 MHz | esp8266 160 MHz | ESP32-C3 160 MHz | ESP32 240 MHz | ESP32-S3 240 MHz |
-|----------:|--------------:|---------------:|----------------:|-----------------:|--------------:|------------------|
-|       100 |            25 |         0.00 s |          0.00 s |           0.00 s |        0.00 s |           0.00 s |
-|     1,000 |           168 |         0.04 s |          0.02 s |           0.02 s |        0.01 s |           0.01 s |
-|    10,000 |         1,229 |         0.90 s |          0.45 s |           0.43 s |        0.24 s |           0.22 s |
-|   100,000 |         9,592 |        21.54 s |         10.76 s |          10.16 s |        5.65 s |           5.20 s |
-| 1,000,000 |        78,498 |       541.01 s |        270.24 s |         252.78 s |      140.47 s |         129.44 s |
+|     range | Arduino Uno | esp8266 80 MHz | ESP32-C3 160 MHz | ESP32 240 MHz | ESP32-S3 240 MHz |
+|----------:|------------:|---------------:|-----------------:|--------------:|-----------------:|
+|       100 |     0.011 s |        0.001 s |          0.001 s |       0.001 s |          0.000 s |
+|     1,000 |     0.112 s |        0.014 s |          0.005 s |       0.003 s |          0.003 s |
+|    10,000 |     1.747 s |        0.141 s |          0.054 s |       0.029 s |          0.028 s |
+|   100,000 |    30.882 s |        1.923 s |          0.616 s |       0.320 s |          0.309 s |
+| 1,000,000 |   595.122 s |       31.341 s |          7.614 s |       3.817 s |          3.661 s |
 
 Using this code:
 
