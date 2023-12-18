@@ -1,4 +1,4 @@
-/* Prime numbers in Arduino C v5.3 2023/12/15 for Mega 2560 */
+/* Prime numbers in Arduino C v5.3 2023/12/17 for Mega 2560 */
 #include <time.h>
 #include <math.h>
 #include <EEPROM.h>
@@ -7,7 +7,7 @@ double start;
 int column = 10;
 long found = 4;   // we already know 2, 3, 5, 7
 int divisors = found;
-int primes[3500] = {3, 5, 7}; // only 3401 primes to 31623 = sqrt(1 billion)
+int primes[3403] = {3, 5, 7}; // only 3402 primes to 31623 = sqrt(1000000000)
 int led = LED_BUILTIN; // LED_BUILTIN
 
 int is_prime(long number) {
@@ -54,9 +54,9 @@ int is_prime_fast(long number) {
 }
 
 void elapsed_time(long seconds) {
-  int hours = (int)seconds/3600;
-  int minutes = (int)(seconds/60 - hours*60);
-  int sec = (int)(seconds - minutes*60 - hours*3600);
+  long hours = (int)seconds/3600;
+  long minutes = (int)(seconds/60 - hours*60);
+  long sec = (int)(seconds - minutes*60 - hours*3600);
   Serial.print(" ");
   Serial.print(hours);
   Serial.print("h ");
@@ -73,14 +73,14 @@ void setup() {
     Serial.print(".");
     delay(1000);
   }
-  const long scope[] = {100, 1000, 10000, 100000, 1000000, 10000000, 25000000, 100000000, 1000000000};
-  const long reference[] = {25, 168, 1229, 9592, 78498, 664579, 1565927, 5761455, 50847534};
+  const uint32_t scope[] = {100, 1000, 10000, 100000, 1000000, 10000000, 25000000, 100000000, 1000000000, 2147483647, 4294967295};
+  const long reference[] = {25, 168, 1229, 9592, 78498, 664579, 1565927, 5761455, 50847534, 105097564, 203280221};
 
   // previous run
   Serial.print("\nGet previous results for this Mega2560:\n");
   Serial.print("    last        seconds   \n");
-  for(int i = 0; i < 9; i++) {
-    int spaces = 11 - (int)log10(scope[i]);
+  for(int i = 0; i < 11; i++) {
+    int spaces = 12 - (int)log10(scope[i]);
     for(int j = 0; j < spaces; j++) {
       Serial.print(" ");
     }
@@ -88,20 +88,20 @@ void setup() {
     Serial.print("    ");
     float last_time;
     EEPROM.get(i * 4 + 1, last_time);
-    Serial.print(last_time, 3);
+    Serial.print(last_time, 6);
     Serial.print("\n");
   }
 
   // start calculating
-  for (int i = 0; i < 7; i++) // 9
+  for (int i = 7; i < 9; i++) // only until 1 billion - not enough memory for more primes
   {
     long last = scope[i];
     found = 4;   // we already know 2, 3, 5, 7
     Serial.println("\n\nPrime v5.3 in Arduino C - 2023/12/14");
     Serial.print("Calculating prime numbers until ");
     Serial.println(last);
-    start = millis();      // use micros() for more precision
-    // Serial.println(start/1000000, 6);
+    start = millis();      
+    // start = micros(); // use micros() for more precision in runtimes up to 70 minutes
     long largest_divider = (long)(sqrt(last)); 
     if(largest_divider % 2 == 0)
     {
@@ -131,7 +131,7 @@ void setup() {
         }
         if(column > 40) {
           column = 0;
-          elapsed_time(dot/1000);
+          elapsed_time((millis()-start)/1000);
           Serial.print(" - ");
           Serial.print(number);
           Serial.print(" ");
@@ -141,6 +141,7 @@ void setup() {
       }
     }
     const float duration = (millis() - start)/1000;
+    // const float duration = (micros() - start)/1000000; // use micros for hiher precision
     if(duration > 2) {
       Serial.print("\n");
     }    
@@ -149,7 +150,7 @@ void setup() {
     Serial.print(" prime numbers. It should be ");
     Serial.print(reference[i]);
     Serial.print(".\nThis took ");
-    Serial.print(duration, 3);
+    Serial.print(duration, 6);
     Serial.print(" seconds.");
     elapsed_time(duration);
     EEPROM.put(i * 4 + 1, duration);
