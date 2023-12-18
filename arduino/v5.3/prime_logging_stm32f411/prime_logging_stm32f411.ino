@@ -7,9 +7,8 @@ double start;
 int column = 10;
 int found = 4;   // we already know 2, 3, 5, 7
 int divisors = found;
-uint32_t primes[6550] = {3, 5, 7};
-int led = 13; // LED_BUILTIN
-
+uint32_t primes[3550] = {3, 5, 7};
+int led = PC13; // LED_BUILTIN
 
 int is_prime(uint32_t number) {
   int prime = 1;
@@ -70,6 +69,7 @@ void elapsed_time(int seconds) {
 void setup() {
   Serial.begin(74880);
   pinMode(led, OUTPUT);
+  digitalWrite(led,LOW);
   for (int i = 0; i < 3; i++) {
     Serial.print(".");
     delay(1000);
@@ -101,8 +101,8 @@ void setup() {
     Serial.println("\n\nPrime v5.4 in Arduino C - 2023/12/16");
     Serial.print("Calculating prime numbers until ");
     Serial.println(last);
-//    start = millis();      
-    start = micros();        // use micros() for more precision in runtimes < 70 minutes
+    start = millis();      
+//    start = micros();        // use micros() for more precision in runtimes < 70 minutes
     int largest_divider = (int)(sqrt(last)); 
     if(largest_divider % 2 == 0)
     {
@@ -141,8 +141,8 @@ void setup() {
         }
       }
     }
-//    float duration = (millis() - start)/1000;
-    float duration = (micros() - start)/1000000; // use micros() for more precision in runtimes < 70 minutes
+    float duration = (millis() - start)/1000;
+//    float duration = (micros() - start)/1000000; // use micros() for more precision in runtimes < 70 minutes
     if(duration > 2) {
       Serial.print("\n");
     }    
