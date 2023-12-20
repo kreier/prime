@@ -1,17 +1,15 @@
-# prime v5.2 2023-12-07
+# prime v5.2 2023-12-11 for T-Display ESP32-S3 with 320x170 display
 # cycles through limits and writes to the filesystem
 
-import math, time, digitalio, board, os, neopixel
+import math, time, digitalio, board, os
 
-scope = [100, 1000, 10000, 100000, 1000000, 10000000, 25000000, 100000000, 1000000000]
-reference = [25, 168, 1229, 9592, 78498, 664579, 1565927, 5761455, 123456789]
+scope = [100, 1000, 10000, 100000, 1000000, 10000000, 25000000, 100000000, 1000000000, 2147483647, 4294967295]
+reference = [25, 168, 1229, 9592, 78498, 664579, 1565927, 5761455, 50847534, 105097564, 203280221]
 time_calc = [0, 0, 0, 0, 0, 0, 0, 0, 0]
 
-led = neopixel.NeoPixel(board.NEOPIXEL, 1)
-led.brightness = 0.3
-RED   = (255, 0, 0)
-GREEN = (0, 255, 0)
-led[0] = RED
+led = digitalio.DigitalInOut(board.IO38)
+led.direction = digitalio.Direction.OUTPUT
+led.value = True
 
 def is_prime(number):
     global found
@@ -49,19 +47,15 @@ def elapsed_time(seconds):
     return(f"{hours}h {minutes}min {sec}s")
 
 def lightshow():
-    led[0] = RED
-    time.sleep(0.5)
-    led[0] = GREEN
-    time.sleep(0.5)
-    led[0] = BLUE
-    time.sleep(0.5)    
+    led.value = not led.value
+    time.sleep(0.1)
 
 if __name__ == "__main__":
-    for i in range(len(scope)):
+    for i in range(len(scope)):  #
         last = scope[i]
         found = 4              # we start from 11, know 2, 3, 5, 7
         primes = [3, 5, 7]     # exclude 2 since we only test odd numbers
-        print(f"\nPrime numbers to {last} in v5.2")
+        print(f"\nPrime numbers to {last} in v5.2 ")
         start = time.monotonic()
         dot = start
         column = 1
@@ -77,25 +71,23 @@ if __name__ == "__main__":
                 print(".", end="")
                 dot = time.monotonic()
                 column += 1
+                led.value = not led.value
                 if column > 30:
                     t = elapsed_time(time.monotonic() - start)
                     print(f" {t} - {number} {int(number*100/last)}% ")
                     column = 1
         duration = time.monotonic() - start
-        led[0] = (255, 0, 0)
         print(f'This took: {duration} seconds. {elapsed_time(duration)}')
         print(f'Found {found} primes.')
         filename = "/" + str(last) + ".txt"
         try:
             with open(filename, "w") as fp:
                 fp.write(board.board_id)
-                fp.write(f'\nPrimes to {last} took {duration} seconds.')
+                fp.write(f'\nPrimes to {last} took {duration} seconds. {elapsed_time(duration)}')
                 fp.write(f'\nFound {found} primes. Should be {reference[i]}.')
                 print('Exported to filesystem ')
-                led[0] = GREEN
         except:
             print("Can't write to the filesystem. Press reset and after that the boot button in the first 5 seconds")
-            led[0] = RED
         #print(f'Primes to {last} took {(end - start)} seconds.')
         #print(f'Found {found} primes. Should be {reference[i]}.')
         time_calc[i] = duration
@@ -106,7 +98,7 @@ if __name__ == "__main__":
             fp.write(board.board_id)
             fp.write('\n last       time in seconds\n')
             for i in range(len(time_calc)):
-                fp.write(f' {scope[i]}   {time_calc[i]}\n')
+                fp.write(f' {scope[i]}       {time_calc[i]}       {elapsed_time(time_calc[i])}\n')
             print('Exported to filesystem ')
     except:
         print("Can't write to the filesystem. Press reset and after that the boot button in the first 5 seconds")

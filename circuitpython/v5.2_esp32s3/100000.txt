@@ -1,0 +1,3 @@
+espressif_esp32s3_devkitc_1_n8r8
+Primes to 100000 took 3.586 seconds. 0h 0min 3s
+Found 9592 primes. Should be 9592.

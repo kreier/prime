@@ -166,16 +166,15 @@ void setup() {
 
 
   // start calculating scope 8 to 10 aka 1 billion to 4 billion - now in millis since micros overflows after 71 minutes
-  for (int i = 9; i < 11; i++) 
+  for (int i = 10; i < 11; i++) 
   {
-    int last = scope[i];
+    uint32_t last = scope[i];
     found = 4;   // we already know 2, 3, 5, 7
     Serial.println("\n\nPrime v5.4 in Arduino C - 2023/12/17");
     Serial.print("Calculating prime numbers until ");
     Serial.println(last);
     start = millis();      
-    // start = micros();        // use micros() for more precision in runtimes < 70 minutes
-    int largest_divider = (int)(sqrt(last)); 
+    uint32_t largest_divider = (uint32_t)(sqrt(last)); 
     if(largest_divider % 2 == 0)
     {
       largest_divider += 1;

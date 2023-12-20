@@ -1,0 +1,3 @@
+espressif_esp32s3_devkitc_1_n8r8
+Primes to 1000000000 took 523983.0 seconds. 145h 33min 2s
+Found 50847534 primes. Should be 50847534.

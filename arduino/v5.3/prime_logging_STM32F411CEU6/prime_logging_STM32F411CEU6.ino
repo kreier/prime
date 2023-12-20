@@ -1,4 +1,4 @@
-/* Prime numbers in Arduino C v5.4 2023/12/17 for STM32F411CEU6 */
+/* Prime numbers in Arduino C v5.4 2023/12/20 for STM32F411CEU6 */
 #include <time.h>
 #include <math.h>
 #include <EEPROM.h>
@@ -98,7 +98,7 @@ void setup() {
   {
     int last = scope[i];
     found = 4;   // we already know 2, 3, 5, 7
-    Serial.println("\n\nPrime v5.4 in Arduino C - 2023/12/17 in micros()");
+    Serial.println("\n\nPrime v5.4 in Arduino C - 2023/12/20 in micros()");
     Serial.print("Calculating prime numbers until ");
     Serial.println(last);
     // start = millis();      
@@ -158,16 +158,18 @@ void setup() {
   }
   Serial.print("\n");
 
+
+
+
   // start calculating with millis from 7 on
-  for (int i = 9; i < 11; i++) 
+  for (int i = 10; i < 11; i++) 
   {
-    int last = scope[i];
+    uint32_t last = scope[i];
     found = 4;   // we already know 2, 3, 5, 7
-    Serial.println("\n\nPrime v5.4 in Arduino C - 2023/12/17 in millis()");
+    Serial.println("\n\nPrime v5.4 in Arduino C - 2023/12/20 in millis()");
     Serial.print("Calculating prime numbers until ");
     Serial.println(last);
-    start = millis();      
-//    start = micros();        // use micros() for more precision in runtimes < 70 minutes
+    start = millis();
     int largest_divider = (int)(sqrt(last)); 
     if(largest_divider % 2 == 0)
     {
@@ -207,7 +209,6 @@ void setup() {
       }
     }
     float duration = (millis() - start)/1000;
-//    float duration = (micros() - start)/1000000; // use micros() for more precision in runtimes < 70 minutes
     if(duration > 2) {
       Serial.print("\n");
     }    
