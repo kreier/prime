@@ -7,7 +7,7 @@ double start;
 int column = 10;
 int found = 4;   // we already know 2, 3, 5, 7
 int divisors = found;
-uint32_t primes[3550] = {3, 5, 7};
+uint32_t primes[6550] = {3, 5, 7};
 int led = PC13; // LED_BUILTIN
 
 int is_prime(uint32_t number) {
@@ -94,7 +94,7 @@ void setup() {
   }
 
   // start calculating with micros
-  for (int i = 0; i < 7; i++) 
+  for (int i = 0; i < 4; i++) 
   {
     int last = scope[i];
     found = 4;   // we already know 2, 3, 5, 7
@@ -158,8 +158,8 @@ void setup() {
   }
   Serial.print("\n");
 
-  // start calculating with millis
-  for (int i = 7; i < 11; i++) 
+  // start calculating with millis from 7 on
+  for (int i = 9; i < 11; i++) 
   {
     int last = scope[i];
     found = 4;   // we already know 2, 3, 5, 7

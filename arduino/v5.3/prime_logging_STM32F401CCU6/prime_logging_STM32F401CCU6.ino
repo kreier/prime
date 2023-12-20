@@ -7,7 +7,7 @@ double start;
 int column = 10;
 int found = 4;   // we already know 2, 3, 5, 7
 int divisors = found;
-uint32_t primes[3550] = {3, 5, 7};
+uint32_t primes[6550] = {3, 5, 7};
 int led = PC13; // LED_BUILTIN
 
 int is_prime(uint32_t number) {
@@ -45,7 +45,7 @@ int is_prime_fast(uint32_t number) {
       flag_prime = 0;
       break;
     }
-    if(primes[i] > largest_divider)
+    if(primes[i] >= largest_divider)
     {
       break;
     }
@@ -94,7 +94,7 @@ void setup() {
   }
 
   // start calculating scope 0 to 7 aka 100 to 100 million
-  for (int i = 0; i < 8; i++) 
+  for (int i = 0; i < 5; i++) 
   {
     int last = scope[i];
     found = 4;   // we already know 2, 3, 5, 7
@@ -158,8 +158,15 @@ void setup() {
   }
   Serial.print("\n");
 
+
+
+
+
+
+
+
   // start calculating scope 8 to 10 aka 1 billion to 4 billion - now in millis since micros overflows after 71 minutes
-  for (int i = 8; i < 11; i++) 
+  for (int i = 9; i < 11; i++) 
   {
     int last = scope[i];
     found = 4;   // we already know 2, 3, 5, 7
