@@ -38,7 +38,7 @@ def elapsed_time(seconds):
     return(f"{hours}h {minutes}min {sec}s")
 
 if __name__ == "__main__":
-    last  = 4294967295     # 4294967295 is the limit for unsigned 32bit
+    last  = 2147483647     # 4294967295 is the limit for unsigned 32bit
     found = 4              # we start from 11, know 2, 3, 5, 7
     primes = [3, 5, 7]     # exclude 2 since we only test odd numbers
     print(f"Calculating prime numbers to {last} in Python with algorithm v5.4.2024")
