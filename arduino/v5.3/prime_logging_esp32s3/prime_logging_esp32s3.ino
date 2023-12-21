@@ -1,15 +1,21 @@
-/* Prime numbers in Arduino C v5.3 2023/12/20 for esp32-s2 */
+/* Prime numbers in Arduino C v5.4 2023/12/20 for esp32-s3 */
 #include <time.h>
 #include <math.h>
 #include <Preferences.h>
+#include <Adafruit_NeoPixel.h>
+
+#define LED_PIN 48
+#define NEOPIXEL_PIN LED_PIN   
+Adafruit_NeoPixel pixels(1, NEOPIXEL_PIN, NEO_GRB + NEO_KHZ800);
 
 double start;
 int column = 10;
 int found = 4;   // we already know 2, 3, 5, 7
 int divisors = found;
 int primes[6550] = {3, 5, 7};
-int led = 15; // LED_BUILDIN
-
+int RED[3] =   {64, 0, 0};
+int GREEN[3] = {0, 64, 0};
+int BLUE[3] =  {0, 0, 64};
 
 int is_prime(int number) {
   int prime = 1;
@@ -72,13 +78,22 @@ void elapsed_time(int seconds) {
   Serial.print("s ");
 }
 
+void led(int RGB[]) {
+  pixels.setPixelColor(0, pixels.Color(RGB[0], RGB[1], RGB[2]));
+  pixels.show();
+}
+
+
+
 void setup() {
   Serial.begin(74880);
-  pinMode(led, OUTPUT);
+  pixels.begin();  // INITIALIZE NeoPixel strip object (REQUIRED)
+  led(RED);
   for (int i = 0; i < 3; i++) {
     Serial.print(".");
     delay(1000);
   }
+  led(BLUE);
   const uint32_t scope[] = {100, 1000, 10000, 100000, 1000000, 10000000, 25000000, 100000000, 1000000000, 2147483647, 4294967295};
   const int reference[] = {25, 168, 1229, 9592, 78498, 664579, 1565927, 5761455, 50847534, 105097564, 203280221};
 
@@ -88,7 +103,7 @@ void setup() {
   const char* pref[] = {"p100", "p1000", "p10000", "p100000", "p1000000", "p10000000", "p25000000", "p100000000", "p1000000000", "p2147483647", "p4294967295"};
   Preferences preferences;
   preferences.begin("prime", true);
-  Serial.print("\nGet previous results for this ESP32-S2:\n");
+  Serial.print("\nGet previous results for this ESP32-S3:\n");
   Serial.print("    last        seconds   \n");
   for(int i = 0; i < 11; i++) {
     int spaces = 11 - (int)log10(scope[i]);
@@ -101,15 +116,17 @@ void setup() {
     Serial.print("\n");
   }
   preferences.end();
+  delay(1000);
+  led(GREEN);
 
 
 
   // start calculating with micros() until 100 million
-  for (int i = 0; i < 8; i++) // 9
+  for (int i = 0; i < 8; i++) // 8
   {
     int last = scope[i];
     found = 4;   // we already know 2, 3, 5, 7
-    Serial.println("\n\nPrime v5.0 in Arduino C - 2023/12/20");
+    Serial.println("\n\nPrime v5.4 in Arduino C - 2023/12/20");
     Serial.print("Calculating prime numbers until ");
     Serial.println(last);
     start = micros();      // use micros() for more precision
@@ -134,11 +151,11 @@ void setup() {
         dot = millis();
         column += 1;
         if(column % 2 == 0) {
-          digitalWrite(led, HIGH);
+          led(RED);
         }
         else
         {
-          digitalWrite(led, LOW);
+          led(GREEN);
         }
         if(column > 40) {
           column = 0;
@@ -173,7 +190,7 @@ void setup() {
 
 
   // start calculating with millis() from 1 billion
-  for (int i = 8; i < 11; i++) // 9
+  for (int i = 8; i < 11; i++)
   {
     uint32_t last = scope[i];
     found = 4;   // we already know 2, 3, 5, 7
@@ -202,11 +219,11 @@ void setup() {
         dot = millis();
         column += 1;
         if(column % 2 == 0) {
-          digitalWrite(led, HIGH);
+          led(RED);
         }
         else
         {
-          digitalWrite(led, LOW);
+          led(GREEN);
         }
         if(column > 40) {
           column = 0;
@@ -235,7 +252,6 @@ void setup() {
     preferences.putFloat(pref[i], duration);
     preferences.end();
   }
-
   preferences.end();
   Serial.print("\n");
 }
@@ -244,10 +260,11 @@ void loop() {  // program finished, just keep printing some dots
   for(int i = 0; i < 80; i++) {
     Serial.print(".");
     for(int x = 0; x < 100; x++) {
-      digitalWrite(led, HIGH);  // turn the LED on (HIGH is the voltage level)
-      delay(20);                       // wait for a second
-      digitalWrite(led, LOW);   // turn the LED off by making the voltage LOW
-      delay(30);   
+      led(BLUE);
+      delay(30);
+      pixels.clear();
+      pixels.show();
+      delay(20);   
     }
   }
   Serial.print(".\n");

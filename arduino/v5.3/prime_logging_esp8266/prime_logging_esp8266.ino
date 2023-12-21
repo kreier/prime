@@ -1,17 +1,16 @@
-/* Prime numbers in Arduino C v5.3 2023/12/20 for esp32-s2 */
+/* Prime numbers in Arduino C v5.4 2023/12/20 for ESP8266-12E */
 #include <time.h>
 #include <math.h>
-#include <Preferences.h>
+#include <ESP_EEPROM.h>
 
 double start;
 int column = 10;
 int found = 4;   // we already know 2, 3, 5, 7
 int divisors = found;
-int primes[6550] = {3, 5, 7};
-int led = 15; // LED_BUILDIN
+uint32_t primes[6550] = {3, 5, 7};
+int led = LED_BUILTIN; // LED_BUILTIN
 
-
-int is_prime(int number) {
+int is_prime(uint32_t number) {
   int prime = 1;
   for (int divider = 3; divider < (int)(sqrt(number)) + 1; divider += 2)
   {
@@ -24,12 +23,14 @@ int is_prime(int number) {
   return prime;
 }
 
-int find_primes(int limit) {
-  for(int number=11; number < limit + 1; number += 2) { 
+int find_primes(uint32_t limit) {
+  Serial.print(" ");
+  for(uint32_t number=11; number < limit + 1; number += 2) { 
     if( is_prime(number) == 1) {
       primes[found - 1] = number;
       found++;
     }
+    if((number+1) % 1000 == 0) { Serial.print("."); }
   }
   primes[found - 1] = limit;
   divisors = found - 1;
@@ -37,14 +38,10 @@ int find_primes(int limit) {
 }
 
 int is_prime_fast(uint32_t number) {
-  int largest_divider = (int)(sqrt(number));
+  uint32_t largest_divider = (int)(sqrt(number));
   int flag_prime = 1;
-  // Serial.print(number);
-  // Serial.print(" - ");
   for(int i=0; i < divisors; i++)
   {
-    // Serial.print(primes[i]);
-    // Serial.print(" ");
     if(number % primes[i] == 0) 
     {
       flag_prime = 0;
@@ -55,7 +52,6 @@ int is_prime_fast(uint32_t number) {
       break;
     }
   }
-  // Serial.print("\n");
   return flag_prime;
 }
 
@@ -75,112 +71,42 @@ void elapsed_time(int seconds) {
 void setup() {
   Serial.begin(74880);
   pinMode(led, OUTPUT);
+  digitalWrite(led, HIGH);
   for (int i = 0; i < 3; i++) {
     Serial.print(".");
     delay(1000);
   }
-  const uint32_t scope[] = {100, 1000, 10000, 100000, 1000000, 10000000, 25000000, 100000000, 1000000000, 2147483647, 4294967295};
+  digitalWrite(led, LOW);
+  const uint32_t scope[] = {100, 1000, 10000, 100000, 1000000, 10000000, 25000000, 100000000, 1000000000, 2147483647, 4294967295 };
   const int reference[] = {25, 168, 1229, 9592, 78498, 664579, 1565927, 5761455, 50847534, 105097564, 203280221};
 
-
-
   // previous run
-  const char* pref[] = {"p100", "p1000", "p10000", "p100000", "p1000000", "p10000000", "p25000000", "p100000000", "p1000000000", "p2147483647", "p4294967295"};
-  Preferences preferences;
-  preferences.begin("prime", true);
-  Serial.print("\nGet previous results for this ESP32-S2:\n");
+  EEPROM.begin(44);
+  Serial.print("\nGet previous results for this ESP8266:\n");
   Serial.print("    last        seconds   \n");
   for(int i = 0; i < 11; i++) {
-    int spaces = 11 - (int)log10(scope[i]);
+    int spaces = 12 - (int)log10(scope[i]);
     for(int j = 0; j < spaces; j++) {
       Serial.print(" ");
     }
     Serial.print(scope[i]);
     Serial.print("    ");
-    Serial.print(preferences.getFloat(pref[i], 0), 6);
+    float last_time;
+    EEPROM.get(i * 4 + 1, last_time);
+    Serial.print(last_time, 6);
     Serial.print("\n");
   }
-  preferences.end();
 
-
-
-  // start calculating with micros() until 100 million
-  for (int i = 0; i < 8; i++) // 9
+  // start calculating with micros
+  for (int i = 0; i < 4; i++) 
   {
     int last = scope[i];
     found = 4;   // we already know 2, 3, 5, 7
-    Serial.println("\n\nPrime v5.0 in Arduino C - 2023/12/20");
+    Serial.println("\n\nPrime v5.4 in Arduino C - 2023/12/17 in micros()");
     Serial.print("Calculating prime numbers until ");
     Serial.println(last);
-    start = micros();      // use micros() for more precision
-    int largest_divider = (int)(sqrt(last)); 
-    if(largest_divider % 2 == 0)
-    {
-      largest_divider += 1;
-    }
-    find_primes(largest_divider);
-    Serial.print("Found ");
-    Serial.print(found);
-    Serial.print(" primes until ");
-    Serial.print(largest_divider);
-    Serial.print(" to use as divisors.\n");
-    int dot = millis();
-    int column = 0;
-    for(int number = largest_divider + 2; number < last; number += 2)
-    {
-      found += is_prime_fast(number);
-      if((millis() - dot) > 1000) {
-        Serial.print(".");
-        dot = millis();
-        column += 1;
-        if(column % 2 == 0) {
-          digitalWrite(led, HIGH);
-        }
-        else
-        {
-          digitalWrite(led, LOW);
-        }
-        if(column > 40) {
-          column = 0;
-          elapsed_time(dot/1000);
-          Serial.print(" - ");
-          Serial.print(number);
-          Serial.print(" ");
-          Serial.print((int)(number / (last / 100)));
-          Serial.print("% \n");
-        }
-      }
-    }
-    float duration = (micros() - start)/1000000;
-    if(duration > 2) {
-      Serial.print("\n");
-    }    
-    Serial.print("Found ");
-    Serial.print(found);
-    Serial.print(" prime numbers. It should be ");
-    Serial.print(reference[i]);
-    Serial.print(".\nThis took ");
-    Serial.print(duration, 6);
-    Serial.print(" seconds.");
-    elapsed_time(duration);
-    preferences.begin("prime", false);
-    preferences.putFloat(pref[i], duration);
-    preferences.end();
-  }
-
-
-
-
-
-  // start calculating with millis() from 1 billion
-  for (int i = 8; i < 11; i++) // 9
-  {
-    uint32_t last = scope[i];
-    found = 4;   // we already know 2, 3, 5, 7
-    Serial.println("\n\nPrime v5.0 in Arduino C - 2023/12/20");
-    Serial.print("Calculating prime numbers until ");
-    Serial.println(last);
-    start = millis();
+    // start = millis();      
+    start = micros();        // use micros() for more precision in runtimes < 70 minutes
     int largest_divider = (int)(sqrt(last)); 
     if(largest_divider % 2 == 0)
     {
@@ -210,7 +136,73 @@ void setup() {
         }
         if(column > 40) {
           column = 0;
-          elapsed_time(dot/1000);
+          elapsed_time((micros()-start)/1000000);
+          Serial.print(" - ");
+          Serial.print(number);
+          Serial.print(" ");
+          Serial.print((int)(number / (last / 100)));
+          Serial.print("% \n");
+        }
+      }
+    }
+    // float duration = (millis() - start)/1000;
+    float duration = (micros() - start)/1000000; // use micros() for more precision in runtimes < 70 minutes
+    if(duration > 2) {
+      Serial.print("\n");
+    }    
+    Serial.print("Found ");
+    Serial.print(found);
+    Serial.print(" prime numbers. It should be ");
+    Serial.print(reference[i]);
+    Serial.print(".\nThis took ");
+    Serial.print(duration, 6);
+    Serial.print(" seconds.");
+    elapsed_time(duration);
+    // EEPROM.put(i * 4 + 1, duration);
+    // boolean ok1 = EEPROM.commit();
+    // Serial.println((ok1) ? "First commit OK" : "Commit failed");    
+  }
+  Serial.print("\n");
+
+  // start calculating with millis from 7 on *************************************************
+  for (int i = 9; i < 11; i++) 
+  {
+    int last = scope[i];
+    found = 4;   // we already know 2, 3, 5, 7
+    Serial.println("\n\nPrime v5.4 in Arduino C - 2023/12/20 in millis()");
+    Serial.print("Calculating prime numbers until ");
+    Serial.print(last);
+    start = millis();
+    int largest_divider = (int)(sqrt(last));
+    if(largest_divider % 2 == 0)
+    {
+      largest_divider += 1;
+    }
+    find_primes(largest_divider);
+    Serial.print("\nFound ");
+    Serial.print(found);
+    Serial.print(" primes until ");
+    Serial.print(largest_divider);
+    Serial.print(" to use as divisors.\n");
+    int dot = millis();
+    int column = 0;
+    for(uint32_t number = largest_divider + 2; number < last; number += 2)
+    {
+      found += is_prime_fast(number);
+      if((millis() - dot) > 1000) {
+        Serial.print(".");
+        dot = millis();
+        column += 1;
+        if(column % 2 == 0) {
+          digitalWrite(led, HIGH);
+        }
+        else
+        {
+          digitalWrite(led, LOW);
+        }
+        if(column > 40) {
+          column = 0;
+          elapsed_time((millis()-start)/1000);
           Serial.print(" - ");
           Serial.print(number);
           Serial.print(" ");
@@ -231,12 +223,10 @@ void setup() {
     Serial.print(duration, 6);
     Serial.print(" seconds.");
     elapsed_time(duration);
-    preferences.begin("prime", false);
-    preferences.putFloat(pref[i], duration);
-    preferences.end();
+    EEPROM.put(i * 4 + 1, duration);
+    // boolean ok1 = EEPROM.commit();
+    // Serial.println((ok1) ? "First commit OK" : "Commit failed");      
   }
-
-  preferences.end();
   Serial.print("\n");
 }
 
@@ -244,9 +234,9 @@ void loop() {  // program finished, just keep printing some dots
   for(int i = 0; i < 80; i++) {
     Serial.print(".");
     for(int x = 0; x < 100; x++) {
-      digitalWrite(led, HIGH);  // turn the LED on (HIGH is the voltage level)
-      delay(20);                       // wait for a second
-      digitalWrite(led, LOW);   // turn the LED off by making the voltage LOW
+      digitalWrite(led, HIGH);
+      delay(20);     
+      digitalWrite(led, LOW); 
       delay(30);   
     }
   }

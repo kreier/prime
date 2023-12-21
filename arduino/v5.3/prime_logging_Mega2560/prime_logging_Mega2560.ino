@@ -54,9 +54,9 @@ int is_prime_fast(long number) {
 }
 
 void elapsed_time(long seconds) {
-  long hours = (int)seconds/3600;
-  long minutes = (int)(seconds/60 - hours*60);
-  long sec = (int)(seconds - minutes*60 - hours*3600);
+  long hours = (long)seconds/3600;
+  long minutes = (long)(seconds/60 - hours*60);
+  long sec = (long)(seconds - minutes*60 - hours*3600);
   Serial.print(" ");
   Serial.print(hours);
   Serial.print("h ");
@@ -93,7 +93,7 @@ void setup() {
   }
 
   // start calculating
-  for (int i = 7; i < 9; i++) // only until 1 billion - not enough memory for more primes
+  for (int i = 8; i < 10; i++) // only until 1 billion - not enough memory for more primes
   {
     long last = scope[i];
     found = 4;   // we already know 2, 3, 5, 7

@@ -1,15 +1,18 @@
-# prime v5.2 2023-12-11 for STM32F411CEU6
+# prime v5.3 2023-12-14 for luatos esp32c3
 # cycles through limits and writes to the filesystem
 
 import math, time, digitalio, board, os
 
-scope = [100, 1000, 10000, 100000, 1000000, 10000000, 25000000, 100000000, 1000000000, 2147483647, 4294967295]
-reference = [25, 168, 1229, 9592, 78498, 664579, 1565927, 5761455, 50847534, 105097564, 203280221]
-time_calc = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+scope = [100, 1000, 10000, 100000, 1000000, 10000000, 25000000, 100000000, 1000000000]
+reference = [25, 168, 1229, 9592, 78498, 664579, 1565927, 5761455, 123456789]
+time_calc = [0, 0, 0, 0, 0, 0, 0, 0, 0]
 
-led = digitalio.DigitalInOut(board.LED)
+led = digitalio.DigitalInOut(board.IO4)
 led.direction = digitalio.Direction.OUTPUT
 led.value = True
+led2 = digitalio.DigitalInOut(board.IO5)
+led2.direction = digitalio.Direction.OUTPUT
+led2.value = True
 
 def is_prime(number):
     global found
@@ -47,18 +50,23 @@ def elapsed_time(seconds):
     return(f"{hours}h {minutes}min {sec}s")
 
 def lightshow():
-    led.value = not led.value
-    time.sleep(0.1)
+    led.value = True
+    led2.value = False
+    for i in range(10):
+        led2.value = led.value
+        led.value = not led.value
+        time.sleep(0.002)
 
 if __name__ == "__main__":
+    lightshow() 
     for i in range(len(scope)):
         last = scope[i]
         found = 4              # we start from 11, know 2, 3, 5, 7
         primes = [3, 5, 7]     # exclude 2 since we only test odd numbers
-        print(f"\nPrime numbers to {last} in v5.2 ")
+        print(f"\nPrime numbers to {last} in v5.3 on {board.board_id}")
         start = time.monotonic()
         dot = start
-        column = 1
+        column = 1        
         largest_divider = int(math.sqrt(last))
         if largest_divider % 2 == 0:
             largest_divider += 1
@@ -71,11 +79,16 @@ if __name__ == "__main__":
                 print(".", end="")
                 dot = time.monotonic()
                 column += 1
-                led.value = not led.value
+                if column % 2 == 0:
+                    led.value = True
+                    led2.value = not led.value
+                else:
+                    led.value = False
+                    led2.value = not led.value
                 if column > 30:
                     t = elapsed_time(time.monotonic() - start)
                     print(f" {t} - {number} {int(number*100/last)}% ")
-                    column = 1
+                    column = 1            
         duration = time.monotonic() - start
         print(f'This took: {duration} seconds. {elapsed_time(duration)}')
         print(f'Found {found} primes.')
@@ -83,7 +96,7 @@ if __name__ == "__main__":
         try:
             with open(filename, "w") as fp:
                 fp.write(board.board_id)
-                fp.write(f'\nPrimes to {last} took {duration} seconds. {elapsed_time(duration)}')
+                fp.write(f'\nPrimes to {last} took {duration} seconds.')
                 fp.write(f'\nFound {found} primes. Should be {reference[i]}.')
                 print('Exported to filesystem ')
         except:

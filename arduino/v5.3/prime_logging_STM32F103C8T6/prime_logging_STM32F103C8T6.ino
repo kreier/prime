@@ -1,4 +1,4 @@
-/* Prime numbers in Arduino C v5.4 2023/12/14 for STM32F411CEU6 */
+/* Prime numbers in Arduino C v5.4 2023/12/14 for STM32F103C8T6 */
 #include <time.h>
 #include <math.h>
 #include <EEPROM.h>
@@ -7,7 +7,7 @@ double start;
 int column = 10;
 int found = 4;   // we already know 2, 3, 5, 7
 int divisors = found;
-uint32_t primes[3550] = {3, 5, 7};
+uint32_t primes[4403] = {3, 5, 7}; // limit due to RAM on F103
 int led = PC13; // LED_BUILTIN
 
 int is_prime(uint32_t number) {
@@ -75,10 +75,10 @@ void setup() {
     delay(1000);
   }
   const uint32_t scope[] = {100, 1000, 10000, 100000, 1000000, 10000000, 25000000, 100000000, 1000000000, 2147483647, 4294967295 };
-  const int reference[] = {25, 168, 1229, 9592, 78498, 664579, 1565927, 5761455, 50847534, 105097564, 200000000};
+  const int reference[] = {25, 168, 1229, 9592, 78498, 664579, 1565927, 5761455, 50847534, 105097564, 203280221};
 
   // previous run
-  Serial.print("\nGet previous results for this STM32F411CEU6:\n");
+  Serial.print("\nPrevious results STM32F103C8T6:\n");
   Serial.print("    last        seconds   \n");
   for(int i = 0; i < 11; i++) {
     int spaces = 12 - (int)log10(scope[i]);
@@ -94,11 +94,11 @@ void setup() {
   }
 
   // start calculating
-  for (int i = 0; i < 11; i++) 
+  for (int i = 9; i < 11; i++) 
   {
     int last = scope[i];
     found = 4;   // we already know 2, 3, 5, 7
-    Serial.println("\n\nPrime v5.4 in Arduino C - 2023/12/16");
+    Serial.println("\n\nPrime v5.4 in Arduino C - 2023/12/18");
     Serial.print("Calculating prime numbers until ");
     Serial.println(last);
     start = millis();      
