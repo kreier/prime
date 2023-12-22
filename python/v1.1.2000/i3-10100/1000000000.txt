@@ -1,0 +1,4 @@
+Prime v1.1.2000 in Python
+Intel(R) Core(TM) i3-10100 CPU @ 3.60GHz
+Primes to 1000000000 took 130461.882037 seconds.
+Found 50847534 primes. Should be 50847534.

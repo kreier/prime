@@ -1,4 +1,4 @@
-/* Prime numbers in Arduino C v5.4 2023/12/20 for esp32-s3 */
+/* Prime numbers in Arduino C v5.4 2023/12/21 for esp32-s3 */
 #include <time.h>
 #include <math.h>
 #include <Preferences.h>
@@ -122,11 +122,11 @@ void setup() {
 
 
   // start calculating with micros() until 100 million
-  for (int i = 0; i < 8; i++) // 8
+  for (int i = 0; i < 3; i++) // 8
   {
     int last = scope[i];
     found = 4;   // we already know 2, 3, 5, 7
-    Serial.println("\n\nPrime v5.4 in Arduino C - 2023/12/20");
+    Serial.println("\n\nPrime v5.4 in Arduino C - 2023/12/21");
     Serial.print("Calculating prime numbers until ");
     Serial.println(last);
     start = micros();      // use micros() for more precision
@@ -159,7 +159,7 @@ void setup() {
         }
         if(column > 40) {
           column = 0;
-          elapsed_time(dot/1000);
+          elapsed_time((micros() - start)/1000000);
           Serial.print(" - ");
           Serial.print(number);
           Serial.print(" ");
@@ -190,11 +190,11 @@ void setup() {
 
 
   // start calculating with millis() from 1 billion
-  for (int i = 8; i < 11; i++)
+  for (int i = 10; i < 11; i++)
   {
     uint32_t last = scope[i];
     found = 4;   // we already know 2, 3, 5, 7
-    Serial.println("\n\nPrime v5.0 in Arduino C - 2023/12/20");
+    Serial.println("\n\nPrime v5.0 in Arduino C - 2023/12/21");
     Serial.print("Calculating prime numbers until ");
     Serial.println(last);
     start = millis();
@@ -227,7 +227,7 @@ void setup() {
         }
         if(column > 40) {
           column = 0;
-          elapsed_time(dot/1000);
+          elapsed_time((millis() - start)/1000);
           Serial.print(" - ");
           Serial.print(number);
           Serial.print(" ");
@@ -245,7 +245,7 @@ void setup() {
     Serial.print(" prime numbers. It should be ");
     Serial.print(reference[i]);
     Serial.print(".\nThis took ");
-    Serial.print(duration, 6);
+    Serial.print(duration, 3);
     Serial.print(" seconds.");
     elapsed_time(duration);
     preferences.begin("prime", false);
