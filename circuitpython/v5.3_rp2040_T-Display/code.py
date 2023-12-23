@@ -1,7 +1,14 @@
-# prime v5.4 2023-12-22
+# prime v5.4 2023-12-23
 # cycles through limits and writes to the filesystem
 
-import math, time, digitalio, board, os
+import math, time, digitalio, board, os, terminalio
+from adafruit_display_text import label
+from adafruit_bitmap_font import bitmap_font
+
+# try uncommenting different font files if you like
+font_file = "fonts/LeagueSpartan-Bold-16.pcf"
+# font_file = "fonts/LeagueSpartan-Bold-16.bdf"
+# font_file = "fonts/Junction-regular-24.pcf"
 
 scope = [100, 1000, 10000, 100000, 1000000, 10000000, 25000000, 100000000, 1000000000, 2147483647, 4294967295]
 reference = [25, 168, 1229, 9592, 78498, 664579, 1565927, 5761455, 50847534, 105097564, 203280221]
@@ -9,6 +16,7 @@ time_calc = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
 led = digitalio.DigitalInOut(board.LED)
 led.direction = digitalio.Direction.OUTPUT
 led.value = True
+display = board.DISPLAY
 
 def is_prime(number):
     global found
@@ -46,10 +54,40 @@ def elapsed_time(seconds):
     return(f"{hours}h {minutes}min {sec}s")
 
 if __name__ == "__main__":
-    for i in range(len(scope)):
+    # title, current_scope and progress
+#    font = terminalio.FONT
+    font = bitmap_font.load_font(font_file)
+    color = 0xFFFFFF
+
+    text_area = label.Label(font, text="Prime 5.4 CircuitPython", color=color)
+    text_area.x = 0
+    text_area.y = 20
+    title = label.Label(font, text="Calculating primes to", color=color)
+    title.x = 10
+    title.y = 24
+    text_area.append(title)
+    current_scope = label.Label(font, text="100", color=color, background_color=0x000000)
+    current_scope.x = 130
+    current_scope.y = 50
+    text_area.append(current_scope)
+    percent = label.Label(font, text=" 0.00 Percent  ", color=color, background_color=0x000000)
+    percent.x = 60
+    percent.y = 75
+    text_area.append(percent)
+    runtime = label.Label(font, text=" 0h 0min 0s ", color=color, background_color=0x000000)
+    runtime.x = 70
+    runtime.y = 100
+    text_area.append(runtime)
+    display.root_group = text_area
+
+    for i in range(8): # 8 needs less than a day - len(scope)
         last = scope[i]
         found = 4              # we start from 11, know 2, 3, 5, 7
         primes = [3, 5, 7]     # exclude 2 since we only test odd numbers
+
+        current_scope.text = str(last)
+        current_scope.x = 140 - int(math.log(last, 10))*10
+
         print(f"\nPrime numbers to {last} in v5.4")
         start = time.monotonic()
         dot = start
@@ -63,11 +101,13 @@ if __name__ == "__main__":
         for number in range(largest_divider + 2, last, 2):
             found += is_prime_fast(number)
             if (time.monotonic() - dot) > 2:
-                print(".", end="")
+                print(f".", end="")
                 dot = time.monotonic()
                 led.value = not led.value
                 column += 1
-                if column > 30:
+                percent.text = str(int(number*10000/last)/100.0) + " Percent  "
+                runtime.text = elapsed_time(time.monotonic() - start)
+                if column > 40:
                     t = elapsed_time(time.monotonic() - start)
                     print(f" {t} - {number} {int(number*100/last)}% ")
                     column = 1
@@ -89,7 +129,7 @@ if __name__ == "__main__":
     print('\nWrite summary')
     try:
         with open("summary.txt", "w") as fp:
-            fp.write(f'Primes calculation in Circuitpython v5.2 2023/12/11\n')
+            fp.write(f'Primes calculation in Circuitpython v5.4 2023/12/22\n')
             fp.write(board.board_id)
             fp.write('\n last       time in seconds\n')
             for i in range(len(time_calc)):
@@ -97,9 +137,6 @@ if __name__ == "__main__":
             print('Exported to filesystem ')
     except:
         print("Can't write to the filesystem. Press reset and after that the boot button in the first 5 seconds")
-
-led = digitalio.DigitalInOut(board.LED)
-led.direction = digitalio.Direction.OUTPUT
 
 while True:
     led.value = True
