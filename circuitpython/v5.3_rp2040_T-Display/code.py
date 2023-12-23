@@ -1,4 +1,4 @@
-# prime v5.0
+# prime v5.4 2023-12-22
 # cycles through limits and writes to the filesystem
 
 import math, time, digitalio, board, os
@@ -6,9 +6,9 @@ import math, time, digitalio, board, os
 scope = [100, 1000, 10000, 100000, 1000000, 10000000, 25000000, 100000000, 1000000000, 2147483647, 4294967295]
 reference = [25, 168, 1229, 9592, 78498, 664579, 1565927, 5761455, 50847534, 105097564, 203280221]
 time_calc = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
-
 led = digitalio.DigitalInOut(board.LED)
 led.direction = digitalio.Direction.OUTPUT
+led.value = True
 
 def is_prime(number):
     global found
@@ -53,7 +53,7 @@ if __name__ == "__main__":
         print(f"\nPrime numbers to {last} in v5.4")
         start = time.monotonic()
         dot = start
-        column = 1        
+        column = 1
         largest_divider = int(math.sqrt(last))
         if largest_divider % 2 == 0:
             largest_divider += 1
@@ -65,11 +65,12 @@ if __name__ == "__main__":
             if (time.monotonic() - dot) > 2:
                 print(".", end="")
                 dot = time.monotonic()
+                led.value = not led.value
                 column += 1
                 if column > 30:
                     t = elapsed_time(time.monotonic() - start)
                     print(f" {t} - {number} {int(number*100/last)}% ")
-                    column = 1            
+                    column = 1
         duration = time.monotonic() - start
         print(f'This took: {duration} seconds.')
         print(f'Found {found} primes.')
@@ -80,10 +81,8 @@ if __name__ == "__main__":
                 fp.write(f'\nPrimes to {last} took {duration} seconds.')
                 fp.write(f'\nFound {found} primes. Should be {reference[i]}.')
                 print('Exported to filesystem ')
-                led[0] = GREEN
         except:
             print("Can't write to the filesystem. Press reset and after that the boot button in the first 5 seconds")
-            led[0] = RED
         #print(f'Primes to {last} took {(end - start)} seconds.')
         #print(f'Found {found} primes. Should be {reference[i]}.')
         time_calc[i] = duration
@@ -99,5 +98,14 @@ if __name__ == "__main__":
     except:
         print("Can't write to the filesystem. Press reset and after that the boot button in the first 5 seconds")
 
+led = digitalio.DigitalInOut(board.LED)
+led.direction = digitalio.Direction.OUTPUT
+
 while True:
-    lightshow()
+    led.value = True
+    print(f'LED on - to {last} needs {end - start} s')
+    time.sleep(10)
+    led.value = False
+    print('LED off')
+    time.sleep(1)
+    pass
