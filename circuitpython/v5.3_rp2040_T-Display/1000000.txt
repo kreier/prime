@@ -1,3 +1,3 @@
 lilygo_t_display_rp2040
-Primes to 1000000 took 148.377 seconds.
+Primes to 1000000 took 158.391 seconds.
 Found 78498 primes. Should be 78498.

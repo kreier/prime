@@ -140,7 +140,7 @@ if __name__ == "__main__":
 
 while True:
     led.value = True
-    print(f'LED on - to {last} needs {end - start} s')
+    print(f'LED on - to {last} needs {duration} s')
     time.sleep(10)
     led.value = False
     print('LED off')
