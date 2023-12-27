@@ -3,7 +3,7 @@
 #include <math.h>
 #include <EEPROM.h>
 
-#define END_PRIMES 3540
+#define END_PRIMES 6542
 #define LED_PIN PC13
 
 double start;
@@ -11,7 +11,7 @@ int column = 10;
 int found = 4;   // we already know 2, 3, 5, 7
 int divisors = found;
 int last;
-uint32_t primes[END_PRIMES] = {3, 5, 7}; // limit due to RAM on F103
+uint16_t primes[END_PRIMES] = {3, 5, 7}; // good for 2E32 in uint32_t
 
 int is_prime(uint32_t number) {
   int prime = 1;
