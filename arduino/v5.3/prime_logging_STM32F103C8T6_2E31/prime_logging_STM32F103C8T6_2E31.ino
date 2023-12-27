@@ -1,4 +1,4 @@
-/* Prime numbers in Arduino C v5.4 2023/12/14 for STM32F103C8T6 */
+/* Prime numbers in Arduino C v5.4 2023/12/27 for STM32F103C8T6 */
 #include <time.h>
 #include <math.h>
 #include <EEPROM.h>
@@ -10,7 +10,7 @@ double start;
 int column = 10;
 int found = 4;   // we already know 2, 3, 5, 7
 int divisors = found;
-int last;
+uint32_t last;
 uint16_t primes[END_PRIMES] = {3, 5, 7}; // good for 2E32 in uint32_t
 
 int is_prime(uint32_t number) {
@@ -112,7 +112,7 @@ void setup() {
   {
     last = scope[i];
     found = 4;   // we already know 2, 3, 5, 7
-    Serial.println("\n\nPrime v5.4 in Arduino C - 2023/12/18");
+    Serial.println("\n\nPrime v5.4 in Arduino C - 2023/12/27");
     Serial.print("Calculating until ");
     Serial.println(last);
     start = millis();
@@ -149,7 +149,7 @@ void setup() {
           Serial.print(" - ");
           Serial.print(number);
           Serial.print(" ");
-          Serial.print((int)(number / (last / 100)));
+          Serial.print((number / (last / 100.0)), 3);
           Serial.print("% \n");
         }
       }
