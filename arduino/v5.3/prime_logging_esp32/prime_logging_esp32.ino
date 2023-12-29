@@ -1,4 +1,4 @@
-/* Prime numbers in Arduino C v5.4 2023/12/24 for esp32 */
+/* Prime numbers in Arduino C v5.4 2023/12/29 for esp32 */
 #include <time.h>
 #include <math.h>
 #include <Preferences.h>
@@ -113,7 +113,7 @@ void setup() {
   {
     int last = scope[i];
     found = 4;   // we already know 2, 3, 5, 7
-    Serial.println("\n\nPrime v5.4 in Arduino C - 2023/12/24");
+    Serial.println("\n\nPrime v5.4 in Arduino C - 2023/12/29");
     Serial.print("Calculating prime numbers until ");
     Serial.println(last);
     start = micros();      // use micros() for more precision
@@ -177,11 +177,11 @@ void setup() {
 
 
   // start calculating with millis() from 1 billion
-  for (int i = 10; i < 11; i++)
+  for (int i = 9; i < 11; i++)
   {
     uint32_t last = scope[i];
     found = 4;   // we already know 2, 3, 5, 7
-    Serial.println("\n\nPrime v5.0 in Arduino C - 2023/12/24");
+    Serial.println("\n\nPrime v5.4 in Arduino C - 2023/12/29");
     Serial.print("Calculating prime numbers until ");
     Serial.println(last);
     start = millis();
