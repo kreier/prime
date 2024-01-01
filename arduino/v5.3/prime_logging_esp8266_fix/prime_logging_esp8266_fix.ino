@@ -1,4 +1,4 @@
-/* Prime numbers in Arduino C v5.3 2023/12/15 for Arduino Uno */
+/* Prime numbers in Arduino C v5.3 2024/01/01 for ESP8266 */
 // code v5.0 is limited to 10 million for Arduino Uno since we can only store 
 // less than 750 primes in the limited RAM for this fast algorithm
 
@@ -76,7 +76,7 @@ void setup() {
     Serial.print(".");
     delay(1000);
   }
-  const long scope[] = {100, 1000, 10000, 100000, 1000000, 10000000, 25000000, 100000000, 1000000000, 2147483647, 4294967295};
+  const uint32_t scope[] = {100, 1000, 10000, 100000, 1000000, 10000000, 25000000, 100000000, 1000000000, 2147483647, 4294967295};
   const long reference[] = {25, 168, 1229, 9592, 78498, 664579, 1565927, 5761455, 50847534, 105097564, 203280221};
 
   // previous run
@@ -84,9 +84,9 @@ void setup() {
   Serial.print("\n\nEEPROM already used to ");
   Serial.print(EEPROM.percentUsed());
   Serial.print("%\n");
-  Serial.print("\nPrevious results Arduino Uno:\n");
+  Serial.print("\nPrevious results for ESP8266:\n");
   Serial.print("    last        seconds   \n");
-  for(int i = 0; i < 10; i++) {
+  for(int i = 0; i < 11; i++) {
     int spaces = 11 - (int)log10(scope[i]);
     for(int j = 0; j < spaces; j++) {
       Serial.print(" ");
