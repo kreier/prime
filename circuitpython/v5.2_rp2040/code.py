@@ -39,13 +39,21 @@ def is_prime_fast(number):
             break
     return flag_prime
 
+def elapsed_time(seconds):
+    hours = int(seconds/3600)
+    minutes = int(seconds/60 - hours*60)
+    sec = int(seconds - minutes*60 - hours*3600)
+    return(f"{hours}h {minutes}min {sec}s")
+
 if __name__ == "__main__":
     for i in range(len(scope)):
         last = scope[i]
         found = 4              # we start from 11, know 2, 3, 5, 7
         primes = [3, 5, 7]     # exclude 2 since we only test odd numbers
-        print(f"\nPrime numbers to {last}")
+        print(f"\nPrime numbers to {last} in v5.4")
         start = time.monotonic()
+        dot = start
+        column = 1        
         largest_divider = int(math.sqrt(last))
         if largest_divider % 2 == 0:
             largest_divider += 1
@@ -54,8 +62,16 @@ if __name__ == "__main__":
         print(f'Found {found} primes, now use them als dividers.')
         for number in range(largest_divider + 2, last, 2):
             found += is_prime_fast(number)
-        end = time.monotonic()
-        print(f'This took: {(end - start)} seconds.')
+            if (time.monotonic() - dot) > 2:
+                print(".", end="")
+                dot = time.monotonic()
+                column += 1
+                if column > 30:
+                    t = elapsed_time(time.monotonic() - start)
+                    print(f" {t} - {number} {int(number*100/last)}% ")
+                    column = 1            
+        duration = time.monotonic() - start
+        print(f'This took: {duration} seconds.')
         print(f'Found {found} primes.')
         filename = "/" + str(last) + ".txt"
         try:

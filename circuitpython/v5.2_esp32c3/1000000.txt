@@ -1,3 +1,0 @@
-espressif_esp32c3_devkitm_1_n4
-Primes to 1000000 took 98.019 seconds. 0h 1min 38s
-Found 78498 primes. Should be 78498.

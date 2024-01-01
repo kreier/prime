@@ -1,0 +1,3 @@
+luatos_core_esp32c3
+Primes to 25000000 took 6334.8 seconds.
+Found 1565927 primes. Should be 1565927.

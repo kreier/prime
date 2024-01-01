@@ -83,7 +83,7 @@ if __name__ == "__main__":
         duration = time.monotonic() - start
         print(f'This took: {duration} seconds. {elapsed_time(duration)}')
         print(f'Found {found} primes.')
-        filename = "/" + str(last) + ".txt"
+        filename = "/data/" + str(last) + ".txt"
         try:
             with open(filename, "w") as fp:
                 fp.write(board.board_id)

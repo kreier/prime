@@ -1,3 +1,0 @@
-lolin_s2_mini
-Primes to 100 took 0.00500107 seconds.
-Found 25 primes. Should be 25.

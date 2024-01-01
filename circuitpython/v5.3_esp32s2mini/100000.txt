@@ -1,3 +1,0 @@
-lolin_s2_mini
-Primes to 100000 took 7.177 seconds.
-Found 9592 primes. Should be 9592.

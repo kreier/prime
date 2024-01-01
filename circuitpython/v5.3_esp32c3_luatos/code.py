@@ -1,4 +1,4 @@
-# prime v5.3 2023-12-14 for luatos esp32c3
+# prime v5.3 2023-12-25 for luatos esp32c3
 # cycles through limits and writes to the filesystem
 
 import math, time, digitalio, board, os
@@ -52,8 +52,7 @@ def lightshow():
         time.sleep(0.2)
 
 if __name__ == "__main__":
-    lightshow() 
-    for i in range(len(scope)):
+    for i in range(len(scope)): # len(scope)
         last = scope[i]
         found = 4              # we start from 11, know 2, 3, 5, 7
         primes = [3, 5, 7]     # exclude 2 since we only test odd numbers
@@ -99,7 +98,7 @@ if __name__ == "__main__":
     print('\nWrite summary')
     try:
         with open("summary.txt", "w") as fp:
-            fp.write(f'Primes calculation in Circuitpython v5.2 2023/12/11\n')
+            fp.write(f'Primes calculation in Circuitpython v5.3 2023/12/14\n')
             fp.write(board.board_id)
             fp.write('\n last       time in seconds\n')
             for i in range(len(time_calc)):
@@ -110,3 +109,4 @@ if __name__ == "__main__":
 
 while True:
     lightshow()
+    

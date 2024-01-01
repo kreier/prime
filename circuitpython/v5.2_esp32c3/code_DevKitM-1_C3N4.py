@@ -1,18 +1,18 @@
-# prime v5.3 2023-12-14 for ESP32-C3-DevKitM-1 with ESP32-C3N4
+# prime v5.3 2023-12-25 for ESP32-C3-DevKitM-1 with ESP32-C3N4
 # cycles through limits and writes to the filesystem
 
-import math, time, digitalio, board, os
+import math, time, digitalio, board, os, neopixel
 
-scope = [100, 1000, 10000, 100000, 1000000, 10000000, 25000000, 100000000, 1000000000]
-reference = [25, 168, 1229, 9592, 78498, 664579, 1565927, 5761455, 123456789]
-time_calc = [0, 0, 0, 0, 0, 0, 0, 0, 0]
+scope = [100, 1000, 10000, 100000, 1000000, 10000000, 25000000, 100000000, 1000000000, 2147483647, 4294967295]
+reference = [25, 168, 1229, 9592, 78498, 664579, 1565927, 5761455, 50847534, 105097564, 203280221]
+time_calc = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
 
-led = digitalio.DigitalInOut(board.IO4)
-led.direction = digitalio.Direction.OUTPUT
-led.value = True
-led2 = digitalio.DigitalInOut(board.IO5)
-led2.direction = digitalio.Direction.OUTPUT
-led2.value = True
+led = neopixel.NeoPixel(board.NEOPIXEL, 1)
+led.brightness = 0.3
+RED   = (255, 0, 0)
+GREEN = (0, 255, 0)
+BLUE  = (0, 0, 255)
+led[0] = RED
 
 def is_prime(number):
     global found
@@ -50,11 +50,11 @@ def elapsed_time(seconds):
     return(f"{hours}h {minutes}min {sec}s")
 
 def lightshow():
-    led.value = True
-    led2.value = False
-    for i in range(10):
-        led2.value = led.value
-        led.value = not led.value
+    for i in range(1000):
+        R = abs(255*math.sin(i/100))
+        G = abs(255*math.sin((i+105)/100))
+        B = abs(255*math.sin((i+210)/100))
+        led[0] = (R, G, B)
         time.sleep(0.002)
 
 if __name__ == "__main__":
@@ -80,34 +80,33 @@ if __name__ == "__main__":
                 dot = time.monotonic()
                 column += 1
                 if column % 2 == 0:
-                    led.value = True
-                    led2.value = not led.value
+                    led[0] = BLUE
                 else:
-                    led.value = False
-                    led2.value = not led.value
+                    led[0] = GREEN
                 if column > 30:
                     t = elapsed_time(time.monotonic() - start)
-                    print(f" {t} - {number} {int(number*100/last)}% ")
+                    print(f" {t} - {number} {(number/(last/100)):.3f}% ")
                     column = 1            
         duration = time.monotonic() - start
+        led[0] = RED        
         print(f'This took: {duration} seconds. {elapsed_time(duration)}')
         print(f'Found {found} primes.')
-        filename = "/" + str(last) + ".txt"
+        filename = "/data/" + str(last) + ".txt"
         try:
             with open(filename, "w") as fp:
                 fp.write(board.board_id)
                 fp.write(f'\nPrimes to {last} took {duration} seconds.')
                 fp.write(f'\nFound {found} primes. Should be {reference[i]}.')
                 print('Exported to filesystem ')
+                led[0] = GREEN                
         except:
             print("Can't write to the filesystem. Press reset and after that the boot button in the first 5 seconds")
-        #print(f'Primes to {last} took {(end - start)} seconds.')
-        #print(f'Found {found} primes. Should be {reference[i]}.')
+            led[0] = RED        
         time_calc[i] = duration
     print('\nWrite summary')
     try:
-        with open("summary.txt", "w") as fp:
-            fp.write(f'Primes calculation in Circuitpython v5.2 2023/12/11\n')
+        with open("/data/summary.txt", "w") as fp:
+            fp.write(f'Primes calculation in Circuitpython v5.2 2023/12/25\n')
             fp.write(board.board_id)
             fp.write('\n last       time in seconds\n')
             for i in range(len(time_calc)):

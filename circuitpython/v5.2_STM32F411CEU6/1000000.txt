@@ -1,3 +1,0 @@
-stm32f411ce_blackpill_with_flash
-Primes to 1000000 took 147.149 seconds. 0h 2min 27s
-Found 78498 primes. Should be 78498.
