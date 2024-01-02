@@ -75,22 +75,14 @@ void elapsed_time(int seconds) {
   Serial.print("s ");
 }
 
-void led(int RGB[]) {
-  pixels.setPixelColor(0, pixels.Color(RGB[0], RGB[1], RGB[2]));
-  pixels.show();
-}
-
-
 
 void setup() {
   Serial.begin(74880);
-  pixels.begin();  // INITIALIZE NeoPixel strip object (REQUIRED)
-  led(RED);
   for (int i = 0; i < 3; i++) {
     Serial.print(".");
     delay(1000);
   }
-  led(BLUE);
+  // led(BLUE);
   const uint32_t scope[] = {100, 1000, 10000, 100000, 1000000, 10000000, 25000000, 100000000, 1000000000, 2147483647, 4294967295};
   const int reference[] = {25, 168, 1229, 9592, 78498, 664579, 1565927, 5761455, 50847534, 105097564, 203280221};
 
@@ -112,12 +104,12 @@ void setup() {
   }
   // preferences.end();
   delay(1000);
-  led(GREEN);
+  // led(GREEN);
 
 
 
   // start calculating with micros() until 100 million
-  for (int i = 0; i < 8; i++) // 8
+  for (int i = 0; i < 3; i++) // 8
   {
     int last = scope[i];
     found = 4;   // we already know 2, 3, 5, 7
@@ -145,13 +137,6 @@ void setup() {
         Serial.print(".");
         dot = millis();
         column += 1;
-        if(column % 2 == 0) {
-          led(RED);
-        }
-        else
-        {
-          led(GREEN);
-        }
         if(column > 40) {
           column = 0;
           elapsed_time(dot/1000);
@@ -188,6 +173,7 @@ void setup() {
   for (int i = 8; i < 11; i++)
   {
     uint32_t last = scope[i];
+    float last100 = last / 100.0;
     found = 4;   // we already know 2, 3, 5, 7
     Serial.println("\n\nPrime v5.0 in Arduino C - 2023/12/20");
     Serial.print("Calculating prime numbers until ");
@@ -213,20 +199,13 @@ void setup() {
         Serial.print(".");
         dot = millis();
         column += 1;
-        if(column % 2 == 0) {
-          led(RED);
-        }
-        else
-        {
-          led(GREEN);
-        }
         if(column > 40) {
           column = 0;
           elapsed_time(dot/1000);
           Serial.print(" - ");
           Serial.print(number);
           Serial.print(" ");
-          Serial.print((int)(number / (last / 100)));
+          Serial.print(number / last100, 2);
           Serial.print("% \n");
         }
       }
@@ -255,10 +234,10 @@ void loop() {  // program finished, just keep printing some dots
   for(int i = 0; i < 80; i++) {
     Serial.print(".");
     for(int x = 0; x < 100; x++) {
-      led(BLUE);
+      // led(BLUE);
       delay(30);
-      pixels.clear();
-      pixels.show();
+      // pixels.clear();
+      // pixels.show();
       delay(20);   
     }
   }
