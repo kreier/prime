@@ -170,7 +170,7 @@ void setup() {
 
 
   // start calculating with millis() from 1 billion
-  for (int i = 8; i < 11; i++)
+  for (int i = 9; i < 11; i++)
   {
     uint32_t last = scope[i];
     float last100 = last / 100.0;
@@ -201,7 +201,7 @@ void setup() {
         column += 1;
         if(column > 40) {
           column = 0;
-          elapsed_time(dot/1000);
+          elapsed_time((dot - start)/1000);
           Serial.print(" - ");
           Serial.print(number);
           Serial.print(" ");
