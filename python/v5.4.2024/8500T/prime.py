@@ -2,6 +2,10 @@
 
 import math, time, cpuinfo
 
+scope = [100, 1000, 10000, 100000, 1000000, 10000000, 25000000, 100000000, 1000000000, 2147483647, 4294967295]
+reference = [25, 168, 1229, 9592, 78498, 664579, 1565927, 5761455, 50847534, 105097564, 203280221]
+index = 3
+
 def is_prime(number):
     global found
     flag_prime = 1
@@ -38,7 +42,7 @@ def elapsed_time(seconds):
     return(f"{hours}h {minutes}min {sec}s")
 
 if __name__ == "__main__":
-    last  = 2147483647     # 4294967295 is the limit for unsigned 32bit
+    last  = scope[index]   # 4294967295 is the limit for unsigned 32bit
     found = 4              # we start from 11, know 2, 3, 5, 7
     primes = [3, 5, 7]     # exclude 2 since we only test odd numbers
     print(f"Calculating prime numbers to {last} in Python with algorithm v5.4.2024")
@@ -66,4 +70,4 @@ if __name__ == "__main__":
         print(" ")
     duration = (time.perf_counter_ns() - start)/1000000000
     print(f"This took: {duration:.9f} seconds. {elapsed_time(duration)}")
-    print(f"I found {found} prime numbers. Should be 78498.")
+    print(f"I found {found} prime numbers. Should be {reference[index]}.")

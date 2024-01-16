@@ -74,14 +74,14 @@ if __name__ == "__main__":
         print(f"I found {found} prime numbers. Should be {reference[i]}.\n")
         filename = str(last) + ".txt"
         with open(filename, "w") as fp:
-            fp.write('prime v5.0.2023 in python\n')
+            fp.write('prime v5.4.2024 in python\n')
             fp.write(cpuinfo.get_cpu_info()['brand_raw'])
             fp.write(f'\nPrimes to {last} took {(end - start)/1000} microseconds. ')
             fp.write(elapsed_time((end - start)/1000000000))
             fp.write(f'\nFound {found} primes. Should be {reference[i]}.\n')
         time_calc[i] = (end - start)/1000
     with open("summary.txt", "w")as fp:
-        fp.write('Summary of prime v5.0.2023 in python\n')
+        fp.write('Summary of prime v5.4.2024 in python\n')
         fp.write(cpuinfo.get_cpu_info()['brand_raw'])
         fp.write('\n     last       time in microseconds\n')
         for i in range(len(scope)):

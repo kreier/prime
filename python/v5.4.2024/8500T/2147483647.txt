@@ -1,0 +1,4 @@
+prime v5.4.2024 in python
+Intel(R) Core(TM) i5-8500T CPU @ 2.10GHz
+Primes to 2147483647 took 38236242812.1 microseconds. 10h 37min 16s
+Found 105097564 primes. Should be 105097564.
