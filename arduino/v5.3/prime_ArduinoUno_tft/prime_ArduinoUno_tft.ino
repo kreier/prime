@@ -120,15 +120,17 @@ void recentResults() {
   tft.setRotation(1);
   tft.fillScreen(BLACK);
   tft.setCursor(0, 0);
-  tft.setTextColor(WHITE); tft.setTextSize(2);
+  tft.setTextColor(GREEN); tft.setTextSize(2);
   tft.println("Prime calculations");
   tft.setTextColor(WHITE);  tft.setTextSize(1);
-  tft.println("Algorithm v5.0 in C on Arduino Uno");
-  tft.setTextColor(RED);
-  tft.println("Recent results:");
-  tft.setTextColor(WHITE); tft.setTextSize(2);
-  for(int i = 0; i < 11; i++) {
-    int spaces = 14 - strlen(label[i]);
+  tft.println("Algorithm v5.0 in C on Arduino Uno\n");
+  tft.setTextColor(RED); tft.setTextSize(2);
+  tft.println("Recent results:\n");
+  tft.setTextColor(YELLOW);
+  tft.println("    last       seconds\n");
+  tft.setTextColor(WHITE); 
+  for(int i = 0; i < 7; i++) {  // 7 is 25 million which is the limit with this algorithm
+    int spaces = 12 - strlen(label[i]);
     for(int j = 0; j < spaces; j++) { 
       Serial.print(" ");
       tft.print(" ");
