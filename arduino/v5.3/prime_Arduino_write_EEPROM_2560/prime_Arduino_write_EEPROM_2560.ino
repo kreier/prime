@@ -1,5 +1,4 @@
-/* Prime numbers in Arduino C v5.3 2024/01/15 for Arduino Uno */
-// code v5.0 is limited to 25 million for Arduino Uno since we can only store 
+/* Prime numbers in Arduino C v5.3 2024/01/15 for Arduino Mega 2560 */
 // less than 750 primes in the limited RAM for this fast algorithm
 // but 672 primes are enough since prime #671 is 5009 which is > sqrt(25 million)
 
@@ -8,14 +7,14 @@
 #include <EEPROM.h>
 
 double start;
-int column = 10;
-long found = 4;   // we already know 2, 3, 5, 7
-int divisors = found;
-int missing = 0;  // not yet calculated values
-int spaces  = 10;
-int primes[672] = {3, 5, 7}; // prime #671 is 5009 > sqrt(25 million) 88% RAM used
-int primes[6543] = {3, 5, 7}; // for Mega 2560
-int led = LED_BUILTIN; // LED_BUILTIN
+uint8_t column = 10;
+uint32_t found = 4;   // we already know 2, 3, 5, 7
+int8_t divisors = found;
+int8_t missing = 0;  // not yet calculated values
+int8_t spaces  = 10;
+// int primes[672] = {3, 5, 7}; // prime #671 is 5009 > sqrt(25 million) 88% RAM used
+uint16_t primes[3403] = {3, 5, 7}; // for Mega 2560 only 3402 primes to 31623 = sqrt(1000000000)
+int8_t led = LED_BUILTIN; // LED_BUILTIN
 
 void setup() {
   Serial.begin(9600);
@@ -24,38 +23,39 @@ void setup() {
     Serial.print(".");
     delay(1000);
   }
-  const long scope[] = {100, 1000, 10000, 100000, 1000000, 10000000, 25000000};
-  const long reference[] = {25, 168, 1229, 9592, 78498, 664579, 1565927};
-  // const char*    label[] = {"100", "1,000", "10,000", "100,000", "1,000,000", "10,000,000", "25,000,000"};
-  // const int label_length[] = {3, 5, 6, 7, 9, 10, 10};
+  const uint32_t   scope[] = {100, 1000, 10000, 100000, 1000000, 10000000, 25000000, 100000000, 1000000000, 2147483647, 4294967295};
+  const long   reference[] = {25, 168, 1229, 9592, 78498, 664579, 1565927, 5761455, 50847534, 105097564, 203280221}; 
+  const char*      label[] = {"100", "1,000", "10,000", "100,000", "1,000,000", "10,000,000", "25,000,000", "100,000,000", "1,000,000,000", "2,147,483,647", "4,294,967,295"};
+  const int label_length[] = {3, 5, 6, 7, 9, 10, 10, 11, 13, 13, 13};
 
   // previous run
-  Serial.print("\nPrevious results Arduino Uno:\n");
-  Serial.print("    last        seconds   \n");
+  Serial.print("\nPrevious results Arduino Mega 2560:\n");
+  Serial.print("      last        seconds   \n");
   for(int i = 0; i < 11; i++) {
-    // spaces = 12 - label_length[i];
-    spaces = 11 - (int)log10(scope[i]);
+    spaces = 14 - label_length[i];
+    // spaces = 11 - (int)log10(scope[i]);
     for(int j = 0; j < spaces; j++) { 
       Serial.print(" ");
     }    
-    float last_time;
-    if (last_time > 0) { missing++; }    
+    float last_time = 0.0;
     EEPROM.get(i * 4 + 1, last_time);
-    // Serial.print(label[i]);
-    Serial.print(scope[i]);
+    if (last_time > 0) { missing++; }    
+    Serial.print(label[i]);
+    // Serial.print(scope[i]);
     Serial.print("    ");
     Serial.print(last_time, 3);
     Serial.print("\n");
   }
 
   // start calculating
-  for (int i = missing; i < 11; i++) // can only go to 25 million
+  for (int i = missing; i < 11; i++) // can only go to 1 billion
   {
     long last = scope[i];
     found = 4;   // we already know 2, 3, 5, 7
-    Serial.println("\n\nPrime v5.3");
+    Serial.println("\n\nPrime v5.3 on Arduino Mega 2560 with 8 KB SRAM, 4 KB EEPROM and 256 KB flash memory");
     Serial.print("Primes until ");
-    Serial.println(last);
+    // Serial.println(last);
+    Serial.println(label[i]);
     start = millis();      // use micros() for more precision
     // Serial.println(start/1000000, 6);
     long largest_divider = (long)(sqrt(last)); 
