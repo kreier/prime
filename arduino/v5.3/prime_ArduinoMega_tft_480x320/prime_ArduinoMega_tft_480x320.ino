@@ -20,12 +20,13 @@
 MCUFRIEND_kbv tft;
 
 double start;
-int column = 10;
-long found = 4;   // we already know 2, 3, 5, 7
-int divisors = found;
-int missing = 0;  // not yet calculated values
-uint16_t primes[350] = {3, 5, 7}; // only 3402 primes to 31623 = sqrt(1000000000)
-const int led = LED_BUILTIN; // LED_BUILTIN
+int8_t column = 10;
+uint32_t found = 4;   // we already know 2, 3, 5, 7
+int8_t divisors = found;
+int8_t missing = 0;  // not yet calculated values
+int8_t color   = 0;
+uint16_t primes[2632] = {3, 5, 7}; // only 3402 primes to 31623 = sqrt(1000000000)
+const int8_t led = LED_BUILTIN; // LED_BUILTIN
 const uint32_t scope[]     = {100, 1000, 10000, 100000, 1000000, 10000000, 25000000, 100000000, 1000000000, 2147483647, 4294967295};
 const uint32_t nr_primes[] = {25, 168, 1229, 9592, 78498, 664579, 1565927, 5761455, 50847534, 105097564, 203280221}; 
 const char*    label[]     = {"100", "1,000", "10,000", "100,000", "1,000,000", "10,000,000", "25,000,000", "100,000,000", "1,000,000,000", "2,147,483,647", "4,294,967,295"};
@@ -37,7 +38,8 @@ void setup(void) {
   tft.begin(ID);
   tft.setRotation(2);
   recentResults();
-  delay(10000);
+  delay(5000);
+
   Serial.print("calculating missing");
   // start calculating
   for (int i = missing; i < 9; i++) // limit of 9 instead of 11 for RAM limit of Mega 2560
@@ -46,9 +48,12 @@ void setup(void) {
     found = 4;   // we already know 2, 3, 5, 7
     Serial.println("\n\nPrime v5.3");
     Serial.print("Primes until ");
-    Serial.println(last);
+    Serial.println(label[i]);
+    tft.setCursor(0, 256);
+    tft.setTextColor(GREEN);
+    tft.print("Calculating to ");
+    tft.print(label[i]);
     start = millis();      // use micros() for more precision
-    // Serial.println(start/1000000, 6);
     long largest_divider = (long)(sqrt(last)); 
     if(largest_divider % 2 == 0)
     {
@@ -60,30 +65,43 @@ void setup(void) {
     Serial.print(" primes until ");
     Serial.print(largest_divider);
     Serial.print(" to use as divisors.\n");
+    tft.setCursor(0, 272);
+    tft.print("Found ");
+    tft.print(found);
+    tft.println(" primes until ");
+    tft.print(largest_divider);
+    tft.print(" to use as divisors.\n");
     long dot = millis();
     int column = 0;
     for(long number = largest_divider + 2; number < last; number += 2)
     {
       found += is_prime_fast(number);
-      if((millis() - dot) > 1000) {
+      if((millis() - dot) > 5000) {
         Serial.print(".");
+        tft.print(".");
         dot = millis();
         column += 1;
-        if(column % 2 == 0) {
-          digitalWrite(led, HIGH);
-        }
-        else
-        {
-          digitalWrite(led, LOW);
-        }
-        if(column > 40) {
+        if(column % 2 == 0) { digitalWrite(led, HIGH); }
+        else {                digitalWrite(led, LOW);  }
+        if(column > 24) {
           column = 0;
+          tft.setTextColor(WHITE);
+          tft.setCursor(0, 320);
           elapsed_time(dot/1000);
           Serial.print(" - ");
           Serial.print(number);
           Serial.print(" ");
           Serial.print((int)(number / (last / 100)));
           Serial.print("% \n");
+          if (color == 0) {
+            color = 1;
+            tft.setTextColor(RED);
+          }
+          else {
+            color = 0;
+            tft.setTextColor(GREEN);
+          }
+          tft.setCursor(0, 304);
         }
       }
     }
@@ -113,7 +131,8 @@ void recentResults() {
   Serial.print(" calculated to    time in seconds   \n");
   tft.fillScreen(BLACK);
   tft.setCursor(0, 0);
-  tft.setTextColor(GREEN); tft.setTextSize(2);
+  tft.setTextColor(GREEN); 
+  tft.setTextSize(2);
   tft.println("Prime calculations");
   tft.setTextColor(WHITE);  tft.setTextSize(1);
   tft.println("Algorithm v5.0 in C on Arduino Uno\n");
@@ -136,7 +155,6 @@ void recentResults() {
     tft.print("  ");
     tft.println(last_time_seconds, 3);
   }
-  delay(10000);
 }
 
 int is_prime(long number) {
@@ -193,78 +211,10 @@ void elapsed_time(long seconds) {
   Serial.print("min ");
   Serial.print(sec);
   Serial.print("s ");
+  tft.print(hours);
+  tft.print("h ");
+  tft.print(minutes);
+  tft.print("min ");
+  tft.print(sec);
+  tft.print("s ");
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-unsigned long testText() {
-  tft.fillScreen(BLACK);
-  unsigned long start = micros();
-  tft.setCursor(0, 0);
-  tft.setTextColor(WHITE);  tft.setTextSize(1);
-  tft.println("Hello World!");
-  tft.setTextColor(YELLOW); tft.setTextSize(2);
-  tft.println(1234.56);
-  tft.setTextColor(RED);    tft.setTextSize(3);
-  tft.println(0xDEADBEEF, HEX);
-  tft.println();
-  tft.setTextColor(GREEN);
-  tft.setTextSize(5);
-  tft.println("Groop");
-  tft.setTextSize(2);
-  tft.println("I implore thee,");
-  tft.setTextSize(1);
-  tft.println("my foonting turlingdromes.");
-  tft.println("And hooptiously drangle me");
-  tft.println("with crinkly bindlewurdles,");
-  tft.println("Or I will rend thee");
-  tft.println("in the gobberwarts");
-  tft.println("with my blurglecruncheon,");
-  tft.println("see if I don't!");
-  return micros() - start;
-
-
-  // unsigned long start = micros();
-
-
-  tft.setTextColor(WHITE);  tft.setTextSize(1);
-  tft.println("Hello World!");
-  tft.setTextColor(YELLOW); tft.setTextSize(2);
-  tft.println(1234.56);
-  tft.setTextColor(RED);    tft.setTextSize(3);
-  tft.println(0xDEADBEEF, HEX);
-  tft.println();
-  tft.setTextColor(GREEN);
-  tft.setTextSize(5);
-  tft.println("Groop");
-  tft.setTextSize(2);
-  tft.println("I implore thee,");
-  tft.setTextSize(1);
-  tft.println("my foonting turlingdromes.");
-  return micros() - start;
-}
-
-
-
-
-
-
-
-
