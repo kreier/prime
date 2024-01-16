@@ -183,11 +183,16 @@ void update_status(long s) {
   tft.print((number / (last / 100.0)));
   tft.println("% \n");  
   tft.println("Current estimate:");
-  int seconds_estimated = s * last / number;
-  int days = seconds_estimated / 86400;
+  float seconds_estimated = (float)s;
+  seconds_estimated *= last;
+  seconds_estimated /= (float)number;
+  uint16_t days = seconds_estimated / 86400;
+  uint16_t hours = seconds_estimated / 3600 - days * 24;
   tft.print(days);
   tft.print("d ");
-  tft.print(seconds_estimated / 3600 - days * 24);
-  tft.println("h ");
+  tft.print(hours);
+  tft.print("h ");
+  tft.print((int)(seconds_estimated / 60 - days * 1440 - hours * 60));
+  tft.println("min");
   tft.setCursor(0, 88);
 }
