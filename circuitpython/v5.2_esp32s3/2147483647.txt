@@ -1,0 +1,3 @@
+espressif_esp32s3_devkitc_1_n8r8
+Primes to 2147483647 took 3.70412e+06 seconds. 1028h 55min 22s
+Found 105097564 primes. Should be 105097564.

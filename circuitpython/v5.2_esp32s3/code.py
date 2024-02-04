@@ -1,10 +1,10 @@
-# prime v5.2 2023-12-11 for T-Display ESP32-S3 with 320x170 display
+# prime v5.2 2023-12-20 for T-Display ESP32-S3 with 320x170 display
 # cycles through limits and writes to the filesystem
 
 import math, time, digitalio, board, os
 
-scope = [100, 1000, 10000, 100000, 1000000, 10000000, 25000000, 100000000, 1000000000, 2147483647, 4294967295]
-reference = [25, 168, 1229, 9592, 78498, 664579, 1565927, 5761455, 50847534, 105097564, 203280221]
+scope = [100, 1000, 10000, 100000, 1000000, 10000000, 25000000, 100000000, 2147483647] # 1000000000, 2147483647, 4294967295
+reference = [25, 168, 1229, 9592, 78498, 664579, 1565927, 5761455, 105097564] # 50847534, 105097564, 203280221
 time_calc = [0, 0, 0, 0, 0, 0, 0, 0, 0]
 
 led = digitalio.DigitalInOut(board.IO38)
@@ -94,7 +94,7 @@ if __name__ == "__main__":
     print('\nWrite summary')
     try:
         with open("summary.txt", "w") as fp:
-            fp.write(f'Primes calculation in Circuitpython v5.2 2023/12/11\n')
+            fp.write(f'Primes calculation in Circuitpython v5.2 2023/12/20\n')
             fp.write(board.board_id)
             fp.write('\n last       time in seconds\n')
             for i in range(len(time_calc)):
