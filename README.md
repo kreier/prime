@@ -235,7 +235,7 @@ And now in Arduino C
 | 1,000,000 |        78,498 |         541.01 |        140.47 |         395.94 |                  |           252.78 |           129.44 |       0.054 |
 | 1,000,000 |        78.498 |        599.490 |       294.419 |        396.301 |          201.873 |          232.850 |          130.837 |             |
 
-![T-Display with esp32s2](https://github.com/ssisbit/ssis.bit/blob/main/docs/ssis.bit_2022-01-06.jpg)
+![T-Display with esp32s2](https://raw.githubusercontent.com/ssisbit/ssis.bit/main/docs/ssis.bit_2022-01-06.jpg)
 
 ## Does my code work?
 
@@ -252,6 +252,8 @@ A quick check to see if the code works as intended is the number of primes it fi
 |    10,000,000 |       664,579 |
 |   100,000,000 |     5,761,455 |
 | 1,000,000,000 |    50,847,534 |
+| 2,147,483,647 |   105,097,564 |
+| 4,294,967,295 |   203,280,221 |
 
 ## Faster with Multithreading - 4.9x faster
 
@@ -319,3 +321,11 @@ if __name__ == "__main__":
 ```
 
 And finally: For the original 1 million it takes 0.702 seconds. Not so far from the 0.128 seconds in C (5.5x slower). Which makes we wonder: How fast would it be in Rust or in C in parallel?
+
+## Even faster with the Sieve of Eratosthenes?
+
+This [algorithm](https://en.wikipedia.org/wiki/Sieve_of_Eratosthenes) is known and documented for almost 2000 years. How much faster would it be than the brute force method above? Time to find out.
+
+One limitation could be the required memory for the primes. Let's say I want to know the primes until 2E32 or 4,294,967,295. With the previous algorithm I would need 32bit x 203,280,221 primes = 813,120,884 byte. That's 775 MByte. Using the Sieve of Eratosthenes I could only include the odd numbers (I know the only even prime number - two) and just use one bit to represent if a number is prime (1) or not (0). Then each byte gives 8 numbers, and we need 4,294,967,295 / 2 / 8 = 268,435,456 bute = 256 MByte. It is actually less RAM demanding!
+
+Later 2024 I will give it a try.
