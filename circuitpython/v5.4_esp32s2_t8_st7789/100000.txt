@@ -1,0 +1,3 @@
+lilygo_ttgo_t8_s2_st7789
+Primes to 100000 took 10.387 seconds.
+Found 9592 primes. Should be 9592.
