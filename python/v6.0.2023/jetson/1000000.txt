@@ -1,0 +1,5 @@
+prime v6.0.2023 in python
+ARMv8 Processor rev 1 (v8l)
+Primes to 1000000 took 1.4559960539991152 seconds.
+Found 78498 primes. Should be 78498.
+We used 4 parallel processes.

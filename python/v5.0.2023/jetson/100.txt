@@ -1,0 +1,4 @@
+prime v5.0.2023 in python
+ARMv8 Processor rev 1 (v8l)
+Primes to 100 took 2.522450013202615e-07 microseconds. 0h 0min 0s
+Found 25 primes. Should be 25.
