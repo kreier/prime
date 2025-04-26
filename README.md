@@ -2,6 +2,7 @@
 
 [![GitHub release](https://img.shields.io/github/release/kreier/prime.svg)](https://GitHub.com/kreier/prime/releases/)
 [![MIT license](https://img.shields.io/github/license/kreier/prime)](https://kreier.mit-license.org/)
+[![Deploy Jekyll with GitHub Pages](https://github.com/kreier/prime/actions/workflows/jekyll-gh-pages.yml/badge.svg)](https://github.com/kreier/prime/actions/workflows/jekyll-gh-pages.yml)
 
 This is just a simple benchmark tool to compare algorithms, programming languages and CPUs from microcomputers to workstations. I've been using this calculation since 1989. It is still usefull for microcontrollers like the T-Display with an esp32s2:
 
@@ -328,4 +329,46 @@ This [algorithm](https://en.wikipedia.org/wiki/Sieve_of_Eratosthenes) is known a
 
 One limitation could be the required memory for the primes. Let's say I want to know the primes until 2E32 or 4,294,967,295. With the previous algorithm I would need 32bit x 203,280,221 primes = 813,120,884 byte. That's 775 MByte. Using the Sieve of Eratosthenes I could only include the odd numbers (I know the only even prime number - two) and just use one bit to represent if a number is prime (1) or not (0). Then each byte gives 8 numbers, and we need 4,294,967,295 / 2 / 8 = 268,435,456 bute = 256 MByte. It is actually less RAM demanding!
 
-Later 2024 I will give it a try.
+Later 2024 I will give it a try. Well, actually 2025:
+
+``` c
+#include <stdio.h>
+#include <math.h>
+#include <stdbool.h>
+#include <time.h>
+
+#define MAX 1000000
+
+void sieve(bool primes[]) {
+    for (int i = 2; i < MAX; i++) primes[i] = true;
+
+    for (int i = 2; i <= sqrt(MAX); i++) {
+        if (primes[i]) {
+            for (int j = i * i; j < MAX; j += i)
+                primes[j] = false;
+        }
+    }
+}
+
+int main() {
+    bool primes[MAX] = {false};
+    clock_t start, end;
+    double cpu_time_used;
+
+    printf("Calculating prime numbers until %d using Sieve of Eratosthenes...\n", MAX);
+    
+    start = clock();
+    sieve(primes);
+    end = clock();
+    
+    cpu_time_used = ((double)(end - start)) / CLOCKS_PER_SEC;
+
+    for (int i = 2; i < MAX; i++) {
+        if (primes[i]) printf("%d, ", i);
+    }
+    
+    printf("\nExecution Time: %f seconds.\n", cpu_time_used);
+    
+    return 0;
+}
+```
