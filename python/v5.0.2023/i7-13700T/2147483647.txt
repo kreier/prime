@@ -1,0 +1,4 @@
+prime v5.0.2023 in python
+13th Gen Intel(R) Core(TM) i7-13700T
+Primes to 2147483647 took 13512477224.4 microseconds. 3h 45min 12s
+Found 105097564 primes. Should be 105097564.

@@ -1,0 +1,4 @@
+prime v3.0.2023 in python
+13th Gen Intel(R) Core(TM) i7-13700T
+Primes to 100000 took 39105.8 microseconds.
+Found 9592 primes. Should be 9592.
