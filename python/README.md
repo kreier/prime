@@ -49,7 +49,10 @@ print('\nThis took:', (end - start), 'seconds.')
 print('Found: ',found)
 ```
 
-## code optimization
+## Code optimization
 
 After teaching more computer science, I started to use the modulus operator - and things got faster! As seen below it increased the speed by 2x to 3x. With some further tweaks the speed increased __17 times__!
 
+## Missing module `cpuinfo`
+
+And it is not installed with the expected name, but `pip install py-cpuinfo`.
