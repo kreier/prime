@@ -1,0 +1,3 @@
+waveshare_rp2350_plus
+Primes to 100000 took 4.458 seconds.
+Found 9592 primes. Should be 9592.
