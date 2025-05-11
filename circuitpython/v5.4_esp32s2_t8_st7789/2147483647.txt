@@ -1,0 +1,3 @@
+lilygo_ttgo_t8_s2_st7789
+Primes to 2147483647 took 6.06421e+06 seconds.
+Found 105097564 primes. Should be 105097564.
