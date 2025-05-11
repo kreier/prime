@@ -57,12 +57,13 @@ def lightshow():
     time.sleep(0.1)
 
 if __name__ == "__main__":
-    for i in range(8, len(scope)): # len(scope)
+    for i in range(len(scope)): # len(scope)
         last = scope[i]
         found = 4              # we start from 11, know 2, 3, 5, 7
         primes = [3, 5, 7]     # exclude 2 since we only test odd numbers
-        print(f"\nPrime numbers v5.3 to {last} in MicroPython 1.21.0")
+        print(f"\nPrime numbers v5.3 to {last} in MicroPython 1.25.0")
         start = time.ticks_ms()  # or ticks_us()
+        start_s = time.time()
         dot = start
         cooldown = start
         column = 1
@@ -88,7 +89,8 @@ if __name__ == "__main__":
                     print(f" {t} - {number} {int(number*100/last)}% {gc.mem_free()}")
                     column = 1
         duration = (time.ticks_ms() - start)/1000
-        print(f'\nThis took: {duration} seconds. {elapsed_time(duration)}')
+        duration_s = (time.time() - start_s)
+        print(f'\nThis took: {duration} or {duration_s} seconds. {elapsed_time(duration)}')
         print(f'Found {found} primes. Should be {reference[i]}.\n')
         led.value(1)
         filename = "/" + str(last) + ".txt"
@@ -96,8 +98,9 @@ if __name__ == "__main__":
             with open(filename, "w") as fp:
                 freq = machine.freq()/1000000
                 fp.write(f'ESP8266 with {freq} MHz')
-                fp.write(f'\nPrimes to {last} took {duration} seconds. {elapsed_time(duration)}')
+                fp.write(f'\nPrimes to {last} took {duration} or {duration_s} seconds. {elapsed_time(duration)}')
                 fp.write(f'\nFound {found} primes. Should be {reference[i]}.\n')
+                fp.write(f'Finished: {time.localtime(time.time())}')
                 print('Exported to filesystem ')
         except:
             print("Can't write to the filesystem. Press reset and after that the boot button in the first 5 seconds")
@@ -108,6 +111,7 @@ if __name__ == "__main__":
     try:
         with open("summary.txt", "w") as fp:
             fp.write(f'Primes calculation v5.3 in MicroPython 1.25.0 2025/05/11\n')
+            fp.write(f'Finished: {time.localtime(time.time())}\n')
             freq = machine.freq()/1000000
             fp.write(f'ESP8266 with {freq} MHz')
             fp.write('\n last       time in seconds\n')
@@ -119,3 +123,4 @@ if __name__ == "__main__":
 
     while True:
         lightshow()
+
