@@ -1,0 +1,3 @@
+espressif_esp32c3_devkitm_1_n4
+Primes to 25000000 took 5355.66 seconds.
+Found 1565927 primes. Should be 1565927.

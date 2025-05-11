@@ -1,0 +1,1 @@
+The firmware is actually espressif_esp32c3_devkitm_1_n4
