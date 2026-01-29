@@ -1,0 +1,38 @@
+nohup: ignoring input
+Calculating prime numbers in C v5.4.2024 until 100 
+Found 5 primes until 11 to use as dividers.
+Found 25 prime numbers. It should be 25.
+This took 0.000151 seconds.
+
+Calculating prime numbers in C v5.4.2024 until 1000 
+Found 11 primes until 31 to use as dividers.
+Found 168 prime numbers. It should be 168.
+This took 0.000445 seconds.
+
+Calculating prime numbers in C v5.4.2024 until 10000 
+Found 26 primes until 101 to use as dividers.
+Found 1229 prime numbers. It should be 1229.
+This took 0.004955 seconds.
+
+Calculating prime numbers in C v5.4.2024 until 100000 
+Found 66 primes until 317 to use as dividers.
+Found 9592 prime numbers. It should be 9592.
+This took 0.090079 seconds.
+
+Calculating prime numbers in C v5.4.2024 until 1000000 
+Found 168 primes until 1001 to use as dividers.
+Found 78498 prime numbers. It should be 78498.
+This took 1.815808 seconds.
+
+Calculating prime numbers in C v5.4.2024 until 10000000 
+Found 447 primes until 3163 to use as dividers.
+Found 664579 prime numbers. It should be 664579.
+This took 39.903922 seconds.
+
+Calculating prime numbers in C v5.4.2024 until 25000000 
+Found 669 primes until 5001 to use as dividers.
+Found 1565927 prime numbers. It should be 1565927.
+This took 139.017472 seconds.
+
+Calculating prime numbers in C v5.4.2024 until 100000000 
+Found 1229 primes until 10001 to use as dividers.
