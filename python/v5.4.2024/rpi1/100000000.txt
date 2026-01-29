@@ -1,0 +1,4 @@
+prime v5.4.2025 in python
+ARMv6-compatible processor rev 7 (v6l)
+Primes to 100000000 took 16354413723.579 microseconds. 4h 32min 34s
+Found 5761455 primes. Should be 5761455.

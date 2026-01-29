@@ -1,0 +1,4 @@
+prime v5.4.2025 in python
+ARMv6-compatible processor rev 7 (v6l)
+Primes to 2147483647 took 1096610490832.516 microseconds. 304h 36min 50s
+Found 105097564 primes. Should be 105097564.
