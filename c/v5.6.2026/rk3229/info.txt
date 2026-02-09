@@ -1,0 +1,1 @@
+gcc prime_logging.c -o prime_logging -lm
