@@ -1,0 +1,116 @@
+Adafruit CircuitPython 10.2.0 on 2026-04-22; VCC-GND Studio YD RP2040 with rp2040
+>>> 
+soft reboot
+
+Auto-reload is on. Simply save files over USB to run them or enter REPL to disable.
+code.py output:
+
+Prime numbers to 100 in v5.3 on vcc_gnd_yd_rp2040
+First find prime dividers up to 11.
+Found 5 primes, now use them als dividers.
+This took: 0.006990434 seconds. 0h 0min 0s
+Found 25 primes.
+Can't write to the filesystem. Press reset and after that the boot button in the first 5 seconds
+
+Prime numbers to 1000 in v5.3 on vcc_gnd_yd_rp2040
+First find prime dividers up to 31.
+Found 11 primes, now use them als dividers.
+This took: 0.0560093 seconds. 0h 0min 0s
+Found 168 primes.
+Can't write to the filesystem. Press reset and after that the boot button in the first 5 seconds
+
+Prime numbers to 10000 in v5.3 on vcc_gnd_yd_rp2040
+First find prime dividers up to 101.
+Found 26 primes, now use them als dividers.
+This took: 0.668997 seconds. 0h 0min 0s
+Found 1229 primes.
+Can't write to the filesystem. Press reset and after that the boot button in the first 5 seconds
+
+Prime numbers to 100000 in v5.3 on vcc_gnd_yd_rp2040
+First find prime dividers up to 317.
+Found 66 primes, now use them als dividers.
+....This took: 9.075004 seconds. 0h 0min 9s
+Found 9592 primes.
+Can't write to the filesystem. Press reset and after that the boot button in the first 5 seconds
+
+Prime numbers to 1000000 in v5.3 on vcc_gnd_yd_rp2040
+First find prime dividers up to 1001.
+Found 168 primes, now use them als dividers.
+.............................. 0h 1min 0s - 494111 49% 
+.............................. 0h 2min 0s - 873263 87% 
+..........This took: 141.691 seconds. 0h 2min 21s
+Found 78498 primes.
+Can't write to the filesystem. Press reset and after that the boot button in the first 5 seconds
+
+Prime numbers to 10000000 in v5.3 on vcc_gnd_yd_rp2040
+First find prime dividers up to 3163.
+Found 447 primes, now use them als dividers.
+.............................. 0h 1min 0s - 492611 4% 
+.............................. 0h 2min 0s - 871889 8% 
+.............................. 0h 3min 0s - 1213297 12% 
+.............................. 0h 4min 0s - 1531219 15% 
+.............................. 0h 5min 0s - 1832681 18% 
+.............................. 0h 6min 0s - 2123129 21% 
+.............................. 0h 7min 0s - 2402273 24% 
+.............................. 0h 8min 0s - 2671819 26% 
+.............................. 0h 9min 0s - 2933889 29% 
+.............................. 0h 10min 0s - 3189919 31% 
+.............................. 0h 11min 0s - 3440497 34% 
+.............................. 0h 12min 0s - 3687133 36% 
+.............................. 0h 13min 0s - 3928931 39% 
+.............................. 0h 14min 0s - 4166527 41% 
+.............................. 0h 15min 0s - 4400731 44% 
+.............................. 0h 16min 0s - 4630081 46% 
+.............................. 0h 17min 0s - 4856963 48% 
+.............................. 0h 18min 0s - 5080849 50% 
+.............................. 0h 19min 0s - 5302123 53% 
+.............................. 0h 20min 0s - 5520799 55% 
+.............................. 0h 21min 0s - 5736571 57% 
+.............................. 0h 22min 1s - 5949169 59% 
+.............................. 0h 23min 1s - 6159869 61% 
+.............................. 0h 24min 1s - 6368603 63% 
+.............................. 0h 25min 1s - 6576407 65% 
+.............................. 0h 26min 1s - 6781979 67% 
+.............................. 0h 27min 1s - 6985705 69% 
+.............................. 0h 28min 1s - 7188047 71% 
+.............................. 0h 29min 1s - 7387781 73% 
+.............................. 0h 30min 1s - 7585811 75% 
+.............................. 0h 31min 1s - 7781819 77% 
+.............................. 0h 32min 1s - 7976209 79% 
+.............................. 0h 33min 1s - 8169617 81% 
+.............................. 0h 34min 1s - 8361233 83% 
+.............................. 0h 35min 1s - 8551769 85% 
+.............................. 0h 36min 1s - 8740651 87% 
+.............................. 0h 37min 1s - 8928749 89% 
+.............................. 0h 38min 1s - 9116521 91% 
+.............................. 0h 39min 2s - 9302003 93% 
+.............................. 0h 40min 2s - 9487349 94% 
+.............................. 0h 41min 2s - 9670831 96% 
+.............................. 0h 42min 2s - 9854261 98% 
+.......................This took: 2570.013 seconds. 0h 42min 50s
+Found 664579 primes.
+Can't write to the filesystem. Press reset and after that the boot button in the first 5 seconds
+
+Prime numbers to 25000000 in v5.3 on vcc_gnd_yd_rp2040
+First find prime dividers up to 5001.
+Found 669 primes, now use them als dividers.
+.............................. 0h 1min 0s - 492251 1% 
+.............................. 0h 2min 0s - 871229 3% 
+.............................. 0h 3min 0s - 1212517 4% 
+.............................. 0h 4min 0s - 1530233 6% 
+.............................. 0h 5min 0s - 1831601 7% 
+.............................. 0h 6min 0s - 2121887 8% 
+.............................. 0h 7min 0s - 2400851 9% 
+.............................. 0h 8min 0s - 2670331 10% 
+.............................. 0h 9min 0s - 2932387 11% 
+.............................. 0h 10min 0s - 3188459 12% 
+.............................. 0h 11min 0s - 3438751 13% 
+.............................. 0h 12min 0s - 3685333 14% 
+.............................. 0h 13min 0s - 3927073 15% 
+.............................. 0h 14min 0s - 4164631 16% 
+.............................. 0h 15min 0s - 4398721 17% 
+.............................. 0h 16min 0s - 4628101 18% 
+.............................. 0h 17min 0s - 4854779 19% 
+.............................. 0h 18min 0s - 5078783 20% 
+.............................. 0h 19min 0s - 5299979 21% 
+.............................. 0h 20min 0s - 5518451 22% 
