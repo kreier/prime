@@ -193,7 +193,7 @@ void setup() {
 
 
   // start calculating with millis() from 1 billion
-  for (int i = 9; i < 11; i++)
+  for (int i = 8; i < 11; i++)
   {
     uint32_t last = scope[i];
     float last100 = last / 100.0;

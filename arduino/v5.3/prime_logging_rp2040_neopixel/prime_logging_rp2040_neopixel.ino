@@ -2,6 +2,7 @@
 #include <time.h>
 #include <math.h>
 #include <Adafruit_NeoPixel.h>
+#include <EEPROM.h>
 
 #define LED_PIN      25
 #define NEOPIXEL_PIN 23   
@@ -99,6 +100,7 @@ void setup() {
 
 
   // previous run
+  EEPROM.begin(44);  
   const char* pref[] = {"p100", "p1000", "p10000", "p100000", "p1000000", "p10000000", "p25000000", "p100000000", "p1000000000", "p2147483647", "p4294967295"};
   Serial.print("\nGet previous results for this rp2040:\n");
   Serial.print("    last        seconds   \n");
@@ -109,6 +111,9 @@ void setup() {
     }
     Serial.print(scope[i]);
     Serial.print("    ");
+    float last_time;
+    EEPROM.get(i * 4 + 1, last_time);
+    Serial.print(last_time, 6);      
     // Serial.print(preferences.getFloat(pref[i], 0), 6);
     Serial.print("\n");
   }
@@ -123,7 +128,7 @@ void setup() {
   {
     int last = scope[i];
     found = 4;   // we already know 2, 3, 5, 7
-    Serial.println("\n\nPrime v5.4 in Arduino C - 2023/12/21");
+    Serial.println("\n\nPrime v5.3 in Arduino C - 2026/05/11");
     Serial.print("Calculating prime numbers until ");
     Serial.println(last);
     start = micros();      // use micros() for more precision
@@ -177,6 +182,9 @@ void setup() {
     Serial.print(duration, 6);
     Serial.print(" seconds.");
     elapsed_time(duration);
+    EEPROM.put(i * 4 + 1, duration);
+    boolean ok1 = EEPROM.commit();
+    Serial.println((ok1) ? "First commit OK" : "Commit failed");       
     // preferences.begin("prime", false);
     // preferences.putFloat(pref[i], duration);
     // preferences.end();
@@ -191,7 +199,7 @@ void setup() {
   {
     uint32_t last = scope[i];
     found = 4;   // we already know 2, 3, 5, 7
-    Serial.println("\n\nPrime v5.0 in Arduino C - 2023/12/20");
+    Serial.println("\n\nPrime v5.3 in Arduino C - 2026/05/11");
     Serial.print("Calculating prime numbers until ");
     Serial.println(last);
     start = millis();
@@ -245,6 +253,9 @@ void setup() {
     Serial.print(duration, 6);
     Serial.print(" seconds.");
     elapsed_time(duration);
+    EEPROM.put(i * 4 + 1, duration);
+    boolean ok1 = EEPROM.commit();
+    Serial.println((ok1) ? "First commit OK" : "Commit failed");      
     // preferences.begin("prime", false);
     // preferences.putFloat(pref[i], duration);
     // preferences.end();
