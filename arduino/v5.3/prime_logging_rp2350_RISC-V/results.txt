@@ -1,16 +1,16 @@
 Calculating prime numbers in Arduino C v5.4.2026
-2026/05/11
+2026/05/11 - with the RISC-V core
 Raspberry Pi Pico 2 - 2350 with 150 MHz and one LED
 
-Get previous results for this Waveshare rp2350:
+Get previous results for this WaveShare rp2350:
     last        seconds   
-         100    0.000180
-        1000    0.000918
-       10000    0.009987
-      100000    0.139078
-     1000000    2.247673
-    10000000    42.599590
-    25000000    142.171936
+         100    0.000581
+        1000    0.005444
+       10000    0.056333
+      100000    0.620034
+     1000000    7.447866
+    10000000    102.864166
+    25000000    
    100000000    
   1000000000    
   2147483647    
