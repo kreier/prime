@@ -1,7 +1,8 @@
 # prime v5.2 2023-12-14 for Raspberry Pico 2040
 # cycles through limits and writes to the filesystem
+# increase to 200 MHz, updated to Circuitpython 10.2.0 2026-05-17
 
-import math, time, digitalio, board, os, neopixel
+import math, time, digitalio, board, os, neopixel, microcontroller
 
 scope = [100, 1000, 10000, 100000, 1000000, 10000000, 25000000, 100000000, 1000000000, 2147483647, 4294967295]
 reference = [25, 168, 1229, 9592, 78498, 664579, 1565927, 5761455, 50847534, 105097564, 203280221]
@@ -59,6 +60,7 @@ def lightshow():
 
 if __name__ == "__main__":
     lightshow()
+    print("New CPU Frequency (MHz):", microcontroller.cpu.frequency / 1_000_000)
     for i in range(len(scope)):
         last = scope[i]
         found = 4              # we start from 11, know 2, 3, 5, 7
