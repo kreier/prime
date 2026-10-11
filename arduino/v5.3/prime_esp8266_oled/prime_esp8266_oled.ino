@@ -1,4 +1,5 @@
-/* Prime numbers in Arduino C v5.4 2023/12/22 for ESP8266-12E with SH1106 oled */
+/* Prime numbers in Arduino C v5.5 2023/12/22 for ESP8266-12E with SH1106 oled */
+/* Update 2026/10/05 Selector (long press) and calculation trigger added   */
 
 #include <Arduino.h>
 #include <Wire.h>
